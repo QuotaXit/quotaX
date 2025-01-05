@@ -5,10 +5,13 @@ const admin = require("firebase-admin");
 const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
 firebaseConfig.private_key = firebaseConfig.private_key.split('\\n').join('\n');
 
-admin.initializeApp({
-  credential: admin.credential.cert(firebaseConfig),
-});
-
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(firebaseConfig),
+  });
+} else {
+  console.log("Firebase app già inizializzata.");
+}
 
 
 require("dotenv").config();
