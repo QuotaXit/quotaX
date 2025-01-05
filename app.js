@@ -1,36 +1,27 @@
-require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const admin = require("firebase-admin");
 
-// Configurazione Firebase
+// Configurazione Firebase (variabile d'ambiente)
 try {
-  if (!process.env.FIREBASE_CONFIG) {
-    throw new Error("La variabile d'ambiente FIREBASE_CONFIG non è definita!");
-  }
+    const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
+    firebaseConfig.private_key = firebaseConfig.private_key.replace(/\\n/g, "\n");
 
-  const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
-
-  // Risolvi le sequenze \\n in \n nella chiave privata
-  firebaseConfig.private_key = firebaseConfig.private_key.replace(/\\n/g, "\n");
-
-  // Inizializza Firebase solo se non è già inizializzato
-  if (!admin.apps.length) {
-    admin.initializeApp({
-      credential: admin.credential.cert(firebaseConfig),
-    });
+    if (!admin.apps.length) {
+        admin.initializeApp({
+            credential: admin.credential.cert(firebaseConfig),
+            databaseURL: "https://quotax-c76ba.firebaseio.com",
+        });
+    }
     console.log("Firebase configurato con successo.");
-  } else {
-    console.log("Firebase app già inizializzata.");
-  }
 } catch (error) {
-  console.error("Errore nella configurazione di Firebase:", error.message);
-  process.exit(1);
+    console.error("Errore nella configurazione di Firebase:", error.message);
+    process.exit(1);
 }
 
 const auth = admin.auth();
-const db = admin.firestore(); // Se utilizzi Firestore
+const db = admin.firestore(); // Firestore database
 const app = express();
 
 // Middleware di configurazione
@@ -40,110 +31,144 @@ app.use(express.static("public"));
 
 // Configurazione della sessione
 app.use(
-  session({
-    secret: process.env.SESSION_SECRET || "segretissimo",
-    resave: false,
-    saveUninitialized: true,
-  })
+    session({
+        secret: "segretissimo", // Cambialo in produzione
+        resave: false,
+        saveUninitialized: true,
+    })
 );
+
+// Credenziali amministratore
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "odeiroma";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "move87-Main6";
+
+// Middleware per verificare il login dell'amministratore
+function isAdmin(req, res, next) {
+    if (req.session.admin) {
+        next();
+    } else {
+        res.redirect("/admin-login");
+    }
+}
 
 // Middleware per verificare l'autenticazione dell'utente
 function isAuthenticated(req, res, next) {
-  if (req.session && req.session.userLoggedIn) {
-    next();
-  } else {
-    res.redirect("/user-login");
-  }
+    if (req.session && req.session.userLoggedIn) {
+        next();
+    } else {
+        res.redirect("/user-login");
+    }
 }
 
-// Route principale per la homepage
-app.get("/", async (req, res) => {
-  try {
-    // Recupera gli ultimi annunci dal database
-    const snapshot = await db.collection("announcements").limit(5).get();
-    const announcements = snapshot.docs.map(doc => doc.data());
-
-    res.render("index", { announcements });
-  } catch (error) {
-    console.error("Errore durante il recupero degli annunci:", error);
-    res.status(500).send("Errore durante il caricamento della homepage.");
-  }
+// Rotta per la pagina di registrazione
+app.get("/register", (req, res) => {
+    res.render("register", { error: null });
 });
 
-// Rotta per "vedi annunci"
-app.get("/vedi-annunci", async (req, res) => {
-  try {
-    // Recupera tutti gli annunci creati dagli utenti
-    const snapshot = await db.collection("announcements").get();
-    const announcements = snapshot.docs.map(doc => doc.data());
+// Rotta POST per gestire la registrazione
+app.post("/register", async (req, res) => {
+    const { email, password } = req.body;
 
-    res.render("view", { announcements });
-  } catch (error) {
-    console.error("Errore durante il recupero degli annunci:", error);
-    res.status(500).send("Errore durante il caricamento degli annunci.");
-  }
+    try {
+        const user = await auth.createUser({
+            email: email,
+            password: password,
+        });
+        res.redirect("/user-login");
+    } catch (error) {
+        res.render("register", { error: error.message });
+    }
 });
 
-// Rotta per "crea annuncio"
-app.get("/crea-annuncio", isAuthenticated, (req, res) => {
-  res.render("create");
-});
-
-// Rotta per "salvare un annuncio"
-app.post("/crea-annuncio", isAuthenticated, async (req, res) => {
-  const { societa, prezzoAcquisto, valoreAttuale, prezzoVendita } = req.body;
-
-  try {
-    await db.collection("announcements").add({
-      societa,
-      prezzoAcquisto: parseFloat(prezzoAcquisto),
-      valoreAttuale: parseFloat(valoreAttuale),
-      prezzoVendita: parseFloat(prezzoVendita),
-      creatoDa: req.session.userEmail,
-      creatoIl: new Date(),
-    });
-
-    res.redirect("/vedi-annunci");
-  } catch (error) {
-    console.error("Errore durante la creazione dell'annuncio:", error);
-    res.status(500).send("Errore durante la creazione dell'annuncio.");
-  }
-});
-
-// Rotta per il login utente
+// Rotta per la pagina di login
 app.get("/user-login", (req, res) => {
-  res.render("user-login", { error: null });
+    res.render("user-login", { error: null });
 });
 
+// Rotta POST per gestire il login
 app.post("/user-login", async (req, res) => {
-  const { email, password } = req.body;
+    const { email, password } = req.body;
 
-  try {
-    // Simulazione del controllo con Firebase Authentication
-    const user = await auth.getUserByEmail(email);
+    try {
+        const user = await auth.getUserByEmail(email);
+        req.session.userLoggedIn = true;
+        req.session.userEmail = email;
+        res.redirect("/user-dashboard");
+    } catch (error) {
+        res.render("user-login", { error: "Email o password non validi" });
+    }
+});
 
-    req.session.userLoggedIn = true;
-    req.session.userEmail = user.email;
+// Rotta per la dashboard utenti
+app.get("/user-dashboard", (req, res) => {
+    if (req.session && req.session.userLoggedIn) {
+        res.render("user-dashboard", { email: req.session.userEmail });
+    } else {
+        res.redirect("/user-login");
+    }
+});
 
-    res.redirect("/user-dashboard");
-  } catch (error) {
-    console.error("Errore durante il login:", error);
-    res.render("user-login", { error: "Credenziali non valide o utente non trovato." });
+// Rotta per "Crea Annuncio"
+app.get("/create", isAuthenticated, (req, res) => {
+    res.render("create");
+});
+
+app.post("/create", async (req, res) => {
+    const announcement = {
+        nome: req.body.nome,
+        email: req.body.email,
+        societa: req.body.societa,
+        dataAcquisto: req.body.dataAcquisto,
+        prezzoAcquisto: req.body.prezzoAcquisto,
+        valoreAttuale: req.body.valoreAttuale,
+        prezzoVendita: req.body.prezzoVendita,
+        creatoDa: req.session.userEmail,
+    };
+
+    try {
+        await db.collection("announcements").add(announcement);
+        res.redirect("/");
+    } catch (error) {
+        console.error("Errore durante la creazione dell'annuncio:", error);
+        res.status(500).send("Errore durante la creazione dell'annuncio.");
+    }
+});
+
+// Rotta per "Vedi Annunci"
+app.get("/view", (req, res) => {
+  if (!announcements || announcements.length === 0) {
+      announcements = []; // Inizializza un array vuoto se non ci sono annunci.
   }
+  res.render("view", { announcements });
 });
 
-// Rotta per il dashboard dell'utente
-app.get("/user-dashboard", isAuthenticated, (req, res) => {
-  res.render("user-dashboard");
+
+// Rotta per logout
+app.get("/logout", (req, res) => {
+    req.session.destroy(() => {
+        res.redirect("/user-login");
+    });
 });
 
-// Rotta per "registrati"
-app.get("/registrati", (req, res) => {
-  res.render("register");
+app.get("/warnings", (req, res) => {
+  res.render("warnings");
+});
+
+
+// Rotta per la home
+app.get("/", async (req, res) => {
+    try {
+        const snapshot = await db.collection("announcements").orderBy("dataAcquisto", "desc").limit(10).get();
+        const announcements = snapshot.docs.map(doc => doc.data());
+        res.render("index", { announcements });
+    } catch (error) {
+        console.error("Errore durante il recupero degli annunci per la home:", error);
+        res.render("index", { announcements: [] });
+    }
 });
 
 // Porta di ascolto
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
