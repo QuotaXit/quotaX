@@ -1,43 +1,33 @@
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const admin = require("firebase-admin");
-const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
-firebaseConfig.private_key = firebaseConfig.private_key.split('\\n').join('\n');
-
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert(firebaseConfig),
-  });
-} else {
-  console.log("Firebase app già inizializzata.");
-}
-
-
-require("dotenv").config();
 
 // Configurazione Firebase
 try {
   if (!process.env.FIREBASE_CONFIG) {
     throw new Error("La variabile d'ambiente FIREBASE_CONFIG non è definita!");
   }
+  
   const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
 
-// Risolvi le sequenze \\n in \n nella chiave privata
-firebaseConfig.private_key = firebaseConfig.private_key.split('\\n').join('\n');
+  // Risolvi le sequenze \\n in \n nella chiave privata
+  firebaseConfig.private_key = firebaseConfig.private_key.split('\\n').join('\n');
 
-admin.initializeApp({
-  credential: admin.credential.cert(firebaseConfig),
-});
-console.log("Firebase configurato con successo.");
+  // Inizializza Firebase solo se non è già inizializzato
+  if (!admin.apps.length) {
+    admin.initializeApp({
+      credential: admin.credential.cert(firebaseConfig),
+    });
+    console.log("Firebase configurato con successo.");
+  } else {
+    console.log("Firebase app già inizializzata.");
+  }
 } catch (error) {
   console.error("Errore nella configurazione di Firebase:", error.message);
   process.exit(1);
 }
-
-console.log("Private Key Prima della Modifica:", process.env.FIREBASE_CONFIG);
-console.log("Private Key Dopo la Modifica:", firebaseConfig.private_key);
-
 
 const auth = admin.auth();
 const app = express();
@@ -50,7 +40,7 @@ app.use(express.static("public"));
 // Configurazione della sessione
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || "segretissimo", // Usa variabile d'ambiente in produzione
+    secret: process.env.SESSION_SECRET || "segretissimo",
     resave: false,
     saveUninitialized: true,
   })
