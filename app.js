@@ -137,49 +137,43 @@ app.post("/create", async (req, res) => {
 
 // Rotta per "Vedi Annunci"
 app.get("/view", async (req, res) => {
-  try {
-      // Estrai i parametri di ricerca dalla query string
-      const { search, minPrice, maxPrice } = req.query;
-
-      // Ottieni tutti gli annunci dal database Firestore
-      let announcementsQuery = db.collection("annunci");
-
-      // Applica i filtri
-      if (search) {
-          announcementsQuery = announcementsQuery.where("societa", "==", search);
-      }
-
-      if (minPrice) {
-          announcementsQuery = announcementsQuery.where("prezzoVendita", ">=", parseFloat(minPrice));
-      }
-
-      if (maxPrice) {
-          announcementsQuery = announcementsQuery.where("prezzoVendita", "<=", parseFloat(maxPrice));
-      }
-
-      // Recupera i dati da Firestore
-      const announcementsSnapshot = await announcementsQuery.get();
-
-      const announcements = [];
-      announcementsSnapshot.forEach(doc => {
-          announcements.push(doc.data());
-      });
-
-      // Passa i dati e i filtri alla vista
-      res.render("view", {
-          announcements,
-          search,
-          minPrice,
-          maxPrice,
-      });
-  } catch (error) {
-      console.error("Errore durante il recupero degli annunci:", error);
-      res.status(500).send("Errore interno del server.");
-  }
-});
-
-
-
+    try {
+        const { search, minPrice, maxPrice } = req.query;
+  
+        let announcementsQuery = db.collection("annunci");
+  
+        if (search) {
+            announcementsQuery = announcementsQuery.where("societa", "==", search);
+        }
+        if (minPrice) {
+            announcementsQuery = announcementsQuery.where("prezzoVendita", ">=", parseFloat(minPrice));
+        }
+        if (maxPrice) {
+            announcementsQuery = announcementsQuery.where("prezzoVendita", "<=", parseFloat(maxPrice));
+        }
+  
+        const announcementsSnapshot = await announcementsQuery.get();
+  
+        const announcements = [];
+        announcementsSnapshot.forEach(doc => {
+            console.log("Annuncio trovato:", doc.data()); // Log per debug
+            announcements.push(doc.data());
+        });
+  
+        console.log("Totale annunci trovati:", announcements.length);
+  
+        res.render("view", {
+            announcements,
+            search,
+            minPrice,
+            maxPrice,
+        });
+    } catch (error) {
+        console.error("Errore durante il recupero degli annunci:", error);
+        res.status(500).send("Errore interno del server.");
+    }
+  });
+  
 
 app.get("/crowdfunding", (req, res) => {
   res.render("crowdfunding");
