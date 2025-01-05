@@ -13,17 +13,15 @@ try {
   const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
 
   // Risolvi le sequenze \\n in \n nella chiave privata
-  firebaseConfig.private_key = firebaseConfig.private_key.split("\\n").join("\n");
+  firebaseConfig.private_key = firebaseConfig.private_key.replace(/\\n/g, "\n");
 
   // Inizializza Firebase solo se non è già inizializzato
   if (!admin.apps.length) {
     admin.initializeApp({
       credential: admin.credential.cert(firebaseConfig),
     });
+    console.log("Firebase configurato con successo.");
   } else {
-    console.log("Firebase app già inizializzata.");
-  }
-   {
     console.log("Firebase app già inizializzata.");
   }
 } catch (error) {
@@ -37,8 +35,6 @@ const app = express();
 // Middleware di configurazione
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// Serve i file statici dalla cartella "public"
 app.use(express.static("public"));
 
 // Configurazione della sessione
@@ -53,7 +49,7 @@ app.use(
 // Simulazione database di annunci (in memoria)
 let announcements = [];
 
-// Credenziali amministratore (da variabili d'ambiente)
+// Credenziali amministratore
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "password";
 
@@ -80,27 +76,23 @@ app.get("/", (req, res) => {
   res.render("index", { announcements });
 });
 
-// Rotta per la pagina "Crea Annuncio"
+// Rotte per le pagine
 app.get("/crea-annuncio", (req, res) => {
-  res.render("crea-annuncio", { announcements }); // Passa dati se necessari
+  res.render("create");
 });
 
-// Rotta per la pagina "Vedi Annunci"
 app.get("/vedi-annunci", (req, res) => {
-  res.render("vedi-annunci", { announcements });
+  res.render("view");
 });
 
-// Rotta per la pagina "Accedi"
 app.get("/accedi", (req, res) => {
-  res.render("accedi");
+  res.render("admin-login");
 });
 
-// Rotta per la pagina "Registrati"
 app.get("/registrati", (req, res) => {
-  res.render("registrati");
+  res.render("confirmation");
 });
 
-// Rotta per la pagina "Crowdfunding"
 app.get("/crowdfunding", (req, res) => {
   res.render("crowdfunding");
 });
