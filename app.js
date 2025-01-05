@@ -2,6 +2,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const admin = require("firebase-admin");
+const serviceAccount = require("./firebase-service-account.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://<your-database-name>.firebaseio.com"
+});
+
 
 // Configurazione Firebase: gestione duale (variabili d'ambiente o file JSON)
 let firebaseConfig;
@@ -77,3 +83,9 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+// Route principale per la homepage
+app.get("/", (req, res) => {
+  res.render("index", { announcements });
+});
+
