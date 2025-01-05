@@ -2,39 +2,39 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const admin = require("firebase-admin");
-const serviceAccount = require("./firebase-service-account.json");
+const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
+firebaseConfig.private_key = firebaseConfig.private_key.split('\\n').join('\n');
+
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://<your-database-name>.firebaseio.com"
+  credential: admin.credential.cert(firebaseConfig),
 });
 
 
-// Configurazione Firebase: gestione duale (variabili d'ambiente o file JSON)
-let firebaseConfig;
+
+require("dotenv").config();
+
+// Configurazione Firebase
 try {
-  if (process.env.FIREBASE_CONFIG) {
-    console.log("Caricamento credenziali Firebase da variabile d'ambiente...");
-    firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
-    admin.initializeApp({
-      credential: admin.credential.cert(firebaseConfig),
-    });
-  } else {
-    console.log("Caricamento credenziali Firebase da file locale...");
-    try {
-      const serviceAccount = require("./firebase-service-account.json");
-      admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
-        databaseURL: "https://quotax-c76ba.firebaseio.com", // Cambia con il tuo databaseURL
-      });
-    } catch (fileError) {
-      console.error("Errore: il file firebase-service-account.json non è stato trovato.");
-      throw fileError;
-    }
+  if (!process.env.FIREBASE_CONFIG) {
+    throw new Error("La variabile d'ambiente FIREBASE_CONFIG non è definita!");
   }
+  const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
+
+// Risolvi le sequenze \\n in \n nella chiave privata
+firebaseConfig.private_key = firebaseConfig.private_key.split('\\n').join('\n');
+
+admin.initializeApp({
+  credential: admin.credential.cert(firebaseConfig),
+});
+console.log("Firebase configurato con successo.");
 } catch (error) {
-  console.error("Errore nella configurazione di Firebase:", error);
+  console.error("Errore nella configurazione di Firebase:", error.message);
   process.exit(1);
 }
+
+console.log("Private Key Prima della Modifica:", process.env.FIREBASE_CONFIG);
+console.log("Private Key Dopo la Modifica:", firebaseConfig.private_key);
+
 
 const auth = admin.auth();
 const app = express();
@@ -47,7 +47,7 @@ app.use(express.static("public"));
 // Configurazione della sessione
 app.use(
   session({
-    secret: "segretissimo", // Cambialo in produzione
+    secret: process.env.SESSION_SECRET || "segretissimo", // Usa variabile d'ambiente in produzione
     resave: false,
     saveUninitialized: true,
   })
@@ -56,9 +56,9 @@ app.use(
 // Simulazione database di annunci (in memoria)
 let announcements = [];
 
-// Credenziali amministratore
-const ADMIN_USERNAME = "odeiroma";
-const ADMIN_PASSWORD = "move87-Main6";
+// Credenziali amministratore (da variabili d'ambiente)
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "password";
 
 // Middleware per verificare il login dell'amministratore
 function isAdmin(req, res, next) {
@@ -78,14 +78,13 @@ function isAuthenticated(req, res, next) {
   }
 }
 
-// Rotte e logica rimangono invariati...
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
-
 // Route principale per la homepage
 app.get("/", (req, res) => {
   res.render("index", { announcements });
 });
 
+// Porta di ascolto
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
