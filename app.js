@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const admin = require("firebase-admin");
+const { search, minPrice, maxPrice } = req.query;
 
 // Configurazione Firebase (variabile d'ambiente)
 try {
@@ -135,41 +136,44 @@ app.post("/create", async (req, res) => {
 });
 
 // Rotta per "Vedi Annunci"
-app.get("/view", (req, res) => {
-  const { search, minPrice, maxPrice } = req.query;
+app.get("/view", async (req, res) => {
+  try {
+      const { search, minPrice, maxPrice } = req.query;
 
-  let filteredAnnouncements = announcements; // Variabile globale "announcements" deve essere definita.
+      // Ottieni tutti gli annunci dal database Firestore
+      let announcementsQuery = db.collection("annunci");
 
-  // Filtra per nome società
-  if (search) {
-      filteredAnnouncements = filteredAnnouncements.filter(announcement =>
-          announcement.societa.toLowerCase().includes(search.toLowerCase())
-      );
+      // Applica i filtri
+      if (search) {
+          announcementsQuery = announcementsQuery.where("societa", "==", search);
+      }
+
+      if (minPrice) {
+          announcementsQuery = announcementsQuery.where("prezzoVendita", ">=", parseFloat(minPrice));
+      }
+
+      if (maxPrice) {
+          announcementsQuery = announcementsQuery.where("prezzoVendita", "<=", parseFloat(maxPrice));
+      }
+
+      const announcementsSnapshot = await announcementsQuery.get();
+
+      const announcements = [];
+      announcementsSnapshot.forEach(doc => {
+          announcements.push(doc.data());
+      });
+
+      res.render("view", {
+          announcements,
+          search,
+          minPrice,
+          maxPrice,
+      });
+  } catch (error) {
+      console.error("Errore durante il recupero degli annunci:", error);
+      res.status(500).send("Errore interno del server.");
   }
-
-  // Filtra per prezzo minimo
-  if (minPrice) {
-      filteredAnnouncements = filteredAnnouncements.filter(announcement =>
-          parseFloat(announcement.prezzoVendita) >= parseFloat(minPrice)
-      );
-  }
-
-  // Filtra per prezzo massimo
-  if (maxPrice) {
-      filteredAnnouncements = filteredAnnouncements.filter(announcement =>
-          parseFloat(announcement.prezzoVendita) <= parseFloat(maxPrice)
-      );
-  }
-
-  // Renderizza la pagina con i filtri applicati
-  res.render("view", {
-      announcements: filteredAnnouncements,
-      search,
-      minPrice,
-      maxPrice
-  });
 });
-
 
 
 
