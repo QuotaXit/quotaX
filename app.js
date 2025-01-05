@@ -136,10 +136,16 @@ app.post("/create", async (req, res) => {
 
 // Rotta per "Vedi Annunci"
 app.get("/view", (req, res) => {
-  if (!announcements || announcements.length === 0) {
-      announcements = []; // Inizializza un array vuoto se non ci sono annunci.
+  try {
+      res.render("view", { announcements });
+  } catch (error) {
+      console.error("Errore durante il rendering della pagina Vedi Annunci:", error);
+      res.status(500).send("Errore interno del server.");
   }
-  res.render("view", { announcements });
+});
+
+app.get("/crowdfunding", (req, res) => {
+  res.render("crowdfunding");
 });
 
 
