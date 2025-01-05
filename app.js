@@ -68,114 +68,6 @@ function isAuthenticated(req, res, next) {
 }
 
 // Rotte
-app.get("/register", (req, res) => {
-  res.render("register", { error: null });
-});
-
-app.post("/register", async (req, res) => {
-  const { email, password } = req.body;
-
-  try {
-    const user = await auth.createUser({
-      email: email,
-      password: password,
-    });
-    res.redirect("/user-login");
-  } catch (error) {
-    res.render("register", { error: error.message });
-  }
-});
-
-app.get("/user-login", (req, res) => {
-  res.render("user-login", { error: null });
-});
-
-app.post("/user-login", async (req, res) => {
-  const { email, password } = req.body;
-
-  try {
-    const user = await auth.getUserByEmail(email);
-    req.session.userLoggedIn = true;
-    req.session.userEmail = email;
-    res.redirect("/user-dashboard");
-  } catch (error) {
-    res.render("user-login", { error: "Email o password non validi" });
-  }
-});
-
-app.get("/user-dashboard", (req, res) => {
-  if (req.session && req.session.userLoggedIn) {
-    res.render("user-dashboard", { email: req.session.userEmail });
-  } else {
-    res.redirect("/user-login");
-  }
-});
-
-app.get("/user-profile", (req, res) => {
-  if (req.session && req.session.userLoggedIn) {
-    res.render("user-profile", { email: req.session.userEmail, error: null });
-  } else {
-    res.redirect("/user-login");
-  }
-});
-
-app.post("/user-profile", async (req, res) => {
-  const { nome, password } = req.body;
-  const email = req.session.userEmail;
-
-  try {
-    const user = await auth.getUserByEmail(email);
-
-    if (nome) {
-      await auth.updateUser(user.uid, { displayName: nome });
-    }
-
-    if (password) {
-      await auth.updateUser(user.uid, { password: password });
-    }
-
-    res.render("user-profile", { email, error: "Profilo aggiornato con successo!" });
-  } catch (error) {
-    res.render("user-profile", { email, error: error.message });
-  }
-});
-
-app.get("/logout", (req, res) => {
-  req.session.destroy(() => {
-    res.redirect("/user-login");
-  });
-});
-
-app.get("/", (req, res) => {
-  res.render("index", { announcements: announcements.slice(-10) });
-});
-
-app.get("/create", isAuthenticated, (req, res) => {
-  res.render("create");
-});
-
-app.post("/create", (req, res) => {
-  const announcement = {
-    nome: req.body.nome,
-    email: req.body.email,
-    societa: req.body.societa,
-    dataAcquisto: req.body.dataAcquisto,
-    prezzoAcquisto: req.body.prezzoAcquisto,
-    valoreAttuale: req.body.valoreAttuale,
-    prezzoVendita: req.body.prezzoVendita,
-  };
-  announcements.push(announcement);
-  res.redirect("/");
-});
-
-app.get("/view", (req, res) => {
-  res.render("view", { announcements: announcements });
-});
-
-app.get("/warnings", (req, res) => {
-  res.render("warnings");
-});
-
 app.get("/admin-login", (req, res) => {
   res.render("admin-login", { error: null });
 });
@@ -191,11 +83,6 @@ app.post("/admin-login", (req, res) => {
   }
 });
 
-app.get("/admin-logout", (req, res) => {
-  req.session.admin = false;
-  res.redirect("/");
-});
-
 app.get("/admin-dashboard", isAdmin, (req, res) => {
   res.render("admin-dashboard", { announcements });
 });
@@ -208,8 +95,9 @@ app.post("/delete-announcement", isAdmin, (req, res) => {
   res.redirect("/admin-dashboard");
 });
 
-app.get("/crowdfunding", (req, res) => {
-  res.render("crowdfunding");
+app.get("/admin-logout", (req, res) => {
+  req.session.admin = false;
+  res.redirect("/");
 });
 
 const PORT = process.env.PORT || 3000;
