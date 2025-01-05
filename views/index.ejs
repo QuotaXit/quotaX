@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Quotax</title>
+</head>
+<body>
+    <header>
+        <h1>Quotax</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/create">Crea Annuncio</a>
+            <a href="/view">Vedi Annunci</a>
+            <a href="/user-login">Accedi</a>
+            <a href="/register">Registrati</a>
+            <a href="/crowdfunding">CrowdFunding</a>
+        </nav>                
+    </header>
+
+    <main>
+        <!-- Sezione Ultimi Annunci -->
+        <h2>Ultimi Annunci</h2>
+        <table class="annunci-table">
+            <thead>
+                <tr>
+                    <th>Società</th>
+                    <th>Prezzo Acquisto</th>
+                    <th>Valore Attuale</th>
+                    <th>Prezzo Vendita</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% announcements.forEach(a => { %>
+                    <tr>
+                        <td><%= a.societa %></td>
+                        <td><%= a.prezzoAcquisto %></td>
+                        <td><%= a.valoreAttuale %></td>
+                        <td><%= a.prezzoVendita %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <!-- Sezione Perché usare Quotax -->
+        <section class="extra-section">
+            <div class="extra-content">
+                <img src="/images/example.jpg" alt="Esempio" class="extra-image">
+                <div class="extra-text">
+                    <h3>Perché usare Quotax?</h3>
+                    <p>Quotax è la piattaforma ideale per scoprire e vendere partecipazioni societarie. È gratuita, facile da usare e aperta a tutti.</p>
+                    <p>
+                        <strong>Vantaggi principali:</strong>
+                        <ul>
+                            <li><strong>100% gratuito:</strong> Pubblica annunci senza costi.</li>
+                            <li><strong>Accessibile:</strong> Un'interfaccia semplice per creare e visualizzare annunci.</li>
+                            <li><strong>Affidabile:</strong> Tutte le informazioni sugli annunci sono visibili agli utenti, facilitando la comunicazione tra venditori e acquirenti.</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Nuova Didascalia Aggiunta Sotto -->
+        <section class="why-description">
+            <h4>Un'opportunità per tutti</h4>
+            <p>
+                Quotax è pensato per semplificare il processo di compravendita di partecipazioni societarie, rendendolo trasparente e accessibile. 
+                Con Quotax, non hai bisogno di intermediari: puoi comunicare direttamente con altri utenti per trattare e finalizzare accordi. 
+                Grazie alla nostra piattaforma, è possibile ottenere una panoramica completa delle partecipazioni disponibili sul mercato, confrontare 
+                i prezzi e prendere decisioni informate. La nostra missione è creare una community affidabile e innovativa, dove venditori e acquirenti 
+                possano interagire in un ambiente sicuro e supportato da regole chiare.
+            </p>
+            <p>
+                Che tu sia un piccolo investitore o un imprenditore esperto, Quotax ti offre una piattaforma su misura per soddisfare le tue esigenze. 
+                Unisciti a noi e scopri quanto è facile vendere o trovare nuove opportunità con Quotax!
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Quotax. Tutti i diritti riservati.</p>
+        <p><a href="/privacy">Privacy</a> | <a href="/contatti">Contatti</a></p>
+    </footer>
+</body>
+</html>

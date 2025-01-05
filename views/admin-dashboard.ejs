@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Amministratore</title>
+</head>
+<body>
+    <h1>Dashboard Amministratore</h1>
+    <table border="1">
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Società</th>
+            <th>Prezzo Acquisto</th>
+            <th>Valore Attuale</th>
+            <th>Prezzo Vendita</th>
+            <th>Azione</th>
+        </tr>
+        <% announcements.forEach((announcement, index) => { %>
+            <tr>
+                <td><%= announcement.nome %></td>
+                <td><%= announcement.email %></td>
+                <td><%= announcement.societa %></td>
+                <td><%= announcement.prezzoAcquisto %></td>
+                <td><%= announcement.valoreAttuale %></td>
+                <td><%= announcement.prezzoVendita %></td>
+                <td>
+                    <form action="/delete-announcement" method="POST">
+                        <input type="hidden" name="index" value="<%= index %>">
+                        <button type="submit">Elimina</button>
+                    </form>
+                </td>
+            </tr>
+        <% }); %>
+    </table>
+    <a href="/admin-logout">Logout</a>
+</body>
+</html>

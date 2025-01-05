@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Annunci</title>
+</head>
+<body>
+    <h1>Gestione Annunci</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Società</th>
+                <th>Prezzo Acquisto</th>
+                <th>Valore Attuale</th>
+                <th>Prezzo Vendita</th>
+                <th>Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% announcements.forEach((a, index) => { %>
+                <tr>
+                    <td><%= a.societa %></td>
+                    <td><%= a.prezzoAcquisto %></td>
+                    <td><%= a.valoreAttuale %></td>
+                    <td><%= a.prezzoVendita %></td>
+                    <td>
+                        <form action="/delete-announcement/<%= index %>" method="POST">
+                            <button type="submit">Elimina</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>
+

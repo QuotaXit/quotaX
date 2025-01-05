@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Profilo Utente</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/create">Crea Annuncio</a>
+            <a href="/view">Annunci</a>
+            <a href="/warnings">Avvertenze</a>
+            <a href="/user-dashboard">Dashboard</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Il tuo Profilo</h1>
+
+        <% if (error) { %>
+            <p style="color: red;"><%= error %></p>
+        <% } %>
+
+        <form action="/user-profile" method="POST" enctype="multipart/form-data">
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" placeholder="Inserisci il tuo nome">
+
+            <label for="password">Nuova Password:</label>
+            <input type="password" name="password" placeholder="Inserisci una nuova password">
+
+            <button type="submit">Salva Modifiche</button>
+        </form>
+    </main>
+</body>
+</html>

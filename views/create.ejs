@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Crea Annuncio</title>
+</head>
+<body>
+    <header>
+        <h1>Quotax</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/create">Crea Annuncio</a>
+            <a href="/view">Vedi Annunci</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Crea un Annuncio</h2>
+        <form action="/create" method="POST">
+            <!-- Modulo Utente -->
+            <fieldset>
+                <legend>Dati Utente</legend>
+                <label>Nome</label>
+                <input type="text" name="nome" required>
+                <label>E-mail</label>
+                <input type="email" name="email" required>
+            </fieldset>
+
+            <!-- Modulo Annuncio -->
+            <fieldset>
+                <legend>Dati Annuncio</legend>
+                <label>Società</label>
+                <input type="text" name="societa" required>
+                <label>Data Acquisto</label>
+                <input type="date" name="dataAcquisto" required>
+                <label>Prezzo Acquisto</label>
+                <input type="number" step="0.01" name="prezzoAcquisto" required>
+                <label>Valore Attuale</label>
+                <input type="number" step="0.01" name="valoreAttuale" required>
+                <label>Prezzo Vendita</label>
+                <input type="number" step="0.01" name="prezzoVendita" required>
+            </fieldset>
+
+            <!-- Modulo Rubricazione -->
+<fieldset>
+    <legend>Rubricazione</legend>
+    <label>Rubricazione</label>
+    <select name="rubricazione" required>
+        <option value="">Seleziona...</option>
+        <option value="Si">Si</option>
+        <option value="No">No</option>
+    </select>
+</fieldset>
+
+
+            <!-- Modulo Avvertenze -->
+            <fieldset>
+                <legend>Avvertenze</legend>
+                <p>
+                    Pubblicando un annuncio su Quotax accetti che i dati forniti (es. nome e email)
+                    siano visibili agli altri utenti per permettere il contatto diretto.
+                </p>
+                <input type="checkbox" name="accept" required> Ho letto e accetto le avvertenze
+            </fieldset>
+
+            <button type="submit">Pubblica Annuncio</button>
+        </form>
+    </main>
+</body>
+</html>
