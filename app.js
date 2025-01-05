@@ -90,7 +90,7 @@ app.get("/accedi", (req, res) => {
 });
 
 app.get("/registrati", (req, res) => {
-  res.render("confirmation");
+  res.render("register"); // Corretto per la rotta /register
 });
 
 app.get("/crowdfunding", (req, res) => {
@@ -124,15 +124,20 @@ app.get("/user-dashboard", isAuthenticated, (req, res) => {
   res.render("user-dashboard"); // Assicurati che user-dashboard.ejs esista
 });
 
+// Route per la pagina warnings
+app.get("/warnings", (req, res) => {
+  res.render("warnings"); // Assicurati che warnings.ejs esista
+});
+
+// Rotta per la pagina view
+app.get("/view", (req, res) => {
+  res.render("view"); // Assicurati che view.ejs esista
+});
+
 // Porta di ascolto
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
-});
-
-// Rotta per la pagina warnings
-app.get("/warnings", (req, res) => {
-  res.render("warnings"); // Assicurati che esista un file warnings.ejs
 });
 
 // Middleware per gestire errori
