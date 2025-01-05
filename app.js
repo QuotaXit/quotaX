@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const admin = require("firebase-admin");
-const { search, minPrice, maxPrice } = req.query;
+
 
 // Configurazione Firebase (variabile d'ambiente)
 try {
@@ -138,6 +138,7 @@ app.post("/create", async (req, res) => {
 // Rotta per "Vedi Annunci"
 app.get("/view", async (req, res) => {
   try {
+      // Estrai i parametri di ricerca dalla query string
       const { search, minPrice, maxPrice } = req.query;
 
       // Ottieni tutti gli annunci dal database Firestore
@@ -156,6 +157,7 @@ app.get("/view", async (req, res) => {
           announcementsQuery = announcementsQuery.where("prezzoVendita", "<=", parseFloat(maxPrice));
       }
 
+      // Recupera i dati da Firestore
       const announcementsSnapshot = await announcementsQuery.get();
 
       const announcements = [];
@@ -163,6 +165,7 @@ app.get("/view", async (req, res) => {
           announcements.push(doc.data());
       });
 
+      // Passa i dati e i filtri alla vista
       res.render("view", {
           announcements,
           search,
@@ -174,6 +177,7 @@ app.get("/view", async (req, res) => {
       res.status(500).send("Errore interno del server.");
   }
 });
+
 
 
 
