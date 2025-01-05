@@ -97,16 +97,45 @@ app.get("/crowdfunding", (req, res) => {
   res.render("crowdfunding");
 });
 
+// Route per visualizzare la pagina di login utente
+app.get("/user-login", (req, res) => {
+  res.render("user-login", { error: null });
+});
+
+// Route per gestire il form di login utente
+app.post("/user-login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Controlla le credenziali con Firebase Authentication
+    const user = await auth.getUserByEmail(email);
+
+    // Simulazione: Se il controllo delle credenziali è corretto
+    req.session.userLoggedIn = true; // Salva lo stato di login nella sessione
+    res.redirect("/user-dashboard"); // Reindirizza al dashboard utente
+  } catch (error) {
+    console.error("Errore durante il login:", error);
+    res.render("user-login", { error: "Credenziali non valide o utente non trovato." });
+  }
+});
+
+// Route per il dashboard dell'utente
+app.get("/user-dashboard", isAuthenticated, (req, res) => {
+  res.render("user-dashboard"); // Assicurati che user-dashboard.ejs esista
+});
+
 // Porta di ascolto
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
 
+// Rotta per la pagina warnings
 app.get("/warnings", (req, res) => {
   res.render("warnings"); // Assicurati che esista un file warnings.ejs
 });
 
+// Middleware per gestire errori
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
