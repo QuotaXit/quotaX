@@ -1,16 +1,11 @@
 <!DOCTYPE html>
-<html lang="it">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vedi Annunci</title>
-    <link rel="stylesheet" href="/path/to/your/styles.css"> <!-- Percorso al file CSS -->
 </head>
 <body>
-    <header>
-        <h1>Vedi Annunci</h1>
-    </header>
-    <main>
+    <h1>Annunci Disponibili</h1>
+    <% if (announcements && announcements.length > 0) { %>
         <table>
             <thead>
                 <tr>
@@ -21,22 +16,18 @@
                 </tr>
             </thead>
             <tbody>
-                <% if (announcements.length > 0) { %>
-                    <% announcements.forEach(announcement => { %>
-                        <tr>
-                            <td><%= announcement.societa %></td>
-                            <td><%= announcement.prezzoAcquisto %></td>
-                            <td><%= announcement.valoreAttuale %></td>
-                            <td><%= announcement.prezzoVendita %></td>
-                        </tr>
-                    <% }) %>
-                <% } else { %>
+                <% announcements.forEach(a => { %>
                     <tr>
-                        <td colspan="4">Nessun annuncio disponibile.</td>
+                        <td><%= a.societa %></td>
+                        <td><%= a.prezzoAcquisto %></td>
+                        <td><%= a.valoreAttuale %></td>
+                        <td><%= a.prezzoVendita %></td>
                     </tr>
-                <% } %>
+                <% }); %>
             </tbody>
         </table>
-    </main>
+    <% } else { %>
+        <p>Nessun annuncio disponibile.</p>
+    <% } %>
 </body>
 </html>

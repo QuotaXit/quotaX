@@ -137,7 +137,7 @@ app.post("/create", async (req, res) => {
 // Rotta per "Vedi Annunci"
 app.get("/view", (req, res) => {
   try {
-      res.render("view", { announcements });
+      res.render("view", { announcements }); // Passa la variabile announcements
   } catch (error) {
       console.error("Errore durante il rendering della pagina Vedi Annunci:", error);
       res.status(500).send("Errore interno del server.");
