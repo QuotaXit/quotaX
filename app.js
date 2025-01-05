@@ -81,3 +81,28 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+// Rotta per la pagina "Crea Annuncio"
+app.get("/crea-annuncio", (req, res) => {
+  res.render("crea-annuncio"); // Assicurati che il file "crea-annuncio.ejs" esista nella directory "views"
+});
+
+// Rotta per la pagina "Vedi Annunci"
+app.get("/vedi-annunci", (req, res) => {
+  res.render("vedi-annunci"); // Assicurati che il file "vedi-annunci.ejs" esista
+});
+
+// Rotta per la pagina "Accedi"
+app.get("/accedi", (req, res) => {
+  res.render("accedi"); // Assicurati che il file "accedi.ejs" esista
+});
+
+// Rotta per la pagina "Registrati"
+app.get("/registrati", (req, res) => {
+  res.render("registrati"); // Assicurati che il file "registrati.ejs" esista
+});
+
+// Rotta per la pagina "Crowdfunding"
+app.get("/crowdfunding", (req, res) => {
+  res.render("crowdfunding"); // Assicurati che il file "crowdfunding.ejs" esista
+});
