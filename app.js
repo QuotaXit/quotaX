@@ -138,7 +138,7 @@ app.post("/create", async (req, res) => {
 app.get("/view", (req, res) => {
   const { search, minPrice, maxPrice } = req.query;
 
-  let filteredAnnouncements = announcements;
+  let filteredAnnouncements = announcements; // Variabile globale "announcements" deve essere definita.
 
   // Filtra per nome società
   if (search) {
@@ -150,17 +150,18 @@ app.get("/view", (req, res) => {
   // Filtra per prezzo minimo
   if (minPrice) {
       filteredAnnouncements = filteredAnnouncements.filter(announcement =>
-          announcement.prezzoVendita >= parseFloat(minPrice)
+          parseFloat(announcement.prezzoVendita) >= parseFloat(minPrice)
       );
   }
 
   // Filtra per prezzo massimo
   if (maxPrice) {
       filteredAnnouncements = filteredAnnouncements.filter(announcement =>
-          announcement.prezzoVendita <= parseFloat(maxPrice)
+          parseFloat(announcement.prezzoVendita) <= parseFloat(maxPrice)
       );
   }
 
+  // Renderizza la pagina con i filtri applicati
   res.render("view", {
       announcements: filteredAnnouncements,
       search,
@@ -168,6 +169,7 @@ app.get("/view", (req, res) => {
       maxPrice
   });
 });
+
 
 
 
