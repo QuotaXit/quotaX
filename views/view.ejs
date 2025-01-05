@@ -1,4 +1,29 @@
-<% if (announcements && announcements.length > 0) { %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutti gli Annunci</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Tutti gli Annunci</h1>
+
+    <!-- Form per la ricerca -->
+    <form method="GET" action="/view">
+        <label for="search">Cerca per nome:</label>
+        <input type="text" name="search" id="search" placeholder="Nome società" value="<%= search || '' %>">
+        
+        <label for="minPrice">Prezzo minimo:</label>
+        <input type="number" name="minPrice" id="minPrice" value="<%= minPrice || '' %>">
+        
+        <label for="maxPrice">Prezzo massimo:</label>
+        <input type="number" name="maxPrice" id="maxPrice" value="<%= maxPrice || '' %>">
+        
+        <button type="submit">Filtra</button>
+    </form>
+
+    <!-- Tabella degli annunci -->
     <table>
         <thead>
             <tr>
@@ -9,16 +34,21 @@
             </tr>
         </thead>
         <tbody>
-            <% announcements.forEach(a => { %>
+            <% if (announcements.length > 0) { %>
+                <% announcements.forEach(announcement => { %>
+                    <tr>
+                        <td><%= announcement.societa %></td>
+                        <td><%= announcement.prezzoAcquisto %></td>
+                        <td><%= announcement.valoreAttuale %></td>
+                        <td><%= announcement.prezzoVendita %></td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
                 <tr>
-                    <td><%= a.societa %></td>
-                    <td><%= a.prezzoAcquisto %></td>
-                    <td><%= a.valoreAttuale %></td>
-                    <td><%= a.prezzoVendita %></td>
+                    <td colspan="4">Nessun annuncio trovato.</td>
                 </tr>
-            <% }); %>
+            <% } %>
         </tbody>
     </table>
-<% } else { %>
-    <p>Nessun annuncio disponibile.</p>
-<% } %>
+</body>
+</html>

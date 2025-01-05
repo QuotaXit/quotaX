@@ -135,20 +135,40 @@ app.post("/create", async (req, res) => {
 });
 
 // Rotta per "Vedi Annunci"
-// Rotta per "Vedi Annunci"
-app.get("/view", async (req, res) => {
-  try {
-      // Recupera tutti gli annunci da Firestore
-      const snapshot = await db.collection("announcements").get();
-      const announcements = snapshot.docs.map(doc => doc.data());
+app.get("/view", (req, res) => {
+  const { search, minPrice, maxPrice } = req.query;
 
-      // Passa gli annunci alla vista
-      res.render("view", { announcements });
-  } catch (error) {
-      console.error("Errore durante il recupero degli annunci:", error);
-      res.status(500).send("Errore interno del server.");
+  let filteredAnnouncements = announcements;
+
+  // Filtra per nome società
+  if (search) {
+      filteredAnnouncements = filteredAnnouncements.filter(announcement =>
+          announcement.societa.toLowerCase().includes(search.toLowerCase())
+      );
   }
+
+  // Filtra per prezzo minimo
+  if (minPrice) {
+      filteredAnnouncements = filteredAnnouncements.filter(announcement =>
+          announcement.prezzoVendita >= parseFloat(minPrice)
+      );
+  }
+
+  // Filtra per prezzo massimo
+  if (maxPrice) {
+      filteredAnnouncements = filteredAnnouncements.filter(announcement =>
+          announcement.prezzoVendita <= parseFloat(maxPrice)
+      );
+  }
+
+  res.render("view", {
+      announcements: filteredAnnouncements,
+      search,
+      minPrice,
+      maxPrice
+  });
 });
+
 
 
 app.get("/crowdfunding", (req, res) => {
