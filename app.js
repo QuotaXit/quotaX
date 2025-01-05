@@ -30,6 +30,7 @@ try {
 }
 
 const auth = admin.auth();
+const db = admin.firestore(); // Se utilizzi Firestore
 const app = express();
 
 // Middleware di configurazione
@@ -46,22 +47,6 @@ app.use(
   })
 );
 
-// Simulazione database di annunci (in memoria)
-let announcements = [];
-
-// Credenziali amministratore
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "password";
-
-// Middleware per verificare il login dell'amministratore
-function isAdmin(req, res, next) {
-  if (req.session.admin) {
-    next();
-  } else {
-    res.redirect("/admin-login");
-  }
-}
-
 // Middleware per verificare l'autenticazione dell'utente
 function isAuthenticated(req, res, next) {
   if (req.session && req.session.userLoggedIn) {
@@ -72,79 +57,93 @@ function isAuthenticated(req, res, next) {
 }
 
 // Route principale per la homepage
-app.get("/", (req, res) => {
-  res.render("index", { announcements });
+app.get("/", async (req, res) => {
+  try {
+    // Recupera gli ultimi annunci dal database
+    const snapshot = await db.collection("announcements").limit(5).get();
+    const announcements = snapshot.docs.map(doc => doc.data());
+
+    res.render("index", { announcements });
+  } catch (error) {
+    console.error("Errore durante il recupero degli annunci:", error);
+    res.status(500).send("Errore durante il caricamento della homepage.");
+  }
 });
 
-// Rotte per le pagine
-app.get("/crea-annuncio", (req, res) => {
+// Rotta per "vedi annunci"
+app.get("/vedi-annunci", async (req, res) => {
+  try {
+    // Recupera tutti gli annunci creati dagli utenti
+    const snapshot = await db.collection("announcements").get();
+    const announcements = snapshot.docs.map(doc => doc.data());
+
+    res.render("view", { announcements });
+  } catch (error) {
+    console.error("Errore durante il recupero degli annunci:", error);
+    res.status(500).send("Errore durante il caricamento degli annunci.");
+  }
+});
+
+// Rotta per "crea annuncio"
+app.get("/crea-annuncio", isAuthenticated, (req, res) => {
   res.render("create");
 });
 
-app.get("/vedi-annunci", (req, res) => {
-  // Simulazione annunci creati dagli utenti loggati
-  const userCreatedAnnouncements = announcements.filter(a => a.creatoDaUtente === true);
+// Rotta per "salvare un annuncio"
+app.post("/crea-annuncio", isAuthenticated, async (req, res) => {
+  const { societa, prezzoAcquisto, valoreAttuale, prezzoVendita } = req.body;
 
-  res.render("view", { announcements: userCreatedAnnouncements });
+  try {
+    await db.collection("announcements").add({
+      societa,
+      prezzoAcquisto: parseFloat(prezzoAcquisto),
+      valoreAttuale: parseFloat(valoreAttuale),
+      prezzoVendita: parseFloat(prezzoVendita),
+      creatoDa: req.session.userEmail,
+      creatoIl: new Date(),
+    });
+
+    res.redirect("/vedi-annunci");
+  } catch (error) {
+    console.error("Errore durante la creazione dell'annuncio:", error);
+    res.status(500).send("Errore durante la creazione dell'annuncio.");
+  }
 });
 
-app.get("/accedi", (req, res) => {
-  res.render("admin-login");
-});
-
-app.get("/registrati", (req, res) => {
-  res.render("register"); // Corretto per la rotta /register
-});
-
-app.get("/crowdfunding", (req, res) => {
-  res.render("crowdfunding");
-});
-
-// Route per visualizzare la pagina di login utente
+// Rotta per il login utente
 app.get("/user-login", (req, res) => {
   res.render("user-login", { error: null });
 });
 
-// Route per gestire il form di login utente
 app.post("/user-login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Controlla le credenziali con Firebase Authentication
+    // Simulazione del controllo con Firebase Authentication
     const user = await auth.getUserByEmail(email);
 
-    // Simulazione: Se il controllo delle credenziali è corretto
-    req.session.userLoggedIn = true; // Salva lo stato di login nella sessione
-    res.redirect("/user-dashboard"); // Reindirizza al dashboard utente
+    req.session.userLoggedIn = true;
+    req.session.userEmail = user.email;
+
+    res.redirect("/user-dashboard");
   } catch (error) {
     console.error("Errore durante il login:", error);
     res.render("user-login", { error: "Credenziali non valide o utente non trovato." });
   }
 });
 
-// Route per il dashboard dell'utente
+// Rotta per il dashboard dell'utente
 app.get("/user-dashboard", isAuthenticated, (req, res) => {
-  res.render("user-dashboard"); // Assicurati che user-dashboard.ejs esista
+  res.render("user-dashboard");
 });
 
-// Route per la pagina warnings
-app.get("/warnings", (req, res) => {
-  res.render("warnings"); // Assicurati che warnings.ejs esista
-});
-
-// Rotta per la pagina view
-app.get("/view", (req, res) => {
-  res.render("view"); // Assicurati che view.ejs esista
+// Rotta per "registrati"
+app.get("/registrati", (req, res) => {
+  res.render("register");
 });
 
 // Porta di ascolto
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
-});
-
-// Middleware per gestire errori
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send("Something broke!");
 });
