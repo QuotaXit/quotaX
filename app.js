@@ -9,11 +9,11 @@ try {
   if (!process.env.FIREBASE_CONFIG) {
     throw new Error("La variabile d'ambiente FIREBASE_CONFIG non è definita!");
   }
-  
+
   const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
 
   // Risolvi le sequenze \\n in \n nella chiave privata
-  firebaseConfig.private_key = firebaseConfig.private_key.split('\\n').join('\n');
+  firebaseConfig.private_key = firebaseConfig.private_key.split("\\n").join("\n");
 
   // Inizializza Firebase solo se non è già inizializzato
   if (!admin.apps.length) {
@@ -35,6 +35,8 @@ const app = express();
 // Middleware di configurazione
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Serve i file statici dalla cartella "public"
 app.use(express.static("public"));
 
 // Configurazione della sessione
@@ -76,33 +78,33 @@ app.get("/", (req, res) => {
   res.render("index", { announcements });
 });
 
-// Porta di ascolto
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
-
 // Rotta per la pagina "Crea Annuncio"
 app.get("/crea-annuncio", (req, res) => {
-  res.render("crea-annuncio"); // Assicurati che il file "crea-annuncio.ejs" esista nella directory "views"
+  res.render("crea-annuncio", { announcements }); // Passa dati se necessari
 });
 
 // Rotta per la pagina "Vedi Annunci"
 app.get("/vedi-annunci", (req, res) => {
-  res.render("vedi-annunci"); // Assicurati che il file "vedi-annunci.ejs" esista
+  res.render("vedi-annunci", { announcements });
 });
 
 // Rotta per la pagina "Accedi"
 app.get("/accedi", (req, res) => {
-  res.render("accedi"); // Assicurati che il file "accedi.ejs" esista
+  res.render("accedi");
 });
 
 // Rotta per la pagina "Registrati"
 app.get("/registrati", (req, res) => {
-  res.render("registrati"); // Assicurati che il file "registrati.ejs" esista
+  res.render("registrati");
 });
 
 // Rotta per la pagina "Crowdfunding"
 app.get("/crowdfunding", (req, res) => {
-  res.render("crowdfunding"); // Assicurati che il file "crowdfunding.ejs" esista
+  res.render("crowdfunding");
+});
+
+// Porta di ascolto
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
