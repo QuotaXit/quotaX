@@ -81,9 +81,15 @@ app.get("/crea-annuncio", (req, res) => {
   res.render("create");
 });
 
-app.get("/vedi-annunci", (req, res) => {
-  res.render("view");
+app.get("/view", (req, res) => {
+  const announcements = [
+    { societa: "Società 1", prezzoVendita: 100 },
+    { societa: "Società 2", prezzoVendita: 200 },
+    { societa: "Società 3", prezzoVendita: 300 },
+  ];
+  res.render("view", { announcements }); // Passa gli annunci alla vista
 });
+
 
 app.get("/accedi", (req, res) => {
   res.render("admin-login");
