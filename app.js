@@ -3,30 +3,26 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const admin = require("firebase-admin");
 
-// Percorso al file di credenziali o utilizzo delle variabili d'ambiente
+// Configurazione Firebase: gestione duale (variabili d'ambiente o file JSON)
 let firebaseConfig;
-
-if (process.env.FIREBASE_CONFIG) {
-  try {
+try {
+  if (process.env.FIREBASE_CONFIG) {
+    console.log("Caricamento credenziali Firebase da variabile d'ambiente...");
     firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
     admin.initializeApp({
       credential: admin.credential.cert(firebaseConfig),
     });
-  } catch (error) {
-    console.error("Errore nella lettura di FIREBASE_CONFIG:", error);
-    process.exit(1);
-  }
-} else {
-  try {
+  } else {
+    console.log("Caricamento credenziali Firebase da file locale...");
     const serviceAccount = require("./firebase-service-account.json");
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
       databaseURL: "https://quotax-c76ba.firebaseio.com", // Cambia con il tuo databaseURL
     });
-  } catch (error) {
-    console.error("Errore nella lettura del file firebase-service-account.json:", error);
-    process.exit(1);
   }
+} catch (error) {
+  console.error("Errore nella configurazione di Firebase:", error);
+  process.exit(1);
 }
 
 const auth = admin.auth();
