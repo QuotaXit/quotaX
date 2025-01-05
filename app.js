@@ -20,8 +20,10 @@ try {
     admin.initializeApp({
       credential: admin.credential.cert(firebaseConfig),
     });
-    console.log("Firebase configurato con successo.");
   } else {
+    console.log("Firebase app già inizializzata.");
+  }
+   {
     console.log("Firebase app già inizializzata.");
   }
 } catch (error) {
