@@ -135,14 +135,21 @@ app.post("/create", async (req, res) => {
 });
 
 // Rotta per "Vedi Annunci"
-app.get("/view", (req, res) => {
+// Rotta per "Vedi Annunci"
+app.get("/view", async (req, res) => {
   try {
-      res.render("view", { announcements }); // Passa la variabile announcements
+      // Recupera tutti gli annunci da Firestore
+      const snapshot = await db.collection("announcements").get();
+      const announcements = snapshot.docs.map(doc => doc.data());
+
+      // Passa gli annunci alla vista
+      res.render("view", { announcements });
   } catch (error) {
-      console.error("Errore durante il rendering della pagina Vedi Annunci:", error);
+      console.error("Errore durante il recupero degli annunci:", error);
       res.status(500).send("Errore interno del server.");
   }
 });
+
 
 app.get("/crowdfunding", (req, res) => {
   res.render("crowdfunding");

@@ -1,33 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Vedi Annunci</title>
-</head>
-<body>
-    <h1>Annunci Disponibili</h1>
-    <% if (announcements && announcements.length > 0) { %>
-        <table>
-            <thead>
+<% if (announcements && announcements.length > 0) { %>
+    <table>
+        <thead>
+            <tr>
+                <th>Società</th>
+                <th>Prezzo Acquisto</th>
+                <th>Valore Attuale</th>
+                <th>Prezzo Vendita</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% announcements.forEach(a => { %>
                 <tr>
-                    <th>Società</th>
-                    <th>Prezzo Acquisto</th>
-                    <th>Valore Attuale</th>
-                    <th>Prezzo Vendita</th>
+                    <td><%= a.societa %></td>
+                    <td><%= a.prezzoAcquisto %></td>
+                    <td><%= a.valoreAttuale %></td>
+                    <td><%= a.prezzoVendita %></td>
                 </tr>
-            </thead>
-            <tbody>
-                <% announcements.forEach(a => { %>
-                    <tr>
-                        <td><%= a.societa %></td>
-                        <td><%= a.prezzoAcquisto %></td>
-                        <td><%= a.valoreAttuale %></td>
-                        <td><%= a.prezzoVendita %></td>
-                    </tr>
-                <% }); %>
-            </tbody>
-        </table>
-    <% } else { %>
-        <p>Nessun annuncio disponibile.</p>
-    <% } %>
-</body>
-</html>
+            <% }); %>
+        </tbody>
+    </table>
+<% } else { %>
+    <p>Nessun annuncio disponibile.</p>
+<% } %>
