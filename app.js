@@ -125,24 +125,28 @@ app.get("/create", isAuthenticated, (req, res) => {
     res.render("create", { userEmail }); // Passa l'email al file EJS
 });
 
-app.post("/create", async (req, res) => {
-    const announcement = {
-        nome: req.body.nome,
-        email: req.body.email,
-        societa: req.body.societa,
-        dataAcquisto: req.body.dataAcquisto,
-        prezzoAcquisto: req.body.prezzoAcquisto,
-        valoreAttuale: req.body.valoreAttuale,
-        prezzoVendita: req.body.prezzoVendita,
-        creatoDa: req.session.userEmail,
-    };
+app.post("/create", isAuthenticated, async (req, res) => {
+    const { societa, prezzoAcquisto, valoreAttuale, prezzoVendita, rubricazione } = req.body;
 
     try {
-        await db.collection("announcements").add(announcement);
-        res.redirect("/");
+        const newAnnouncement = {
+            societa,
+            prezzoAcquisto: parseFloat(prezzoAcquisto),
+            valoreAttuale: parseFloat(valoreAttuale),
+            prezzoVendita: parseFloat(prezzoVendita),
+            rubricazione, // Salva la rubricazione
+            email: req.session.userEmail, // Email dell'utente autenticato
+            nome: req.session.userName || "Anonimo", // Nome utente se disponibile
+            createdAt: new Date().toISOString() // Timestamp
+        };
+
+        // Salva nel database
+        await db.collection("announcements").add(newAnnouncement);
+
+        res.redirect("/view"); // Torna alla pagina di visualizzazione annunci
     } catch (error) {
         console.error("Errore durante la creazione dell'annuncio:", error);
-        res.status(500).send("Errore durante la creazione dell'annuncio.");
+        res.status(500).send("Errore interno del server.");
     }
 });
 
@@ -152,44 +156,37 @@ app.get("/view", async (req, res) => {
         const { search, minPrice, maxPrice } = req.query;
 
         let announcementsQuery = db.collection("announcements");
-        console.log("Parametri ricevuti:", { search, minPrice, maxPrice }); // Log parametri
 
         if (search) {
             announcementsQuery = announcementsQuery.where("societa", "==", search);
-            console.log("Filtro per nome società applicato:", search);
         }
         if (minPrice) {
             announcementsQuery = announcementsQuery.where("prezzoVendita", ">=", parseFloat(minPrice));
-            console.log("Filtro per prezzo minimo applicato:", minPrice);
         }
         if (maxPrice) {
             announcementsQuery = announcementsQuery.where("prezzoVendita", "<=", parseFloat(maxPrice));
-            console.log("Filtro per prezzo massimo applicato:", maxPrice);
         }
 
         const announcementsSnapshot = await announcementsQuery.get();
 
         const announcements = [];
         announcementsSnapshot.forEach(doc => {
-            console.log("Annuncio trovato:", doc.data()); // Log per ogni documento trovato
             announcements.push(doc.data());
         });
 
-        console.log("Totale annunci trovati:", announcements.length); // Log totale annunci
-
-        // Passa anche il valore di `isAuthenticated` alla vista
         res.render("view", {
             announcements,
             search,
             minPrice,
             maxPrice,
-            isAuthenticated: !!req.session.userEmail, // Controlla se l'utente è autenticato
+            isAuthenticated: !!req.session.userEmail,
         });
     } catch (error) {
-        console.error("Errore durante il recupero degli annunci:", error); // Log errori
+        console.error("Errore durante il recupero degli annunci:", error);
         res.status(500).send("Errore interno del server.");
     }
 });
+
 
 
 app.get("/crowdfunding", (req, res) => {
@@ -293,25 +290,35 @@ app.post("/user-profile", isAuthenticated, async (req, res) => {
   
   app.post("/user-modify", isAuthenticated, async (req, res) => {
     const { email, password } = req.body;
-    const currentEmail = req.session.userEmail;
-  
+
     try {
-      const user = await auth.getUserByEmail(currentEmail);
-  
-      if (email) {
-        await auth.updateUser(user.uid, { email });
-        req.session.userEmail = email; // Aggiorna la sessione
-      }
-  
-      if (password) {
-        await auth.updateUser(user.uid, { password });
-      }
-  
-      res.redirect("/user-profile");
+        const userEmail = req.session.userEmail; // Email attuale dell'utente dalla sessione
+
+        // Aggiorna l'email e/o la password nel database
+        const userRef = db.collection("users").doc(userEmail);
+
+        const updates = {};
+        if (email) updates.email = email;
+        if (password) updates.password = password;
+
+        await userRef.update(updates);
+
+        // Aggiorna l'email nella sessione se è stata cambiata
+        if (email) req.session.userEmail = email;
+
+        // Rendi il messaggio disponibile alla vista
+        res.render("user-modify", {
+            successMessage: "Modifiche salvate con successo.",
+            email: req.session.userEmail, // Passa l'email aggiornata
+        });
     } catch (error) {
-      res.render("user-modify", { email: currentEmail, error: error.message });
+        console.error("Errore durante l'aggiornamento dei dati:", error);
+        res.render("user-modify", {
+            errorMessage: "Si è verificato un errore. Riprova più tardi.",
+            email: req.session.userEmail, // Passa l'email corrente
+        });
     }
-  });
+});
   
   // Rotta per modificare gli annunci
   app.get("/user-announcements", isAuthenticated, async (req, res) => {
