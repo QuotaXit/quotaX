@@ -360,6 +360,12 @@ app.post("/user-profile", isAuthenticated, async (req, res) => {
     }
 });
 
+app.get("/create-azioni", isAuthenticated, (req, res) => {
+    const userEmail = req.session.userEmail; // Recupera l'email dalla sessione
+    res.render("create-azioni", { userEmail }); // Passa l'email all'EJS
+});
+
+
 app.post("/create-azioni", async (req, res) => {
     try {
         const { nome, societa, numeroAzioni, dataAcquisto, valoreAttuale, prezzoVendita, quotata } = req.body;
