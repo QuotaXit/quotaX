@@ -177,11 +177,13 @@ app.get("/view", async (req, res) => {
 
         console.log("Totale annunci trovati:", announcements.length); // Log totale annunci
 
+        // Passa anche il valore di `isAuthenticated` alla vista
         res.render("view", {
             announcements,
             search,
             minPrice,
             maxPrice,
+            isAuthenticated: !!req.session.userEmail, // Controlla se l'utente è autenticato
         });
     } catch (error) {
         console.error("Errore durante il recupero degli annunci:", error); // Log errori

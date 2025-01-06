@@ -27,6 +27,8 @@
         <table>
             <thead>
                 <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
                     <th>Società</th>
                     <th>Prezzo Acquisto</th>
                     <th>Valore Attuale</th>
@@ -34,21 +36,22 @@
                 </tr>
             </thead>
             <tbody>
-                <% if (announcements.length > 0) { %>
-                    <% announcements.forEach(announcement => { %>
-                        <tr>
-                            <td><%= announcement.societa %></td>
-                            <td><%= announcement.prezzoAcquisto %></td>
-                            <td><%= announcement.valoreAttuale %></td>
-                            <td><%= announcement.prezzoVendita %></td>
-                        </tr>
-                    <% }); %>
-                <% } else { %>
+                <% announcements.forEach(announcement => { %>
                     <tr>
-                        <td colspan="4">Nessun annuncio trovato.</td>
+                        <% if (isAuthenticated) { %>
+                            <td><%= announcement.nome %></td>
+                            <td><%= announcement.email %></td>
+                        <% } else { %>
+                            <td>Anonimo</td>
+                            <td>Riservato</td>
+                        <% } %>
+                        <td><%= announcement.societa %></td>
+                        <td><%= announcement.prezzoAcquisto %></td>
+                        <td><%= announcement.valoreAttuale %></td>
+                        <td><%= announcement.prezzoVendita %></td>
                     </tr>
-                <% } %>
-            </tbody>
+                <% }) %>
+            </tbody>            
         </table>
     </main>
     <footer>
