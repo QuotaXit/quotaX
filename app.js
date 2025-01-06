@@ -131,7 +131,6 @@ app.post("/create", async (req, res) => {
 
         console.log("Rubricazione ricevuta dal modulo:", rubricazione);
 
-        // Salva il documento nel database
         const announcement = {
             societa,
             dataAcquisto,
@@ -140,7 +139,7 @@ app.post("/create", async (req, res) => {
             prezzoVendita: parseFloat(prezzoVendita),
             rubricazione: rubricazione === "Si" ? "Si" : "No",
             email: req.session.userEmail,
-            nome: req.session.userName || "Anonimo",
+            nome: req.session.user?.name || "Utente", // Cambia "Anonimo" in "Utente"
             createdAt: new Date().toISOString(),
         };
 
@@ -338,7 +337,7 @@ app.post("/user-profile", isAuthenticated, async (req, res) => {
         // Recupera gli annunci creati dall'utente corrente
         const userAnnouncementsSnapshot = await db
             .collection("announcements")
-            .where("creatoDa", "==", userEmail)
+            .where("email", "==", userEmail) // Usa il campo 'email'
             .get();
 
         const userAnnouncements = [];
@@ -357,6 +356,7 @@ app.post("/user-profile", isAuthenticated, async (req, res) => {
         });
     }
 });
+
 
 
 // Porta di ascolto

@@ -30,7 +30,7 @@
                 <tbody>
                     <% announcements.forEach(announcement => { %>
                         <tr>
-                            <td><%= announcement.nome %></td>
+                            <td><%= announcement.nome || "Nome non disponibile" %></td>
                             <td><%= announcement.email %></td>
                             <td><%= announcement.societa %></td>
                             <td><%= announcement.prezzoVendita %></td>
@@ -42,7 +42,7 @@
                             </td>
                         </tr>
                     <% }) %>
-                </tbody>                
+                </tbody>                               
             </table>
         <% } %>
     </main>
