@@ -138,7 +138,7 @@ app.post("/create", async (req, res) => {
             prezzoAcquisto: parseFloat(prezzoAcquisto),
             valoreAttuale: parseFloat(valoreAttuale),
             prezzoVendita: parseFloat(prezzoVendita),
-            rubricazione: rubricazione || "N/A", // Usa il valore ricevuto o "N/A" se non presente
+            rubricazione: rubricazione === "Si" ? "Si" : "No",
             email: req.session.userEmail,
             nome: req.session.userName || "Anonimo",
             createdAt: new Date().toISOString(),
