@@ -16,8 +16,12 @@
     <main>
         <h1>Modifica Profilo</h1>
 
-        <% if (error) { %>
-            <p style="color: red;"><%= error %></p>
+        <% if (successMessage) { %>
+            <p style="color: green;"><%= successMessage %></p>
+        <% } %>
+
+        <% if (errorMessage) { %>
+            <p style="color: red;"><%= errorMessage %></p>
         <% } %>
 
         <form action="/user-modify" method="POST">
