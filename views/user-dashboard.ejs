@@ -13,15 +13,27 @@
             <a href="/create">Crea Annuncio</a>
             <a href="/view">Annunci</a>
             <a href="/warnings">Avvertenze</a>
-            <a href="/user-profile">Profilo</a>
             <a href="/logout">Logout</a>
         </nav>
     </header>
 
-    <main>
-        <h1>Benvenuto nella tua Dashboard</h1>
-        <p>Ciao, <%= email %>!</p>
-        <p>Da qui puoi gestire i tuoi annunci e il tuo profilo.</p>
+    <main style="display: flex;">
+        <!-- Barra laterale -->
+        <aside style="width: 20%; background-color: #f4f4f4; padding: 1rem;">
+            <h3>Opzioni</h3>
+            <ul>
+                <li><a href="/user-profile">Profilo</a></li>
+                <li><a href="/user-modify">Modifica Profilo</a></li>
+                <li><a href="/user-announcements">Modifica Annunci</a></li>
+            </ul>
+        </aside>
+
+        <!-- Contenuto principale -->
+        <section style="width: 80%; padding: 1rem;">
+            <h1>Benvenuto nella tua Dashboard</h1>
+            <p>Ciao, <%= email %>!</p>
+            <p>Da qui puoi gestire i tuoi annunci e il tuo profilo.</p>
+        </section>
     </main>
 </body>
 </html>

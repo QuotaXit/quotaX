@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Gestisci Annunci</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/create">Crea Annuncio</a>
+            <a href="/view">Annunci</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>I tuoi Annunci</h1>
+
+        <% if (announcements.length === 0) { %>
+            <p>Non hai ancora creato annunci.</p>
+        <% } else { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Società</th>
+                        <th>Prezzo Vendita</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% announcements.forEach(announcement => { %>
+                        <tr>
+                            <td><%= announcement.societa %></td>
+                            <td><%= announcement.prezzoVendita %></td>
+                            <td>
+                                <form action="/delete-announcement" method="POST" style="display: inline;">
+                                    <input type="hidden" name="id" value="<%= announcement.id %>">
+                                    <button type="submit">Elimina</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } %>
+    </main>
+</body>
+</html>

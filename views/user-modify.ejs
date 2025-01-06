@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Modifica Profilo</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/create">Crea Annuncio</a>
+            <a href="/view">Annunci</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Modifica Profilo</h1>
+
+        <% if (error) { %>
+            <p style="color: red;"><%= error %></p>
+        <% } %>
+
+        <form action="/user-modify" method="POST">
+            <label for="email">Nuova Email:</label>
+            <input type="email" name="email" placeholder="Inserisci una nuova email">
+
+            <label for="password">Nuova Password:</label>
+            <input type="password" name="password" placeholder="Inserisci una nuova password">
+
+            <button type="submit">Salva Modifiche</button>
+        </form>
+    </main>
+</body>
+</html>
