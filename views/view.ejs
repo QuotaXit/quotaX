@@ -39,8 +39,8 @@
             <tbody>
                 <% announcements.forEach(announcement => { %>
                     <tr>
-                        <td><%= announcement.nome %></td>
-                        <td><%= announcement.email %></td>
+                        <td><%= isAuthenticated ? announcement.nome : "Anonimo" %></td>
+                        <td><%= isAuthenticated ? announcement.email : "Riservato" %></td>
                         <td><%= announcement.rubricazione || 'N/A' %></td>
                         <td><%= announcement.societa %></td>
                         <td><%= announcement.prezzoAcquisto %></td>
@@ -48,7 +48,7 @@
                         <td><%= announcement.prezzoVendita %></td>
                     </tr>
                 <% }) %>
-            </tbody>
+            </tbody>            
         </table>        
     </main>
     <footer>

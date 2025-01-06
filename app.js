@@ -91,17 +91,21 @@ app.post("/register", async (req, res) => {
 app.get("/user-login", (req, res) => {
     res.render("user-login", { error: null });
 });
-
-// Rotta POST per gestire il login
 app.post("/user-login", async (req, res) => {
     const { email, password } = req.body;
 
     try {
         const user = await auth.getUserByEmail(email);
-        // Salva lo stato dell'utente nella sessione
-        req.session.user = { id: user.uid, email: email };
-        req.session.userEmail = email; // Aggiungi questa riga
+
+        // Salva lo stato dell'utente nella sessione, includendo il nome
+        req.session.user = { 
+            id: user.uid, 
+            email: email, 
+            name: user.displayName || "Anonimo" // Usa il nome dell'utente o "Anonimo" come fallback
+        };
+        req.session.userEmail = email;
         req.session.userLoggedIn = true;
+
         res.redirect("/user-dashboard");
     } catch (error) {
         res.render("user-login", { error: "Email o password non validi" });
@@ -138,8 +142,8 @@ app.post("/create", async (req, res) => {
             valoreAttuale: parseFloat(valoreAttuale),
             prezzoVendita: parseFloat(prezzoVendita),
             rubricazione: rubricazione === "Si" ? "Si" : "No",
-            email: req.session.userEmail,
-            nome: req.session.user?.name || "Utente", // Cambia "Anonimo" in "Utente"
+            nome: req.session.user?.name || "Anonimo", // Cambia "Anonimo" in "Utente"
+            email: req.session.userEmail || "Riservato",
             createdAt: new Date().toISOString(),
         };
 
