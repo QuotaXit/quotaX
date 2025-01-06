@@ -125,30 +125,33 @@ app.get("/create", isAuthenticated, (req, res) => {
     res.render("create", { userEmail }); // Passa l'email al file EJS
 });
 
-app.post("/create", isAuthenticated, async (req, res) => {
-    const { societa, prezzoAcquisto, valoreAttuale, prezzoVendita, rubricazione } = req.body;
-
+app.post("/create", async (req, res) => {
     try {
-        const newAnnouncement = {
+        const { societa, dataAcquisto, prezzoAcquisto, valoreAttuale, prezzoVendita, rubricazione } = req.body;
+
+        console.log("Rubricazione ricevuta dal modulo:", rubricazione);
+
+        // Salva il documento nel database
+        const announcement = {
             societa,
+            dataAcquisto,
             prezzoAcquisto: parseFloat(prezzoAcquisto),
             valoreAttuale: parseFloat(valoreAttuale),
             prezzoVendita: parseFloat(prezzoVendita),
-            rubricazione, // Salva la rubricazione
-            email: req.session.userEmail, // Email dell'utente autenticato
-            nome: req.session.userName || "Anonimo", // Nome utente se disponibile
-            createdAt: new Date().toISOString() // Timestamp
+            rubricazione: rubricazione || "N/A", // Usa il valore ricevuto o "N/A" se non presente
+            email: req.session.userEmail,
+            nome: req.session.userName || "Anonimo",
+            createdAt: new Date().toISOString(),
         };
 
-        // Salva nel database
-        await db.collection("announcements").add(newAnnouncement);
-
-        res.redirect("/view"); // Torna alla pagina di visualizzazione annunci
+        await db.collection("announcements").add(announcement);
+        res.redirect("/view");
     } catch (error) {
         console.error("Errore durante la creazione dell'annuncio:", error);
         res.status(500).send("Errore interno del server.");
     }
 });
+
 
 // Rotta per "Vedi Annunci"
 app.get("/view", async (req, res) => {
