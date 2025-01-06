@@ -348,26 +348,33 @@ app.post("/user-profile", isAuthenticated, async (req, res) => {
   app.get("/user-announcements", isAuthenticated, async (req, res) => {
     const userEmail = req.session.userEmail;
 
+    // Controlla se l'email dell'utente esiste nella sessione
     if (!userEmail) {
         console.error("Errore: userEmail non trovato nella sessione.");
-        return res.render("user-announcements", { announcements: [] }); // Mostra una pagina vuota
+        return res.render("user-announcements", { announcements: [], errorMessage: "Utente non autenticato." });
     }
 
     try {
+        // Recupera gli annunci creati dall'utente corrente
         const userAnnouncementsSnapshot = await db
-            .collection("announcements") // Corretto il nome della collezione
-            .where("creatoDa", "==", userEmail) // Usa il campo corretto
+            .collection("announcements")
+            .where("creatoDa", "==", userEmail)
             .get();
 
         const userAnnouncements = [];
-        userAnnouncementsSnapshot.forEach((doc) =>
-            userAnnouncements.push({ id: doc.id, ...doc.data() })
-        );
+        userAnnouncementsSnapshot.forEach((doc) => {
+            userAnnouncements.push({ id: doc.id, ...doc.data() });
+        });
 
-        res.render("user-announcements", { announcements: userAnnouncements });
+        // Render della pagina con gli annunci dell'utente
+        res.render("user-announcements", { announcements: userAnnouncements, errorMessage: null });
     } catch (error) {
-        console.error("Errore durante il recupero degli annunci:", error);
-        res.render("user-announcements", { announcements: [] });
+        // Gestione degli errori
+        console.error("Errore durante il recupero degli annunci:", error.message);
+        res.render("user-announcements", {
+            announcements: [],
+            errorMessage: "Si è verificato un errore durante il recupero degli annunci. Riprova più tardi.",
+        });
     }
 });
 
