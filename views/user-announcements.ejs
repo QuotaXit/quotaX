@@ -20,6 +20,8 @@
             <table>
                 <thead>
                     <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
                         <th>Società</th>
                         <th>Prezzo Vendita</th>
                         <th>Azioni</th>
@@ -28,6 +30,8 @@
                 <tbody>
                     <% announcements.forEach(announcement => { %>
                         <tr>
+                            <td><%= announcement.nome %></td>
+                            <td><%= announcement.email %></td>
                             <td><%= announcement.societa %></td>
                             <td><%= announcement.prezzoVendita %></td>
                             <td>
@@ -38,7 +42,7 @@
                             </td>
                         </tr>
                     <% }) %>
-                </tbody>
+                </tbody>                
             </table>
         <% } %>
     </main>

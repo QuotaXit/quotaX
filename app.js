@@ -121,7 +121,8 @@ app.get("/user-dashboard", (req, res) => {
 
 // Rotta per "Crea Annuncio"
 app.get("/create", isAuthenticated, (req, res) => {
-    res.render("create");
+    const userEmail = req.session.userEmail; // Ottieni l'email dell'utente dalla sessione
+    res.render("create", { userEmail }); // Passa l'email al file EJS
 });
 
 app.post("/create", async (req, res) => {
