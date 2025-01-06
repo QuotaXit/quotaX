@@ -209,64 +209,74 @@ app.get("/", async (req, res) => {
     }
 });
 
-// Rotta per "Modifica Profilo"
-app.get("/user-modify", isAuthenticated, (req, res) => {
-    res.render("user-modify", { error: null });
-});
-
-app.post("/user-modify", isAuthenticated, async (req, res) => {
+// Rotta per visualizzare il profilo
+app.get("/user-profile", isAuthenticated, (req, res) => {
+    const email = req.session.userEmail;
+    res.render("user-profile", { email });
+  });
+  
+  // Rotta per modificare il profilo
+  app.get("/user-modify", isAuthenticated, (req, res) => {
+    const email = req.session.userEmail;
+    res.render("user-modify", { email, error: null });
+  });
+  
+  app.post("/user-modify", isAuthenticated, async (req, res) => {
     const { email, password } = req.body;
-
+    const currentEmail = req.session.userEmail;
+  
     try {
-        const user = await auth.getUserByEmail(req.session.userEmail);
-
-        if (email) {
-            await auth.updateUser(user.uid, { email });
-            req.session.userEmail = email; // Aggiorna la sessione
-        }
-
-        if (password) {
-            await auth.updateUser(user.uid, { password });
-        }
-
-        res.redirect("/user-profile");
+      const user = await auth.getUserByEmail(currentEmail);
+  
+      if (email) {
+        await auth.updateUser(user.uid, { email });
+        req.session.userEmail = email; // Aggiorna la sessione
+      }
+  
+      if (password) {
+        await auth.updateUser(user.uid, { password });
+      }
+  
+      res.redirect("/user-profile");
     } catch (error) {
-        res.render("user-modify", { error: error.message });
+      res.render("user-modify", { email: currentEmail, error: error.message });
     }
-});
-
-// Rotta per "Gestisci Annunci"
-app.get("/user-announcements", isAuthenticated, async (req, res) => {
+  });
+  
+  // Rotta per modificare gli annunci
+  app.get("/user-announcements", isAuthenticated, async (req, res) => {
+    const userEmail = req.session.userEmail;
+  
     try {
-        const snapshot = await db
-            .collection("announcements")
-            .where("creatoDa", "==", req.session.userEmail)
-            .get();
-
-        const announcements = snapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data(),
-        }));
-
-        res.render("user-announcements", { announcements });
+      const userAnnouncementsSnapshot = await db
+        .collection("annunci")
+        .where("email", "==", userEmail)
+        .get();
+  
+      const userAnnouncements = [];
+      userAnnouncementsSnapshot.forEach((doc) =>
+        userAnnouncements.push({ id: doc.id, ...doc.data() })
+      );
+  
+      res.render("user-announcements", { announcements: userAnnouncements });
     } catch (error) {
-        console.error("Errore durante il recupero degli annunci:", error);
-        res.status(500).send("Errore interno del server.");
+      console.error("Errore durante il recupero degli annunci:", error);
+      res.status(500).send("Errore interno del server.");
     }
-});
-
-app.post("/delete-announcement", isAuthenticated, async (req, res) => {
+  });
+  
+  app.post("/delete-announcement", isAuthenticated, async (req, res) => {
     const { id } = req.body;
-
+  
     try {
-        await db.collection("announcements").doc(id).delete();
-        res.redirect("/user-announcements");
+      await db.collection("annunci").doc(id).delete();
+      res.redirect("/user-announcements");
     } catch (error) {
-        console.error("Errore durante l'eliminazione dell'annuncio:", error);
-        res.status(500).send("Errore interno del server.");
+      console.error("Errore durante l'eliminazione dell'annuncio:", error);
+      res.status(500).send("Errore interno del server.");
     }
-});
-
+  });
+  
 
 // Porta di ascolto
 const PORT = process.env.PORT || 3000;
