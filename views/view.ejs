@@ -27,10 +27,8 @@
         <table>
             <thead>
                 <tr>
-                    <% if (isAuthenticated) { %>
-                        <th>Nome</th>
-                        <th>Email</th>
-                    <% } %>
+                    <th>Nome</th>
+                    <th>Email</th>
                     <th>Rubricazione</th>
                     <th>Società</th>
                     <th>Prezzo Acquisto</th>
@@ -41,18 +39,16 @@
             <tbody>
                 <% announcements.forEach(announcement => { %>
                     <tr>
-                        <% if (isAuthenticated) { %>
-                            <td><%= announcement.nome %></td>
-                            <td><%= announcement.email %></td>
-                        <% } %>
-                        <td><%= announcement.rubricazione %></td>
+                        <td><%= announcement.nome %></td>
+                        <td><%= announcement.email %></td>
+                        <td><%= announcement.rubricazione || 'N/A' %></td> <!-- Mostra N/A se non presente -->
                         <td><%= announcement.societa %></td>
                         <td><%= announcement.prezzoAcquisto %></td>
                         <td><%= announcement.valoreAttuale %></td>
                         <td><%= announcement.prezzoVendita %></td>
                     </tr>
-                <% }) %>
-            </tbody>                     
+                <% }); %>
+            </tbody>                            
         </table>
     </main>
     <footer>
