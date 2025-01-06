@@ -4,11 +4,13 @@
     <% if (user) { %> <!-- Mostra solo per utenti loggati -->
         <a href="/user-dashboard">Dashboard</a>
         <a href="/create">Crea Annuncio</a>
+        <a href="/create-azioni">Crea Ann. Azioni</a> <!-- Nuovo link per utenti loggati -->
         <a href="/logout">Logout</a>
     <% } else { %> <!-- Mostra solo per utenti non loggati -->
         <a href="/user-login">Accedi</a>
         <a href="/register">Registrati</a>
     <% } %>
+    <a href="/bacheca-azioni">Bacheca Azioni</a> <!-- Nuovo link sempre visibile -->
     <a href="/warnings">Avvertenze</a> <!-- Sempre visibile -->
     <a href="/crowdfunding">CrowdFunding</a>
 </nav>
