@@ -330,28 +330,36 @@ app.post("/user-profile", isAuthenticated, async (req, res) => {
   app.get("/user-announcements", isAuthenticated, async (req, res) => {
     const userEmail = req.session.userEmail;
 
-    // Controlla se l'email dell'utente esiste nella sessione
     if (!userEmail) {
         console.error("Errore: userEmail non trovato nella sessione.");
         return res.render("user-announcements", { announcements: [], errorMessage: "Utente non autenticato." });
     }
 
     try {
-        // Recupera gli annunci creati dall'utente corrente
-        const userAnnouncementsSnapshot = await db
+        // Recupera gli annunci normali
+        const announcementsSnapshot = await db
             .collection("announcements")
-            .where("email", "==", userEmail) // Usa il campo 'email'
+            .where("email", "==", userEmail)
             .get();
 
-        const userAnnouncements = [];
-        userAnnouncementsSnapshot.forEach((doc) => {
-            userAnnouncements.push({ id: doc.id, ...doc.data() });
+        const announcements = [];
+        announcementsSnapshot.forEach(doc => {
+            announcements.push({ id: doc.id, ...doc.data() });
         });
 
-        // Render della pagina con gli annunci dell'utente
-        res.render("user-announcements", { announcements: userAnnouncements, errorMessage: null });
+        // Recupera gli annunci delle azioni
+        const azioniSnapshot = await db
+            .collection("azioni")
+            .where("email", "==", userEmail)
+            .get();
+
+        azioniSnapshot.forEach(doc => {
+            announcements.push({ id: doc.id, ...doc.data(), isAzione: true }); // Aggiungi un flag per distinguere
+        });
+
+        // Passa tutti gli annunci (normali e azioni) al template
+        res.render("user-announcements", { announcements, errorMessage: null });
     } catch (error) {
-        // Gestione degli errori
         console.error("Errore durante il recupero degli annunci:", error.message);
         res.render("user-announcements", {
             announcements: [],
@@ -359,6 +367,7 @@ app.post("/user-profile", isAuthenticated, async (req, res) => {
         });
     }
 });
+
 
 app.get("/create-azioni", isAuthenticated, (req, res) => {
     const userEmail = req.session.userEmail; // Recupera l'email dalla sessione
