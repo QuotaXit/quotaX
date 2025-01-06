@@ -245,10 +245,32 @@ app.get("/", async (req, res) => {
 });
 
 // Rotta per visualizzare il profilo
-app.get("/user-profile", isAuthenticated, (req, res) => {
-    const email = req.session.userEmail; // Usa userEmail dalla sessione
-    res.render("user-profile", { email, error: null }); // Passa error come null
+app.post("/user-profile", isAuthenticated, async (req, res) => {
+    const { email, password } = req.body;
+    const currentEmail = req.session.userEmail;
+
+    try {
+        // Recupera l'utente corrente
+        const user = await auth.getUserByEmail(currentEmail);
+
+        // Aggiorna l'email, se modificata
+        if (email && email !== currentEmail) {
+            await auth.updateUser(user.uid, { email });
+            req.session.userEmail = email; // Aggiorna la sessione con la nuova email
+        }
+
+        // Aggiorna la password, se fornita
+        if (password) {
+            await auth.updateUser(user.uid, { password });
+        }
+
+        res.redirect("/user-profile");
+    } catch (error) {
+        console.error("Errore durante l'aggiornamento del profilo:", error);
+        res.render("user-profile", { email: currentEmail, error: error.message });
+    }
 });
+
   
   // Rotta per modificare il profilo
   app.get("/user-modify", isAuthenticated, (req, res) => {
