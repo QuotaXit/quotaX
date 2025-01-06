@@ -133,15 +133,16 @@ app.post("/create", async (req, res) => {
     try {
         const { nome, societa, dataAcquisto, prezzoAcquisto, valoreAttuale, prezzoVendita, rubricazione } = req.body;
 
+        // Salva l'annuncio con il nome inserito nel modulo
         const announcement = {
-            nome: nome || req.session.user?.name || "Anonimo", // Nome dal modulo o dalla sessione
+            nome, // Nome preso direttamente dal modulo
             societa,
             dataAcquisto,
             prezzoAcquisto: parseFloat(prezzoAcquisto),
             valoreAttuale: parseFloat(valoreAttuale),
             prezzoVendita: parseFloat(prezzoVendita),
             rubricazione: rubricazione === "Si" ? "Si" : "No",
-            email: req.session.userEmail || "Riservato",
+            email: req.session.userEmail || "Riservato", // Email presa dalla sessione
             createdAt: new Date().toISOString(),
         };
 
