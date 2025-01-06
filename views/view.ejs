@@ -39,8 +39,12 @@
             <tbody>
                 <% announcements.forEach(announcement => { %>
                     <tr>
-                        <td><%= isAuthenticated ? announcement.nome : "Anonimo" %></td>
+                        <!-- Il nome è sempre visibile -->
+                        <td><%= announcement.nome %></td>
+            
+                        <!-- L'email è visibile solo agli utenti autenticati -->
                         <td><%= isAuthenticated ? announcement.email : "Riservato" %></td>
+            
                         <td><%= announcement.rubricazione || 'N/A' %></td>
                         <td><%= announcement.societa %></td>
                         <td><%= announcement.prezzoAcquisto %></td>
@@ -48,7 +52,7 @@
                         <td><%= announcement.prezzoVendita %></td>
                     </tr>
                 <% }) %>
-            </tbody>            
+            </tbody>                      
         </table>        
     </main>
     <footer>

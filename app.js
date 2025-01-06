@@ -174,9 +174,8 @@ app.get("/view", async (req, res) => {
         }
 
         const announcementsSnapshot = await announcementsQuery.get();
-
         const announcements = [];
-        announcementsSnapshot.forEach(doc => {
+        announcementsSnapshot.forEach((doc) => {
             announcements.push(doc.data());
         });
 
@@ -185,7 +184,7 @@ app.get("/view", async (req, res) => {
             search,
             minPrice,
             maxPrice,
-            isAuthenticated: !!req.session.userEmail,
+            isAuthenticated: !!req.session.userEmail, // L'email è ancora condizionata dall'autenticazione
         });
     } catch (error) {
         console.error("Errore durante il recupero degli annunci:", error);
