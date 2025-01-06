@@ -100,12 +100,14 @@ app.post("/user-login", async (req, res) => {
         const user = await auth.getUserByEmail(email);
         // Salva lo stato dell'utente nella sessione
         req.session.user = { id: user.uid, email: email };
+        req.session.userEmail = email; // Aggiungi questa riga
         req.session.userLoggedIn = true;
         res.redirect("/user-dashboard");
     } catch (error) {
         res.render("user-login", { error: "Email o password non validi" });
     }
 });
+
 
 
 // Rotta per la dashboard utenti
@@ -224,9 +226,9 @@ app.get("/", async (req, res) => {
 
 // Rotta per visualizzare il profilo
 app.get("/user-profile", isAuthenticated, (req, res) => {
-    const email = req.session.userEmail;
-    res.render("user-profile", { email });
-  });
+    const email = req.session.userEmail; // Usa userEmail dalla sessione
+    res.render("user-profile", { email, error: null }); // Passa error come null
+});
   
   // Rotta per modificare il profilo
   app.get("/user-modify", isAuthenticated, (req, res) => {
@@ -259,24 +261,30 @@ app.get("/user-profile", isAuthenticated, (req, res) => {
   // Rotta per modificare gli annunci
   app.get("/user-announcements", isAuthenticated, async (req, res) => {
     const userEmail = req.session.userEmail;
-  
-    try {
-      const userAnnouncementsSnapshot = await db
-        .collection("annunci")
-        .where("email", "==", userEmail)
-        .get();
-  
-      const userAnnouncements = [];
-      userAnnouncementsSnapshot.forEach((doc) =>
-        userAnnouncements.push({ id: doc.id, ...doc.data() })
-      );
-  
-      res.render("user-announcements", { announcements: userAnnouncements });
-    } catch (error) {
-      console.error("Errore durante il recupero degli annunci:", error);
-      res.status(500).send("Errore interno del server.");
+
+    if (!userEmail) {
+        console.error("Errore: userEmail non trovato nella sessione.");
+        return res.status(400).send("Errore: Utente non autenticato.");
     }
-  });
+
+    try {
+        const userAnnouncementsSnapshot = await db
+            .collection("annunci")
+            .where("email", "==", userEmail)
+            .get();
+
+        const userAnnouncements = [];
+        userAnnouncementsSnapshot.forEach((doc) =>
+            userAnnouncements.push({ id: doc.id, ...doc.data() })
+        );
+
+        res.render("user-announcements", { announcements: userAnnouncements });
+    } catch (error) {
+        console.error("Errore durante il recupero degli annunci:", error);
+        res.status(500).send("Errore interno del server.");
+    }
+});
+
   
   app.post("/delete-announcement", isAuthenticated, async (req, res) => {
     const { id } = req.body;
