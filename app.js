@@ -149,29 +149,33 @@ app.post("/create", async (req, res) => {
 app.get("/view", async (req, res) => {
     try {
         const { search, minPrice, maxPrice } = req.query;
-  
-        let announcementsQuery = db.collection("annunci");
-  
+
+        let announcementsQuery = db.collection("announcements");
+        console.log("Parametri ricevuti:", { search, minPrice, maxPrice }); // Log parametri
+
         if (search) {
             announcementsQuery = announcementsQuery.where("societa", "==", search);
+            console.log("Filtro per nome società applicato:", search);
         }
         if (minPrice) {
             announcementsQuery = announcementsQuery.where("prezzoVendita", ">=", parseFloat(minPrice));
+            console.log("Filtro per prezzo minimo applicato:", minPrice);
         }
         if (maxPrice) {
             announcementsQuery = announcementsQuery.where("prezzoVendita", "<=", parseFloat(maxPrice));
+            console.log("Filtro per prezzo massimo applicato:", maxPrice);
         }
-  
+
         const announcementsSnapshot = await announcementsQuery.get();
-  
+
         const announcements = [];
         announcementsSnapshot.forEach(doc => {
-            console.log("Annuncio trovato:", doc.data()); // Log per debug
+            console.log("Annuncio trovato:", doc.data()); // Log per ogni documento trovato
             announcements.push(doc.data());
         });
-  
+
         console.log("Totale annunci trovati:", announcements.length); // Log totale annunci
-  
+
         res.render("view", {
             announcements,
             search,
@@ -183,6 +187,7 @@ app.get("/view", async (req, res) => {
         res.status(500).send("Errore interno del server.");
     }
 });
+
 
 app.get("/crowdfunding", (req, res) => {
     res.render("crowdfunding");
