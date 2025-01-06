@@ -3,7 +3,9 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const admin = require("firebase-admin");
 
-// Configurazione Firebase
+const app = express();
+
+// Configurazione Firebase (variabile d'ambiente)
 try {
     const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
     firebaseConfig.private_key = firebaseConfig.private_key.replace(/\\n/g, "\n");
@@ -22,7 +24,6 @@ try {
 
 const auth = admin.auth();
 const db = admin.firestore();
-const app = express();
 
 // Configurazione di Express
 app.set("view engine", "ejs");
@@ -43,21 +44,6 @@ app.use((req, res, next) => {
     res.locals.user = req.session.user || null;
     next();
 });
-
-
-// Middleware di configurazione
-app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
-
-// Configurazione della sessione
-app.use(
-    session({
-        secret: "segretissimo", // Cambialo in produzione
-        resave: false,
-        saveUninitialized: true,
-    })
-);
 
 // Credenziali amministratore
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "odeiroma";
