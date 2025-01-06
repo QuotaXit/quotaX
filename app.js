@@ -259,18 +259,18 @@ app.get("/user-profile", isAuthenticated, (req, res) => {
   });
   
   // Rotta per modificare gli annunci
-  app.get("/user-announcements", isAuthenticated, async (req, res) => {
+  aapp.get("/user-announcements", isAuthenticated, async (req, res) => {
     const userEmail = req.session.userEmail;
 
     if (!userEmail) {
         console.error("Errore: userEmail non trovato nella sessione.");
-        return res.status(400).send("Errore: Utente non autenticato.");
+        return res.render("user-announcements", { announcements: [] }); // Mostra una pagina vuota
     }
 
     try {
         const userAnnouncementsSnapshot = await db
-            .collection("annunci")
-            .where("email", "==", userEmail)
+            .collection("announcements") // Corretto il nome della collezione
+            .where("creatoDa", "==", userEmail) // Usa il campo corretto
             .get();
 
         const userAnnouncements = [];
@@ -281,23 +281,10 @@ app.get("/user-profile", isAuthenticated, (req, res) => {
         res.render("user-announcements", { announcements: userAnnouncements });
     } catch (error) {
         console.error("Errore durante il recupero degli annunci:", error);
-        res.status(500).send("Errore interno del server.");
+        res.render("user-announcements", { announcements: [] });
     }
 });
 
-  
-  app.post("/delete-announcement", isAuthenticated, async (req, res) => {
-    const { id } = req.body;
-  
-    try {
-      await db.collection("annunci").doc(id).delete();
-      res.redirect("/user-announcements");
-    } catch (error) {
-      console.error("Errore durante l'eliminazione dell'annuncio:", error);
-      res.status(500).send("Errore interno del server.");
-    }
-  });
-  
 
 // Porta di ascolto
 const PORT = process.env.PORT || 3000;
