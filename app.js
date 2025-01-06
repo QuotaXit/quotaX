@@ -297,6 +297,11 @@ app.post("/user-profile", isAuthenticated, async (req, res) => {
     try {
         const userEmail = req.session.userEmail; // Email attuale dell'utente dalla sessione
 
+        // Log per verificare i dati ricevuti
+        console.log("Email corrente:", userEmail);
+        console.log("Dati ricevuti:", { email, password });
+
+        // Controllo sull'email corrente
         if (!userEmail) {
             throw new Error("Utente non autenticato.");
         }
@@ -306,7 +311,7 @@ app.post("/user-profile", isAuthenticated, async (req, res) => {
         // Verifica se esiste il documento
         const userDoc = await userRef.get();
         if (!userDoc.exists) {
-            throw new Error("Utente non trovato.");
+            throw new Error("Utente non trovato nel database.");
         }
 
         // Prepara gli aggiornamenti
@@ -314,7 +319,7 @@ app.post("/user-profile", isAuthenticated, async (req, res) => {
         if (email) updates.email = email;
         if (password) updates.password = password;
 
-        // Se non ci sono aggiornamenti, restituisci un messaggio di errore
+        // Se non ci sono aggiornamenti, restituisci un errore
         if (Object.keys(updates).length === 0) {
             throw new Error("Nessun dato da aggiornare.");
         }
@@ -325,6 +330,7 @@ app.post("/user-profile", isAuthenticated, async (req, res) => {
         // Aggiorna la sessione con la nuova email, se modificata
         if (email) req.session.userEmail = email;
 
+        console.log("Aggiornamento completato con successo.");
         res.render("user-modify", {
             successMessage: "Modifiche salvate con successo.",
             email: req.session.userEmail, // Passa l'email aggiornata
