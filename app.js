@@ -244,6 +244,11 @@ app.get("/", async (req, res) => {
     }
 });
 
+app.get("/user-profile", isAuthenticated, (req, res) => {
+    const email = req.session.userEmail;
+    res.render("user-profile", { email, error: null });
+});
+
 // Rotta per visualizzare il profilo
 app.post("/user-profile", isAuthenticated, async (req, res) => {
     const { email, password } = req.body;

@@ -20,15 +20,15 @@
             <p style="color: red;"><%= error %></p>
         <% } %>
 
-        <form action="/user-profile" method="POST" enctype="multipart/form-data">
+        <form action="/user-profile" method="POST">
             <label for="nome">Nome:</label>
-            <input type="text" name="nome" placeholder="Inserisci il tuo nome">
-
+            <input type="text" name="nome" placeholder="Inserisci il tuo nome" value="<%= email %>">
+        
             <label for="password">Nuova Password:</label>
             <input type="password" name="password" placeholder="Inserisci una nuova password">
-
+        
             <button type="submit">Salva Modifiche</button>
-        </form>
+        </form>        
     </main>
 </body>
 </html>
