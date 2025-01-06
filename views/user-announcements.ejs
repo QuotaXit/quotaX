@@ -35,18 +35,15 @@
                             <td><%= announcement.societa %></td>
                             <td><%= announcement.prezzoVendita %></td>
                             <td>
-                                <!-- Mostra un messaggio diverso per annunci azioni -->
-                                <% if (announcement.isAzione) { %>
-                                    <p>Annuncio Azioni</p>
-                                <% } %>
                                 <form action="/delete-announcement" method="POST" style="display: inline;">
                                     <input type="hidden" name="id" value="<%= announcement.id %>">
+                                    <input type="hidden" name="isAzione" value="<%= announcement.isAzione ? "true" : "false" %>"> <!-- Distinzione -->
                                     <button type="submit">Elimina</button>
                                 </form>
                             </td>
                         </tr>
                     <% }) %>
-                </tbody>                                             
+                </tbody>                                                           
             </table>
         <% } %>
     </main>
