@@ -3,8 +3,7 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const admin = require("firebase-admin");
 
-
-// Configurazione Firebase (variabile d'ambiente)
+// Configurazione Firebase
 try {
     const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
     firebaseConfig.private_key = firebaseConfig.private_key.replace(/\\n/g, "\n");
@@ -22,8 +21,29 @@ try {
 }
 
 const auth = admin.auth();
-const db = admin.firestore(); // Firestore database
+const db = admin.firestore();
 const app = express();
+
+// Configurazione di Express
+app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
+
+// Configurazione della sessione
+app.use(
+    session({
+        secret: "segretissimo", // Cambialo in produzione
+        resave: false,
+        saveUninitialized: true,
+    })
+);
+
+// Middleware per passare l'utente alle view
+app.use((req, res, next) => {
+    res.locals.user = req.session.user || null;
+    next();
+});
+
 
 // Middleware di configurazione
 app.set("view engine", "ejs");
@@ -92,13 +112,15 @@ app.post("/user-login", async (req, res) => {
 
     try {
         const user = await auth.getUserByEmail(email);
+        // Salva lo stato dell'utente nella sessione
+        req.session.user = { id: user.uid, email: email };
         req.session.userLoggedIn = true;
-        req.session.userEmail = email;
         res.redirect("/user-dashboard");
     } catch (error) {
         res.render("user-login", { error: "Email o password non validi" });
     }
 });
+
 
 // Rotta per la dashboard utenti
 app.get("/user-dashboard", (req, res) => {
@@ -187,10 +209,15 @@ app.get("/crowdfunding", (req, res) => {
 
 // Rotta per logout
 app.get("/logout", (req, res) => {
-    req.session.destroy(() => {
-        res.redirect("/user-login");
+    req.session.destroy((err) => {
+        if (err) {
+            console.error("Errore durante il logout:", err);
+            return res.status(500).send("Errore durante il logout.");
+        }
+        res.redirect("/"); // Reindirizza alla home dopo il logout
     });
 });
+
 
 app.get("/warnings", (req, res) => {
   res.render("warnings");
@@ -283,3 +310,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+ 

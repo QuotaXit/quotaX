@@ -1,0 +1,13 @@
+<nav>
+    <a href="/">Home</a>
+    <a href="/create">Crea Annuncio</a>
+    <a href="/view">Vedi Annunci</a>
+    <% if (user) { %>
+        <a href="/warnings">Avvertenze</a>
+        <a href="/logout">Logout</a>
+    <% } else { %>
+        <a href="/user-login">Accedi</a>
+        <a href="/register">Registrati</a>
+    <% } %>
+    <a href="/crowdfunding">CrowdFunding</a>
+</nav>
