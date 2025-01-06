@@ -160,7 +160,7 @@ app.get("/view", async (req, res) => {
             announcements.push(doc.data());
         });
   
-        console.log("Totale annunci trovati:", announcements.length);
+        console.log("Totale annunci trovati:", announcements.length); // Log totale annunci
   
         res.render("view", {
             announcements,
@@ -169,10 +169,15 @@ app.get("/view", async (req, res) => {
             maxPrice,
         });
     } catch (error) {
-        console.error("Errore durante il recupero degli annunci:", error);
+        console.error("Errore durante il recupero degli annunci:", error); // Log errori
         res.status(500).send("Errore interno del server.");
     }
-  });
+});
+
+app.get("/crowdfunding", (req, res) => {
+    res.render("crowdfunding");
+});
+
   
 
 app.get("/crowdfunding", (req, res) => {
@@ -203,6 +208,65 @@ app.get("/", async (req, res) => {
         res.render("index", { announcements: [] });
     }
 });
+
+// Rotta per "Modifica Profilo"
+app.get("/user-modify", isAuthenticated, (req, res) => {
+    res.render("user-modify", { error: null });
+});
+
+app.post("/user-modify", isAuthenticated, async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await auth.getUserByEmail(req.session.userEmail);
+
+        if (email) {
+            await auth.updateUser(user.uid, { email });
+            req.session.userEmail = email; // Aggiorna la sessione
+        }
+
+        if (password) {
+            await auth.updateUser(user.uid, { password });
+        }
+
+        res.redirect("/user-profile");
+    } catch (error) {
+        res.render("user-modify", { error: error.message });
+    }
+});
+
+// Rotta per "Gestisci Annunci"
+app.get("/user-announcements", isAuthenticated, async (req, res) => {
+    try {
+        const snapshot = await db
+            .collection("announcements")
+            .where("creatoDa", "==", req.session.userEmail)
+            .get();
+
+        const announcements = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data(),
+        }));
+
+        res.render("user-announcements", { announcements });
+    } catch (error) {
+        console.error("Errore durante il recupero degli annunci:", error);
+        res.status(500).send("Errore interno del server.");
+    }
+});
+
+app.post("/delete-announcement", isAuthenticated, async (req, res) => {
+    const { id } = req.body;
+
+    try {
+        await db.collection("announcements").doc(id).delete();
+        res.redirect("/user-announcements");
+    } catch (error) {
+        console.error("Errore durante l'eliminazione dell'annuncio:", error);
+        res.status(500).send("Errore interno del server.");
+    }
+});
+
 
 // Porta di ascolto
 const PORT = process.env.PORT || 3000;
