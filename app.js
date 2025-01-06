@@ -297,27 +297,42 @@ app.post("/user-profile", isAuthenticated, async (req, res) => {
     try {
         const userEmail = req.session.userEmail; // Email attuale dell'utente dalla sessione
 
-        // Aggiorna l'email e/o la password nel database
+        if (!userEmail) {
+            throw new Error("Utente non autenticato.");
+        }
+
         const userRef = db.collection("users").doc(userEmail);
 
+        // Verifica se esiste il documento
+        const userDoc = await userRef.get();
+        if (!userDoc.exists) {
+            throw new Error("Utente non trovato.");
+        }
+
+        // Prepara gli aggiornamenti
         const updates = {};
         if (email) updates.email = email;
         if (password) updates.password = password;
 
+        // Se non ci sono aggiornamenti, restituisci un messaggio di errore
+        if (Object.keys(updates).length === 0) {
+            throw new Error("Nessun dato da aggiornare.");
+        }
+
+        // Aggiorna il documento
         await userRef.update(updates);
 
-        // Aggiorna l'email nella sessione se è stata cambiata
+        // Aggiorna la sessione con la nuova email, se modificata
         if (email) req.session.userEmail = email;
 
-        // Rendi il messaggio disponibile alla vista
         res.render("user-modify", {
             successMessage: "Modifiche salvate con successo.",
             email: req.session.userEmail, // Passa l'email aggiornata
         });
     } catch (error) {
-        console.error("Errore durante l'aggiornamento dei dati:", error);
+        console.error("Errore durante l'aggiornamento dei dati:", error.message);
         res.render("user-modify", {
-            errorMessage: "Si è verificato un errore. Riprova più tardi.",
+            errorMessage: error.message || "Si è verificato un errore. Riprova più tardi.",
             email: req.session.userEmail, // Passa l'email corrente
         });
     }
