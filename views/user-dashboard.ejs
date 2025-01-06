@@ -1,35 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/styles.css">
-    <title>Dashboard Utente</title>
-</head>
-<body>
-    <header>
-        <header>
-            <%- include('menu') %>
-        </header>        
-    </header>
-
-    <main style="display: flex;">
-        <!-- Barra laterale -->
-        <aside style="width: 20%; background-color: #f4f4f4; padding: 1rem;">
+<div class="dashboard-container">
+    <aside class="menu">
+        <div class="menu-box">
             <h3>Opzioni</h3>
             <ul>
                 <li><a href="/user-profile">Profilo</a></li>
                 <li><a href="/user-modify">Modifica Profilo</a></li>
                 <li><a href="/user-announcements">Modifica Annunci</a></li>
             </ul>
-        </aside>
-
-        <!-- Contenuto principale -->
-        <section style="width: 80%; padding: 1rem;">
-            <h1>Benvenuto nella tua Dashboard</h1>
-            <p>Ciao, <%= email %>!</p>
-            <p>Da qui puoi gestire i tuoi annunci e il tuo profilo.</p>
-        </section>
+        </div>
+    </aside>
+    <main class="content">
+        <h1>Benvenuto nella tua Dashboard</h1>
+        <p>Ciao, <strong><%= user ? user.email : '' %></strong>!</p>
+        <p>Da qui puoi gestire i tuoi annunci e il tuo profilo.</p>
+        <!-- Puoi aggiungere altri contenuti principali qui -->
     </main>
-</body>
-</html>
+</div>
