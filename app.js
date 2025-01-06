@@ -194,6 +194,26 @@ app.get("/crowdfunding", (req, res) => {
   res.render("crowdfunding");
 });
 
+app.post("/delete-announcement", isAuthenticated, async (req, res) => {
+    const { id } = req.body;
+
+    if (!id) {
+        console.error("Errore: ID non fornito.");
+        return res.status(400).send("Errore: ID mancante.");
+    }
+
+    try {
+        // Elimina il documento con l'ID specifico dalla collezione "announcements"
+        await db.collection("announcements").doc(id).delete();
+        console.log(`Annuncio con ID ${id} eliminato con successo.`);
+        res.redirect("/user-announcements");
+    } catch (error) {
+        console.error("Errore durante l'eliminazione dell'annuncio:", error);
+        res.status(500).send("Errore durante l'eliminazione dell'annuncio.");
+    }
+});
+
+
 
 // Rotta per logout
 app.get("/logout", (req, res) => {
