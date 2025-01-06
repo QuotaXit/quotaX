@@ -1,11 +1,12 @@
 <nav>
     <a href="/">Home</a>
-    <a href="/create">Crea Annuncio</a>
-    <a href="/view">Vedi Annunci</a>
-    <% if (user) { %>
+    <% if (user) { %> <!-- Mostra solo se l'utente è loggato -->
+        <a href="/user-dashboard">Dashboard</a>
+        <a href="/create">Crea Annuncio</a>
+        <a href="/view">Vedi Annunci</a>
         <a href="/warnings">Avvertenze</a>
         <a href="/logout">Logout</a>
-    <% } else { %>
+    <% } else { %> <!-- Mostra per utenti non loggati -->
         <a href="/user-login">Accedi</a>
         <a href="/register">Registrati</a>
     <% } %>
