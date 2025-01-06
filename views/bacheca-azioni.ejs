@@ -14,6 +14,16 @@
 
     <main>
         <h2>Bacheca Azioni</h2>
+        <!-- Filtro -->
+        <form method="GET" action="/bacheca-azioni">
+            <label for="search">Cerca per nome:</label>
+            <input type="text" id="search" name="search" placeholder="Nome società" value="<%= search %>">
+            <label for="minPrice">Prezzo minimo:</label>
+            <input type="number" id="minPrice" name="minPrice" placeholder="0" value="<%= minPrice %>">
+            <label for="maxPrice">Prezzo massimo:</label>
+            <input type="number" id="maxPrice" name="maxPrice" placeholder="0" value="<%= maxPrice %>">
+            <button type="submit">Filtra</button>
+        </form>
         <table>
             <thead>
                 <tr>
@@ -42,6 +52,6 @@
                 <% }) %>
             </tbody>
         </table>
-    </main>
+    </main>    
 </body>
 </html>

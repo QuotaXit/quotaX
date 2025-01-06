@@ -386,7 +386,21 @@ app.post("/create-azioni", async (req, res) => {
 
 app.get("/bacheca-azioni", async (req, res) => {
     try {
-        const azioniSnapshot = await db.collection("azioni").get();
+        const { search, minPrice, maxPrice } = req.query;
+
+        let azioniQuery = db.collection("azioni");
+
+        if (search) {
+            azioniQuery = azioniQuery.where("societa", "==", search);
+        }
+        if (minPrice) {
+            azioniQuery = azioniQuery.where("prezzoVendita", ">=", parseFloat(minPrice));
+        }
+        if (maxPrice) {
+            azioniQuery = azioniQuery.where("prezzoVendita", "<=", parseFloat(maxPrice));
+        }
+
+        const azioniSnapshot = await azioniQuery.get();
         const azioni = [];
         azioniSnapshot.forEach(doc => {
             azioni.push(doc.data());
@@ -394,13 +408,17 @@ app.get("/bacheca-azioni", async (req, res) => {
 
         res.render("bacheca-azioni", {
             azioni,
-            isAuthenticated: !!req.session.userEmail, // Controlla se l'utente è autenticato
+            search,
+            minPrice,
+            maxPrice,
+            isAuthenticated: !!req.session.userEmail,
         });
     } catch (error) {
         console.error("Errore durante il recupero delle azioni:", error);
         res.status(500).send("Errore interno del server.");
     }
 });
+
 
 
 // Porta di ascolto
