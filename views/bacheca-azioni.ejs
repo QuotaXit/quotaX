@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Bacheca Azioni</title>
+</head>
+<body>
+    <header>
+        <h1>Quotax</h1>
+        <%- include('menu') %>
+    </header>
+
+    <main>
+        <h2>Bacheca Azioni</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Società</th>
+                    <th>Numero Azioni</th>
+                    <th>Data Acquisto</th>
+                    <th>Valore Attuale</th>
+                    <th>Prezzo Vendita</th>
+                    <th>Società Quotata</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% azioni.forEach(azione => { %>
+                    <tr>
+                        <td><%= azione.nome %></td>
+                        <td><%= isAuthenticated ? azione.email : "Riservato" %></td>
+                        <td><%= azione.societa %></td>
+                        <td><%= azione.numeroAzioni %></td>
+                        <td><%= azione.dataAcquisto %></td>
+                        <td><%= azione.valoreAttuale %></td>
+                        <td><%= azione.prezzoVendita %></td>
+                        <td><%= azione.quotata %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

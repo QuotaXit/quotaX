@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Crea Annuncio Azioni</title>
+</head>
+<body>
+    <header>
+        <h1>Quotax</h1>
+        <%- include('menu') %>
+    </header>
+
+    <main>
+        <h2>Crea un Annuncio Azioni</h2>
+        <form action="/create-azioni" method="POST">
+            <!-- Modulo Utente -->
+            <fieldset>
+                <legend>Dati Utente</legend>
+                <label>Nome</label>
+                <input type="text" name="nome" placeholder="Inserisci il tuo nome" required>                
+                <label>E-mail</label>
+                <input type="email" name="email" value="<%= userEmail %>" readonly>
+            </fieldset>
+
+            <!-- Modulo Annuncio -->
+            <fieldset>
+                <legend>Dati Annuncio</legend>
+                <label>Società</label>
+                <input type="text" name="societa" required>
+                <label>Numero Azioni</label>
+                <input type="number" name="numeroAzioni" required>
+                <label>Data Acquisto</label>
+                <input type="date" name="dataAcquisto" required>
+                <label>Valore Attuale</label>
+                <input type="number" step="0.01" name="valoreAttuale" required>
+                <label>Prezzo Vendita</label>
+                <input type="number" step="0.01" name="prezzoVendita" required>
+                <label>Società Quotata</label>
+                <select name="quotata" required>
+                    <option value="">Seleziona...</option>
+                    <option value="Si">Si</option>
+                    <option value="No">No</option>
+                </select>                
+            </fieldset>
+
+            <button type="submit">Pubblica Annuncio</button>
+        </form>
+    </main>
+</body>
+</html>

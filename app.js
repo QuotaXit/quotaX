@@ -360,6 +360,47 @@ app.post("/user-profile", isAuthenticated, async (req, res) => {
     }
 });
 
+app.post("/create-azioni", async (req, res) => {
+    try {
+        const { nome, societa, numeroAzioni, dataAcquisto, valoreAttuale, prezzoVendita, quotata } = req.body;
+
+        const azioni = {
+            nome, // Nome inserito nel modulo
+            societa,
+            numeroAzioni: parseInt(numeroAzioni),
+            dataAcquisto,
+            valoreAttuale: parseFloat(valoreAttuale),
+            prezzoVendita: parseFloat(prezzoVendita),
+            quotata: quotata === "Si" ? "Si" : "No",
+            email: req.session.userEmail || "Riservato", // Email presa dalla sessione
+            createdAt: new Date().toISOString(),
+        };
+
+        await db.collection("azioni").add(azioni);
+        res.redirect("/bacheca-azioni");
+    } catch (error) {
+        console.error("Errore durante la creazione dell'annuncio azioni:", error);
+        res.status(500).send("Errore interno del server.");
+    }
+});
+
+app.get("/bacheca-azioni", async (req, res) => {
+    try {
+        const azioniSnapshot = await db.collection("azioni").get();
+        const azioni = [];
+        azioniSnapshot.forEach(doc => {
+            azioni.push(doc.data());
+        });
+
+        res.render("bacheca-azioni", {
+            azioni,
+            isAuthenticated: !!req.session.userEmail, // Controlla se l'utente è autenticato
+        });
+    } catch (error) {
+        console.error("Errore durante il recupero delle azioni:", error);
+        res.status(500).send("Errore interno del server.");
+    }
+});
 
 
 // Porta di ascolto
