@@ -205,7 +205,7 @@ app.get("/crowdfunding", (req, res) => {
 });
 
 app.post("/delete-announcement", isAuthenticated, async (req, res) => {
-    const { id } = req.body;
+    const { id, isAzione } = req.body;
 
     if (!id) {
         console.error("Errore: ID non fornito.");
@@ -213,15 +213,19 @@ app.post("/delete-announcement", isAuthenticated, async (req, res) => {
     }
 
     try {
-        // Elimina il documento con l'ID specifico dalla collezione "announcements"
-        await db.collection("announcements").doc(id).delete();
-        console.log(`Annuncio con ID ${id} eliminato con successo.`);
+        // Determina la collezione da cui eliminare l'annuncio
+        const collection = isAzione === "true" ? "azioni" : "announcements";
+
+        // Elimina il documento con l'ID specifico dalla collezione
+        await db.collection(collection).doc(id).delete();
+        console.log(`Annuncio con ID ${id} eliminato con successo dalla collezione ${collection}.`);
         res.redirect("/user-announcements");
     } catch (error) {
         console.error("Errore durante l'eliminazione dell'annuncio:", error);
         res.status(500).send("Errore durante l'eliminazione dell'annuncio.");
     }
 });
+
 
 
 
