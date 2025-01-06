@@ -133,8 +133,6 @@ app.post("/create", async (req, res) => {
     try {
         const { societa, dataAcquisto, prezzoAcquisto, valoreAttuale, prezzoVendita, rubricazione } = req.body;
 
-        console.log("Rubricazione ricevuta dal modulo:", rubricazione);
-
         const announcement = {
             societa,
             dataAcquisto,
@@ -142,8 +140,8 @@ app.post("/create", async (req, res) => {
             valoreAttuale: parseFloat(valoreAttuale),
             prezzoVendita: parseFloat(prezzoVendita),
             rubricazione: rubricazione === "Si" ? "Si" : "No",
-            nome: req.session.user?.name || "Anonimo", // Cambia "Anonimo" in "Utente"
             email: req.session.userEmail || "Riservato",
+            nome: req.session.user?.name || "Anonimo", // Sempre un nome disponibile
             createdAt: new Date().toISOString(),
         };
 
