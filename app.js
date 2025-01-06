@@ -101,7 +101,7 @@ app.post("/user-login", async (req, res) => {
         req.session.user = { 
             id: user.uid, 
             email: email, 
-            name: user.displayName || "Anonimo" // Usa il nome dell'utente o "Anonimo" come fallback
+            name: user.displayName || "nome utente"
         };
         req.session.userEmail = email;
         req.session.userLoggedIn = true;
