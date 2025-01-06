@@ -259,7 +259,7 @@ app.get("/user-profile", isAuthenticated, (req, res) => {
   });
   
   // Rotta per modificare gli annunci
-  aapp.get("/user-announcements", isAuthenticated, async (req, res) => {
+  app.get("/user-announcements", isAuthenticated, async (req, res) => {
     const userEmail = req.session.userEmail;
 
     if (!userEmail) {
