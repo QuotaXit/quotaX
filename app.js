@@ -131,9 +131,10 @@ app.get("/create", isAuthenticated, (req, res) => {
 
 app.post("/create", async (req, res) => {
     try {
-        const { societa, dataAcquisto, prezzoAcquisto, valoreAttuale, prezzoVendita, rubricazione } = req.body;
+        const { nome, societa, dataAcquisto, prezzoAcquisto, valoreAttuale, prezzoVendita, rubricazione } = req.body;
 
         const announcement = {
+            nome: nome || req.session.user?.name || "Anonimo", // Nome dal modulo o dalla sessione
             societa,
             dataAcquisto,
             prezzoAcquisto: parseFloat(prezzoAcquisto),
@@ -141,7 +142,6 @@ app.post("/create", async (req, res) => {
             prezzoVendita: parseFloat(prezzoVendita),
             rubricazione: rubricazione === "Si" ? "Si" : "No",
             email: req.session.userEmail || "Riservato",
-            nome: req.session.user?.name || "Anonimo", // Sempre un nome disponibile
             createdAt: new Date().toISOString(),
         };
 
@@ -152,6 +152,7 @@ app.post("/create", async (req, res) => {
         res.status(500).send("Errore interno del server.");
     }
 });
+
 
 
 // Rotta per "Vedi Annunci"
