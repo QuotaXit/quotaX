@@ -380,6 +380,31 @@ table td {
     text-align: left;
 }
 
+nav ul {
+    list-style: none; /* Rimuove i puntini dall'elenco */
+    padding: 0;
+    margin: 0;
+    display: flex; /* Dispone gli elementi in orizzontale */
+    justify-content: center; /* Centra gli elementi */
+    align-items: center; /* Centra verticalmente */
+    gap: 1rem; /* Spaziatura tra gli elementi */
+}
+
+nav ul li {
+    margin: 0; /* Elimina margini superflui */
+}
+
+nav ul li a {
+    text-decoration: none; /* Rimuove la sottolineatura */
+    color: white; /* Colore del testo */
+    font-size: 1rem; /* Dimensione del testo */
+    font-weight: bold; /* Testo in grassetto */
+}
+
+nav ul li a:hover {
+    color: #ffcc00; /* Colore del testo al passaggio del mouse */
+}
+
 
 /* Stile per la tabella */
 table {
