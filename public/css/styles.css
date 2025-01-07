@@ -452,3 +452,43 @@ table th {
     color: #555;
     line-height: 1.5;
 }
+
+/* Stili generali per schermi piccoli */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column; /* Dispone il menu in verticale */
+        align-items: flex-start; /* Allinea gli elementi a sinistra */
+        padding-left: 1rem; /* Aggiunge spaziatura */
+    }
+
+    nav ul li {
+        margin-bottom: 1rem; /* Spaziatura tra i link del menu */
+    }
+
+    .info-section {
+        flex-direction: column; /* Cambia disposizione da orizzontale a verticale */
+        gap: 1rem;
+    }
+
+    .image-container img {
+        width: 100%; /* L'immagine occupa tutto lo schermo */
+    }
+
+    .annunci-table, table {
+        display: block; /* Abilita lo scrolling orizzontale */
+        overflow-x: auto;
+    }
+
+    .annunci-table th, .annunci-table td {
+        white-space: nowrap; /* Evita che il testo vada a capo */
+    }
+
+    main, footer {
+        padding: 1rem; /* Riduce il padding per schermi piccoli */
+    }
+
+    header {
+        padding: 1rem;
+        text-align: center; /* Centra il testo */
+    }
+}
