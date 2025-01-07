@@ -424,6 +424,27 @@ table th {
     color: #fff;
 }
 
+/* Stile per tabelle responsivo */
+.table-responsive {
+    display: block;
+    overflow-x: auto; /* Abilita lo scrolling orizzontale */
+    white-space: nowrap; /* Evita il wrapping del testo */
+}
+
+.table-responsive table {
+    width: 100%; /* La tabella occupa l'intera larghezza disponibile */
+    margin-bottom: 1rem;
+    border-collapse: collapse;
+}
+
+.table-responsive th,
+.table-responsive td {
+    padding: 0.8rem;
+    text-align: left;
+    border: 1px solid #ddd; /* Bordo sottile per separare le celle */
+}
+
+
 .extra-section {
     display: flex;
     align-items: center;
