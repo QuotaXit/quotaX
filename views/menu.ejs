@@ -1,6 +1,6 @@
 <nav>
     <a href="/">Home</a>
-    <a href="/view">Vedi Annunci</a> <!-- Sempre visibile -->
+    <a href="/view">Bacheca quote</a> <!-- Sempre visibile -->
     <% if (user) { %> <!-- Mostra solo per utenti loggati -->
         <a href="/user-dashboard">Dashboard</a>
         <a href="/create">Crea Annuncio</a>
@@ -11,6 +11,5 @@
         <a href="/register">Registrati</a>
     <% } %>
     <a href="/bacheca-azioni">Bacheca Azioni</a> <!-- Nuovo link sempre visibile -->
-    <a href="/warnings">Avvertenze</a> <!-- Sempre visibile -->
     <a href="/crowdfunding">CrowdFunding</a>
 </nav>

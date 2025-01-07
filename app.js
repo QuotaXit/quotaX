@@ -245,6 +245,11 @@ app.get("/warnings", (req, res) => {
   res.render("warnings");
 });
 
+app.get('/come-funziona', (req, res) => {
+    res.render('come-funziona'); // Usa il file come-funziona.ejs
+});
+
+
 
 // Rotta per la home
 app.get("/", async (req, res) => {
