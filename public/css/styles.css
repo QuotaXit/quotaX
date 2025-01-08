@@ -77,8 +77,9 @@ nav a:hover {
 }
 
 #menu.hidden {
-    display: none;
+    display: none; /* Nasconde il menu */
 }
+
 
 /* Responsività */
 @media (max-width: 768px) {
