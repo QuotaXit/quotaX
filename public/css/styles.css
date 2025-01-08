@@ -61,19 +61,40 @@ nav a:hover {
     top: 10px;
     right: 10px;
     z-index: 10;
+    list-style: none; /* Rimuove i puntini accanto agli elementi */
 }
 
+#menu ul {
+    margin: 0; /* Rimuove margini */
+    padding: 0; /* Rimuove padding */
+}
+
+#menu ul li {
+    margin-bottom: 15px; /* Spaziatura tra i link */
+}
+
+#menu ul li a {
+    text-decoration: none; /* Rimuove sottolineatura */
+    color: black; /* Colore del testo */
+    font-size: 18px; /* Dimensione testo più grande */
+    font-weight: bold; /* Testo in grassetto */
+}
+
+
+/* Menu mobile: Sfondo bianco e scritte nere */
 #menu {
     display: none; /* Nascosto di default */
-    flex-direction: column;
-    background-color: #333;
-    color: white;
+    flex-direction: column; /* Colonne per gli elementi del menu */
+    background-color: white; /* Sfondo bianco */
+    color: black; /* Scritte nere */
     position: absolute;
     top: 60px;
     left: 0;
     width: 100%;
-    padding: 10px 0;
+    padding: 20px 0; /* Spaziatura verticale */
     z-index: 9;
+    text-align: center;
+
 }
 
 #menu.hidden {
