@@ -1,18 +1,17 @@
-console.log("menu.js caricato.");
-
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOM completamente caricato.");
     const menuToggle = document.getElementById('menu-toggle');
     const menu = document.getElementById('menu');
 
     if (!menuToggle || !menu) {
-        console.error("Errore: pulsante hamburger (#menu-toggle) o menu mobile (#menu) non trovati.");
+        console.error("Errore: Pulsante hamburger (#menu-toggle) o menu mobile (#menu) non trovato.");
         return;
     }
 
-    console.log("Elementi trovati correttamente.");
+    console.log("Pulsante e menu trovati.");
+
     menuToggle.addEventListener('click', () => {
         console.log("Pulsante hamburger cliccato.");
         menu.classList.toggle('hidden');
+        console.log("Stato del menu:", menu.classList.contains('hidden') ? "Nascosto" : "Visibile");
     });
 });
