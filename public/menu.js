@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (menuToggle && menu) {
         menuToggle.addEventListener('click', () => {
-            menu.classList.toggle('hidden'); // Mostra o nasconde il menu
+            menu.classList.toggle('hidden'); // Mostra o nasconde il menu mobile
         });
     } else {
         console.error("Menu toggle o menu non trovati.");
