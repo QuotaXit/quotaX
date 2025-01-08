@@ -63,20 +63,21 @@ nav a:hover {
     z-index: 10;
 }
 
+/* Menu mobile nascosto di default */
 #menu {
-    display: none; /* Nascosto di default */
+    display: none; /* Nascondi di default */
     flex-direction: column; /* Colonne per gli elementi del menu */
     background-color: white; /* Sfondo bianco */
-    color: black; /* Scritte nere */
+    color: black; /* Testo nero */
     position: absolute;
     top: 60px;
     left: 0;
     width: 100%;
-    padding: 20px 0; /* Spaziatura verticale */
+    padding: 20px 0;
     z-index: 9;
     text-align: center;
-    list-style: none; /* Rimuove i puntini */
-    transition: all 0.3s ease-in-out; /* Aggiunge una transizione fluida */
+    list-style: none; /* Rimuovi i puntini */
+    transition: all 0.3s ease-in-out; /* Aggiungi transizione fluida */
 }
 
 #menu ul {
@@ -84,32 +85,35 @@ nav a:hover {
     padding: 0; /* Rimuove padding */
 }
 
+/* Modifica del menu mobile */
 #menu ul li {
     margin-bottom: 15px; /* Spaziatura tra i link */
 }
 
 #menu ul li a {
-    text-decoration: none; /* Rimuove sottolineatura */
+    text-decoration: none; /* Rimuovi sottolineatura */
     color: black; /* Colore del testo */
-    font-size: 18px; /* Dimensione testo più grande */
+    font-size: 18px; /* Testo più grande */
     font-weight: bold; /* Testo in grassetto */
 }
+
 
 /* Nasconde il menu quando ha la classe 'hidden' */
 #menu.hidden {
     display: none !important; /* Nasconde il menu */
 }
 
-/* Responsività */
+/* Responsività per dispositivi mobili */
 @media (max-width: 768px) {
     .hamburger {
         display: block; /* Mostra il pulsante hamburger */
     }
 
     .desktop-menu {
-        display: none; /* Nasconde il menu desktop */
+        display: none; /* Nascondi il menu desktop */
     }
 }
+
 
 /* Sezioni e Tabelle */
 main {
