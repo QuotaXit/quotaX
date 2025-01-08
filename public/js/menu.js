@@ -10,8 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("Pulsante e menu trovati.");
 
     menuToggle.addEventListener('click', () => {
-        console.log("Pulsante hamburger cliccato.");
         menu.classList.toggle('hidden');
-        console.log("Stato del menu:", menu.classList.contains('hidden') ? "Nascosto" : "Visibile");
+        console.log("Classe 'hidden' applicata?", menu.classList.contains('hidden'));
     });
 });
