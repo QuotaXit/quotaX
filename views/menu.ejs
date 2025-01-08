@@ -1,21 +1,19 @@
-<!-- Pulsante hamburger per dispositivi mobili -->
 <button id="menu-toggle" class="hamburger">☰</button>
-
-<!-- Menu principale (desktop e mobile) -->
-<nav>  
-    <a href="/">Home</a>
-    <a href="/view">Bacheca quote</a> <!-- Sempre visibile -->
-    <% if (user) { %> <!-- Mostra solo per utenti loggati -->
-        <a href="/user-dashboard">Dashboard</a>
-        <a href="/create">Crea Annuncio</a>
-        <a href="/create-azioni">Crea Ann. Azioni</a> <!-- Nuovo link per utenti loggati -->
-        <a href="/logout">Logout</a>
-    <% } else { %> <!-- Mostra solo per utenti non loggati -->
-        <a href="/user-login">Accedi</a>
-        <a href="/register">Registrati</a>
-    <% } %>
-    <a href="/bacheca-azioni">Bacheca Azioni</a> <!-- Nuovo link sempre visibile -->
-    <a href="/crowdfunding">CrowdFunding</a>
+<nav id="menu" class="hidden"> <!-- Aggiunto l'ID -->
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/view">Bacheca quote</a></li>
+        <% if (user) { %>
+            <li><a href="/user-dashboard">Dashboard</a></li>
+            <li><a href="/create">Crea Annuncio</a></li>
+            <li><a href="/create-azioni">Crea Ann. Azioni</a></li>
+            <li><a href="/logout">Logout</a></li>
+        <% } else { %>
+            <li><a href="/user-login">Accedi</a></li>
+            <li><a href="/register">Registrati</a></li>
+        <% } %>
+        <li><a href="/bacheca-azioni">Bacheca Azioni</a></li>
+        <li><a href="/crowdfunding">CrowdFunding</a></li>
+    </ul>
 </nav>
 <script src="/js/menu.js"></script>
-
