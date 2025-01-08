@@ -28,7 +28,14 @@ const db = admin.firestore();
 // Configurazione di Express
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static("public", {
+    setHeaders: (res, path) => {
+        if (path.endsWith(".js")) {
+            res.setHeader("Content-Type", "application/javascript");
+        }
+    }
+}));
+
 
 // Configurazione della sessione
 app.use(
@@ -194,15 +201,14 @@ app.get("/view", async (req, res) => {
 
 
 
-app.get("/crowdfunding", (req, res) => {
-    res.render("crowdfunding");
-});
 
-  
+
+
 
 app.get("/crowdfunding", (req, res) => {
   res.render("crowdfunding");
 });
+
 
 app.post("/delete-announcement", isAuthenticated, async (req, res) => {
     const { id, isAzione } = req.body;
