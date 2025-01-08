@@ -61,7 +61,22 @@ nav a:hover {
     top: 10px;
     right: 10px;
     z-index: 10;
-    list-style: none; /* Rimuove i puntini accanto agli elementi */
+}
+
+#menu {
+    display: none; /* Nascosto di default */
+    flex-direction: column; /* Colonne per gli elementi del menu */
+    background-color: white; /* Sfondo bianco */
+    color: black; /* Scritte nere */
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    padding: 20px 0; /* Spaziatura verticale */
+    z-index: 9;
+    text-align: center;
+    list-style: none; /* Rimuove i puntini */
+    transition: all 0.3s ease-in-out; /* Aggiunge una transizione fluida */
 }
 
 #menu ul {
@@ -80,43 +95,21 @@ nav a:hover {
     font-weight: bold; /* Testo in grassetto */
 }
 
-
-/* Menu mobile: Sfondo bianco e scritte nere */
-#menu {
-    display: none; /* Nascosto di default */
-    flex-direction: column; /* Colonne per gli elementi del menu */
-    background-color: white; /* Sfondo bianco */
-    color: black; /* Scritte nere */
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    padding: 20px 0; /* Spaziatura verticale */
-    z-index: 9;
-    text-align: center;
-
-}
-
+/* Nasconde il menu quando ha la classe 'hidden' */
 #menu.hidden {
-    display: none; /* Nasconde il menu */
+    display: none !important; /* Nasconde il menu */
 }
-
 
 /* Responsività */
 @media (max-width: 768px) {
     .hamburger {
-        display: block;
+        display: block; /* Mostra il pulsante hamburger */
     }
 
     .desktop-menu {
-        display: none;
-    }
-
-    #menu {
-        display: flex;
+        display: none; /* Nasconde il menu desktop */
     }
 }
-
 
 /* Sezioni e Tabelle */
 main {
@@ -165,19 +158,4 @@ footer a {
 
 footer a:hover {
     text-decoration: underline;
-}
-
-/* Responsività */
-@media (max-width: 768px) {
-    .hamburger {
-        display: block;
-    }
-
-    .desktop-menu {
-        display: none;
-    }
-
-    #menu {
-        display: flex;
-    }
 }
