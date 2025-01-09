@@ -23,6 +23,14 @@ nav a:hover {
     text-decoration: underline;
 }
 
+.image-container img {
+    max-width: 100%; /* L'immagine non supererà mai la larghezza del contenitore */
+    height: auto; /* Mantiene le proporzioni */
+    display: block; /* Evita spazi extra */
+    margin: 0 auto; /* Centra l'immagine */
+}
+
+
 /* Menu Desktop */
 .desktop-menu {
     display: flex;
