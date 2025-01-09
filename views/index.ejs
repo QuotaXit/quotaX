@@ -13,51 +13,86 @@
         <!-- Pulsante Hamburger per Mobile -->
         <button id="menu-toggle" class="hamburger">☰</button>
 
-        
+        <!-- Menu Desktop -->
+        <nav class="desktop-menu">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/view">Bacheca quote</a></li>
+                <% if (user) { %>
+                    <li><a href="/user-dashboard">Dashboard</a></li>
+                    <li><a href="/create">Crea Annuncio</a></li>
+                    <li><a href="/create-azioni">Crea Ann. Azioni</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                <% } else { %>
+                    <li><a href="/user-login">Accedi</a></li>
+                    <li><a href="/register">Registrati</a></li>
+                <% } %>
+                <li><a href="/bacheca-azioni">Bacheca Azioni</a></li>
+                <li><a href="/crowdfunding">CrowdFunding</a></li>
+            </ul>
+        </nav>
 
-<!-- Menu Desktop -->
-<nav class="desktop-menu">
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/view">Bacheca quote</a></li>
-        <% if (user) { %>
-            <li><a href="/user-dashboard">Dashboard</a></li>
-            <li><a href="/create">Crea Annuncio</a></li>
-            <li><a href="/create-azioni">Crea Ann. Azioni</a></li>
-            <li><a href="/logout">Logout</a></li>
-        <% } else { %>
-            <li><a href="/user-login">Accedi</a></li>
-            <li><a href="/register">Registrati</a></li>
-        <% } %>
-        <li><a href="/bacheca-azioni">Bacheca Azioni</a></li>
-        <li><a href="/crowdfunding">CrowdFunding</a></li>
-    </ul>
-</nav>
-
-<!-- Menu Mobile -->
-<nav id="menu" class="hidden">
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/view">Bacheca quote</a></li>
-        <% if (user) { %>
-            <li><a href="/user-dashboard">Dashboard</a></li>
-            <li><a href="/create">Crea Annuncio</a></li>
-            <li><a href="/create-azioni">Crea Ann. Azioni</a></li>
-            <li><a href="/logout">Logout</a></li>
-        <% } else { %>
-            <li><a href="/user-login">Accedi</a></li>
-            <li><a href="/register">Registrati</a></li>
-        <% } %>
-        <li><a href="/bacheca-azioni">Bacheca Azioni</a></li>
-        <li><a href="/crowdfunding">CrowdFunding</a></li>
-    </ul>
-</nav>
-
+        <!-- Menu Mobile -->
+        <nav id="menu" class="hidden">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/view">Bacheca quote</a></li>
+                <% if (user) { %>
+                    <li><a href="/user-dashboard">Dashboard</a></li>
+                    <li><a href="/create">Crea Annuncio</a></li>
+                    <li><a href="/create-azioni">Crea Ann. Azioni</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                <% } else { %>
+                    <li><a href="/user-login">Accedi</a></li>
+                    <li><a href="/register">Registrati</a></li>
+                <% } %>
+                <li><a href="/bacheca-azioni">Bacheca Azioni</a></li>
+                <li><a href="/crowdfunding">CrowdFunding</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main>
-        <!-- Sezione Ultimi Annunci -->
-        <h2>Ultimi Annunci</h2>
+        <!-- Titolo Principale -->
+        <section>
+            <h2>quotaX, lo scambio di quote e azioni societarie semplice e sicuro</h2>
+            <img src="/images/quotaxit.jpg" alt="quotaX" class="main-image">
+        </section>
+
+        <!-- Sezione Perché usare Quotax -->
+        <section class="info-section">
+            <h2>Perché usare quotaX?</h2>
+            <p>quotaX è la piattaforma ideale per comprare e vendere partecipazioni societarie. È gratuita, facile da usare e aperta a tutti.</p>
+            <h3>Vantaggi principali:</h3>
+            <ul>
+                <li><b>100% gratuito:</b> Pubblica annunci senza costi.</li>
+                <li><b>Accessibile:</b> Un'interfaccia semplice per creare e visualizzare annunci.</li>
+                <li><b>Affidabile:</b> Tutte le informazioni sugli annunci sono visibili agli utenti, facilitando la comunicazione tra venditori e acquirenti.</li>
+            </ul>
+        </section>
+
+        <!-- Sezione Un'opportunità per tutti -->
+        <section class="why-description">
+            <h4>Un'opportunità per tutti</h4>
+            <p>
+                quotaX è pensato per semplificare il processo di compravendita di partecipazioni societarie, rendendolo trasparente e accessibile. 
+                Con Quotax, puoi comunicare direttamente con altri utenti per trattare e finalizzare accordi. 
+                Grazie alla nostra piattaforma, è possibile ottenere una panoramica completa delle partecipazioni disponibili messe in vendita dagli utenti sul mercato. La nostra missione è creare una community affidabile e innovativa, dove venditori e acquirenti 
+                possano interagire in un ambiente sicuro e supportato da regole chiare.
+            </p>
+            <p>
+                Che tu sia un piccolo investitore o un imprenditore esperto, quotaX ti offre una piattaforma su misura per soddisfare le tue esigenze. 
+                Unisciti a noi e scopri quanto è facile vendere o trovare nuove opportunità con quotaX!
+            </p>
+        </section>
+
+        <!-- Linea di separazione -->
+        <hr class="divider">
+
+        <!-- Titolo Bacheca quote e azioni -->
+        <h2>Bacheca quote e azioni</h2>
+
+        <!-- Tabella Annunci -->
         <table class="annunci-table">
             <thead>
                 <tr>
@@ -78,40 +113,6 @@
                 <% }) %>
             </tbody>
         </table>
-
-        <!-- Sezione Perché usare Quotax -->
-        <div class="info-section">
-            <div class="image-container">
-                <img src="/images/example.jpg" alt="QuotaX">
-            </div>
-            <div class="text-container">
-                <h2>Perché usare quotaX?</h2>
-                <p>quotaX è la piattaforma ideale per comprare e vendere partecipazioni societarie. È gratuita, facile da usare e aperta a tutti.</p>
-                <h3>Vantaggi principali:</h3>
-                <ul>
-                    <li><b>100% gratuito:</b> Pubblica annunci senza costi.</li>
-                    <li><b>Accessibile:</b> Un'interfaccia semplice per creare e visualizzare annunci.</li>
-                    <li><b>Affidabile:</b> Tutte le informazioni sugli annunci sono visibili agli utenti, facilitando la comunicazione tra venditori e acquirenti.</li>
-                </ul>
-            </div>
-        </div>
-        
-        <hr class="divider">
-
-        <!-- Nuova Didascalia Aggiunta Sotto -->
-        <section class="why-description">
-            <h4>Un'opportunità per tutti</h4>
-            <p>
-                quotaX è pensato per semplificare il processo di compravendita di partecipazioni societarie, rendendolo trasparente e accessibile. 
-                Con Quotax, puoi comunicare direttamente con altri utenti per trattare e finalizzare accordi. 
-                Grazie alla nostra piattaforma, è possibile ottenere una panoramica completa delle partecipazioni disponibili messe in vendita dagli utenti sul mercato. La nostra missione è creare una community affidabile e innovativa, dove venditori e acquirenti 
-                possano interagire in un ambiente sicuro e supportato da regole chiare.
-            </p>
-            <p>
-                Che tu sia un piccolo investitore o un imprenditore esperto, quotaX ti offre una piattaforma su misura per soddisfare le tue esigenze. 
-                Unisciti a noi e scopri quanto è facile vendere o trovare nuove opportunità con quotaX!
-            </p>
-        </section>
     </main>
 
     <footer>
@@ -121,6 +122,7 @@
         <script src="/js/menu.js"></script>
     </footer>
 
-    
+
 </body>
 </html>
+
