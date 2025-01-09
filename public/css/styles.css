@@ -98,10 +98,7 @@ nav a:hover {
 }
 
 
-/* Nasconde il menu quando ha la classe 'hidden' */
-#menu.hidden {
-    display: none !important; /* Nasconde il menu */
-}
+
 
 /* Responsività per dispositivi mobili */
 @media (max-width: 768px) {
