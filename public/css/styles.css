@@ -52,64 +52,73 @@ nav a:hover {
 
 /* Menu Mobile */
 .hamburger {
-    display: none; /* Nascondi di default */
-    position: fixed;
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
     top: 10px;
     right: 10px;
     z-index: 10;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-
-#menu {
-    position: fixed;
-    top: 60px; /* Lascia spazio per il pulsante hamburger */
-    right: 0;
-    width: 50%; /* Menu mobile largo metà schermo */
-    height: 100%;
-    padding: 20px;
-    background-color: white;
-    z-index: 9;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombra */
-    text-align: right;
-    transform: translateX(100%); /* Nasconde inizialmente il menu */
-    transition: transform 0.3s ease-in-out;
+    list-style: none; /* Rimuove i puntini accanto agli elementi */
 }
 
 #menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    margin: 0; /* Rimuove margini */
+    padding: 0; /* Rimuove padding */
 }
 
 #menu ul li {
-    margin-bottom: 15px;
+    margin-bottom: 15px; /* Spaziatura tra i link */
 }
 
 #menu ul li a {
-    text-decoration: none;
-    color: black;
-    font-size: 18px;
-    font-weight: bold;
+    text-decoration: none; /* Rimuove sottolineatura */
+    color: black; /* Colore del testo */
+    font-size: 18px; /* Dimensione testo più grande */
+    font-weight: bold; /* Testo in grassetto */
+}
+
+
+/* Menu mobile: Sfondo bianco e scritte nere */
+.hamburger {
+    position: fixed; /* Mantieni il pulsante sempre visibile */
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+}
+
+#menu {
+    position: fixed; /* Posiziona il menu mobile in modo fisso */
+    top: 60px; /* Lascia spazio per il pulsante */
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+    background-color: white;
+    z-index: 9;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Aggiungi ombra per separarlo dal contenuto */
+}
+
+header {
+    padding-top: 60px; /* Evita che il menu mobile si sovrapponga al titolo */
 }
 
 
 #menu.hidden {
-    transform: translateX(100%);
+    display: none; /* Nasconde il menu */
 }
 
 
 /* Responsività */
 @media (max-width: 768px) {
     .hamburger {
-        display: block; /* Mostra il pulsante hamburger */
+        display: block;
     }
 
     .desktop-menu {
-        display: none; /* Nasconde il menu desktop */
+        display: none;
     }
 
     #menu {
@@ -165,4 +174,19 @@ footer a {
 
 footer a:hover {
     text-decoration: underline;
+}
+
+/* Responsività */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .desktop-menu {
+        display: none;
+    }
+
+    #menu {
+        display: flex;
+    }
 }
