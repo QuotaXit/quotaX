@@ -101,26 +101,21 @@ nav a:hover {
 }
 
 
+/* Responsività */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
 
-/* Menu mobile: Sfondo bianco e scritte nere */
-.hamburger {
-    position: fixed; /* Mantieni il pulsante sempre visibile */
-    top: 10px;
-    right: 10px;
-    z-index: 10;
+    .desktop-menu {
+        display: none;
+    }
+
+    #menu {
+        display: flex;
+    }
 }
 
-#menu {
-    position: fixed; /* Posiziona il menu mobile in modo fisso */
-    top: 60px; /* Lascia spazio per il pulsante */
-    left: 0;
-    width: 100%;
-    padding: 20px 0;
-    background-color: white;
-    z-index: 9;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Aggiungi ombra per separarlo dal contenuto */
-}
 
 #menu {
     transition: transform 0.3s ease-in-out;
