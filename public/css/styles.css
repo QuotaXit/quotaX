@@ -63,9 +63,25 @@ nav a:hover {
 
 }
 
+#menu {
+    position: fixed; /* Posiziona il menu mobile in modo fisso */
+    top: 60px; /* Lascia spazio per il pulsante hamburger */
+    right: 0; /* Allinea il menu a destra */
+    width: 50%; /* Il menu occupa metà della larghezza dello schermo */
+    height: 100%; /* Il menu occupa l'intera altezza dello schermo */
+    padding: 20px; /* Spaziatura interna per i contenuti */
+    background-color: white; /* Sfondo bianco */
+    z-index: 9; /* Sovrapposizione sugli altri elementi */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Aggiungi ombra */
+    text-align: left; /* Testo allineato a sinistra per leggibilità */
+    transition: transform 0.3s ease-in-out; /* Transizione fluida per apertura/chiusura */
+}
+
 #menu ul {
-    margin: 0; /* Rimuove margini */
-    padding: 0; /* Rimuove padding */
+    list-style: none; /* Rimuove i puntini */
+    padding: 0;
+    margin: 0;
+    text-align: right; /* Allinea il testo a destra */
 }
 
 #menu ul li {
@@ -73,9 +89,9 @@ nav a:hover {
 }
 
 #menu ul li a {
-    text-decoration: none; /* Rimuove sottolineatura */
-    color: black; /* Colore del testo */
-    font-size: 18px; /* Dimensione testo più grande */
+    text-decoration: none; /* Rimuove la sottolineatura */
+    color: black; /* Testo nero */
+    font-size: 18px; /* Testo più grande */
     font-weight: bold; /* Testo in grassetto */
 }
 
