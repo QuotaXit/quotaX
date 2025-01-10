@@ -199,7 +199,41 @@ app.get("/view", async (req, res) => {
     }
 });
 
+app.get("/user-messages", isAuthenticated, async (req, res) => {
+    try {
+        const userEmail = req.session.userEmail;
+        const messagesSnapshot = await db.collection("messages").where("sender", "==", userEmail).get();
 
+        const messages = [];
+        messagesSnapshot.forEach(doc => messages.push(doc.data()));
+
+        res.render("user-messages", { messages });
+    } catch (error) {
+        console.error("Errore durante il recupero dei messaggi:", error);
+        res.status(500).send("Errore interno del server.");
+    }
+});
+
+
+app.post("/send-message", isAuthenticated, async (req, res) => {
+    const { announcementId, message } = req.body;
+    const senderEmail = req.session.userEmail;
+
+    try {
+        const messageData = {
+            announcementId,
+            sender: senderEmail,
+            message,
+            createdAt: new Date().toISOString(),
+        };
+
+        await db.collection("messages").add(messageData);
+        res.redirect("/view");
+    } catch (error) {
+        console.error("Errore durante l'invio del messaggio:", error);
+        res.status(500).send("Errore durante l'invio del messaggio.");
+    }
+});
 
 
 

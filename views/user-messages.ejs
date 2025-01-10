@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <title>Messaggi</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Messaggi</h1>
+    </header>
+    <main>
+        <table class="annunci-table">
+            <thead>
+                <tr>
+                    <th>Annuncio</th>
+                    <th>Mittente</th>
+                    <th>Messaggio</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% messages.forEach(m => { %>
+                    <tr>
+                        <td><%= m.announcementId %></td>
+                        <td><%= m.sender %></td>
+                        <td><%= m.message %></td>
+                        <td><%= new Date(m.createdAt).toLocaleString() %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

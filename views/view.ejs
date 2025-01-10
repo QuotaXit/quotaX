@@ -75,6 +75,7 @@
                     <th>Prezzo Acquisto</th>
                     <th>Valore Attuale</th>
                     <th>Prezzo Vendita</th>
+                    <th>Messaggi</th>
                 </tr>
             </thead>
             <tbody>
@@ -91,10 +92,22 @@
                         <td><%= announcement.prezzoAcquisto %></td>
                         <td><%= announcement.valoreAttuale %></td>
                         <td><%= announcement.prezzoVendita %></td>
+                        <td>
+                            <button class="message-icon" data-announcement-id="<%= a.id %>">
+                                <img src="/icons/message.png" alt="Messaggio" />
+                            </button>
+                        </td>
                     </tr>
                 <% }) %>
             </tbody>                      
-        </table>        
+        </table>      
+        <div id="message-modal" class="hidden">
+            <form action="/send-message" method="POST">
+                <input type="hidden" name="announcementId" id="announcementId">
+                <textarea name="message" placeholder="Scrivi il tuo messaggio..." required></textarea>
+                <button type="submit">Invia</button>
+            </form>
+        </div>
     </main>
     <footer>
         <p>&copy; 2025 quotaX. Tutti i diritti sono riservati.</p>
