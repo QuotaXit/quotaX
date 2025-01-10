@@ -192,6 +192,138 @@ main {
 
 .hidden {
     display: none;
+
+/* Stile specifico per Bacheca Quote */
+.bacheca-quote-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    text-align: center;
+    font-size: 16px;
+}
+
+.bacheca-quote-table th, .bacheca-quote-table td {
+    border: 1px solid #ccc;
+    padding: 1rem;
+}
+
+.bacheca-quote-table th {
+    background-color: #444;
+    color: white;
+}
+
+.bacheca-quote-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Stile specifico per Bacheca Annunci */
+.bacheca-annunci-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    text-align: center;
+    font-size: 16px;
+}
+
+.bacheca-annunci-table th, .bacheca-annunci-table td {
+    border: 1px solid #ddd;
+    padding: 1rem;
+}
+
+.bacheca-annunci-table th {
+    background-color: #0056b3;
+    color: white;
+}
+
+.bacheca-annunci-table tr:nth-child(even) {
+    background-color: #e9ecef;
+}
+
+
+/* Stile specifico per la Dashboard */
+.dashboard-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-container h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.dashboard-container .options {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.dashboard-container .options a {
+    background-color: #007bff;
+    color: white;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.dashboard-container .options a:hover {
+    background-color: #0056b3;
+}
+
+
+/* Stile per Moduli di Login e Registrazione */
+.auth-container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.auth-container h1 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.auth-container form input[type="text"],
+.auth-container form input[type="password"],
+.auth-container form input[type="email"] {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.auth-container form button {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.auth-container form button:hover {
+    background-color: #0056b3;
+}
+
+
+
+
 }/* Footer */
 footer {
     background-color: #333;
