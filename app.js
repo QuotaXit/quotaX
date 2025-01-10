@@ -184,9 +184,9 @@ app.get("/view", async (req, res) => {
         const announcementsSnapshot = await announcementsQuery.get();
         const announcements = [];
         announcementsSnapshot.forEach((doc) => {
-            announcements.push(doc.data());
-        });
-
+            announcements.push({ id: doc.id, ...doc.data() });
+        });        
+        
         res.render("view", {
             announcements,
             search,
