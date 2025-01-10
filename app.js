@@ -138,6 +138,7 @@ app.get("/create", isAuthenticated, (req, res) => {
 
 app.post("/create", async (req, res) => {
     try {
+        console.log("Dati ricevuti dal modulo:", req.body);
         const { nome, societa, dataAcquisto, prezzoAcquisto, valoreAttuale, prezzoVendita, rubricazione } = req.body;
 
         // Salva l'annuncio con il nome inserito nel modulo
