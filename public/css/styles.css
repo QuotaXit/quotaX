@@ -92,11 +92,15 @@ img {
     padding: 0 20px; /* Aggiunge un po' di spazio ai lati */
 }
 
+/* Regola specifica per le immagini nella sezione della home */
 .info-section img {
-    max-width: 90%; /* Le immagini occupano il 90% del contenitore */
-    margin: 20px auto;
+    max-width: 600px; /* Limita la larghezza massima a 600px */
+    height: auto; /* Mantieni le proporzioni */
+    object-fit: contain; /* Evita di tagliare le immagini */
+    margin: 20px auto; /* Centra le immagini */
 }
 
+/* Regola per le immagini generali */
 img {
     max-width: 100%;
     height: auto;
@@ -118,10 +122,10 @@ img {
     object-fit: cover; /* Adatta l'immagine mantenendo il contenitore proporzionato */
 }
 
-/* Per immagini desktop */
-@media (min-width: 768px) {
-    .extra-image, .home-image {
-        max-width: 40%; /* Riduci ulteriormente la larghezza su desktop */
+/* Regola responsive per desktop */
+@media (min-width: 1024px) {
+    .info-section img {
+        max-width: 400px; /* Riduci la larghezza massima su schermi più grandi */
     }
 }
 
