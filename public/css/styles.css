@@ -97,6 +97,11 @@ img {
     margin: 20px auto;
 }
 
+th i {
+    font-size: 1.2rem; /* Dimensione delle icone */
+    color: #fff; /* Colore delle icone */
+}
+
 
 /* Nasconde il menu desktop su schermi piccoli */
 @media (max-width: 768px) {
