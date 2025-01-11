@@ -218,6 +218,7 @@ app.get("/user-messages", isAuthenticated, async (req, res) => {
 
 app.post("/send-message", isAuthenticated, async (req, res) => {
     const { announcementId, message } = req.body;
+    console.log("Message Received:", { announcementId, message }); // Debug
     const senderEmail = req.session.userEmail;
 
     try {
