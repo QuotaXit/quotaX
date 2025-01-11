@@ -35,28 +35,29 @@ nav a:hover {
 }
 
 /* Stile per le immagini */
+/* Stile per tutte le immagini */
 img {
-    max-width: 100%; /* Impedisce che le immagini superino la larghezza del contenitore */
-    height: auto; /* Mantiene le proporzioni */
-    display: block; /* Rimuove spazi bianchi extra intorno all'immagine */
+    max-width: 100%; /* L'immagine non supera la larghezza del contenitore */
+    height: auto; /* Mantiene le proporzioni originali */
+    display: block; /* Elimina spazi bianchi extra intorno all'immagine */
     margin: 0 auto; /* Centra l'immagine */
-    border-radius: 8px; /* Opzionale: angoli arrotondati */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Opzionale: ombra intorno all'immagine */
+    border-radius: 8px; /* Opzionale: arrotonda leggermente gli angoli */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Opzionale: aggiunge un'ombra per un effetto visivo migliore */
 }
 
-/* Specifico per immagini nella home */
-.home-image {
-    max-width: 80%; /* Limita la larghezza al massimo all'80% del contenitore */
-    height: auto; /* Mantiene le proporzioni */
+/* Immagini specifiche della home (opzionale, per maggiore controllo) */
+.info-section img {
+    max-width: 90%; /* Limita le immagini al 90% della larghezza del contenitore */
     margin: 20px auto; /* Aggiunge margine verticale e centra l'immagine */
 }
 
-/* Responsività per immagini */
+/* Responsività per schermi piccoli */
 @media (max-width: 768px) {
-    .home-image {
-        max-width: 100%; /* Permette alle immagini di occupare tutto lo spazio disponibile sui dispositivi mobili */
+    img {
+        max-width: 100%; /* L'immagine occupa tutta la larghezza del contenitore su schermi piccoli */
     }
 }
+
 
 
 /* Menu Desktop */
