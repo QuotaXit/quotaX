@@ -87,10 +87,17 @@ img {
 }
 
 .info-section {
-    max-width: 1200px; /* Limita la larghezza del contenitore */
+    max-width: 1200px; /* Limita la larghezza */
     margin: 0 auto; /* Centra il contenitore */
-    padding: 0 20px; /* Aggiunge un po' di spazio ai lati */
+    padding: 0 20px; /* Aggiunge spazio ai lati */
+    text-align: center; /* Centra il testo */
 }
+
+.info-section h3, .info-section p {
+    text-align: center; /* Centra titoli e paragrafi */
+    margin: 10px 0; /* Aggiungi un po' di spazio sopra e sotto */
+}
+
 
 /* Regola specifica per le immagini nella sezione della home */
 .info-section img {
@@ -99,6 +106,11 @@ img {
     object-fit: contain; /* Evita di tagliare le immagini */
     margin: 20px auto; /* Centra le immagini */
 }
+
+section {
+    text-align: center; /* Centra tutti i testi nei tag <section> */
+}
+
 
 /* Regola per le immagini generali */
 img {
