@@ -1,13 +1,20 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const menuToggle = document.getElementById('menu-toggle');
-    const menu = document.getElementById('menu');
+document.addEventListener("DOMContentLoaded", () => {
+    const messageIcons = document.querySelectorAll(".message-icon");
+    const modal = document.getElementById("message-modal");
+    const announcementIdInput = document.getElementById("announcementId");
 
-    if (!menuToggle || !menu) {
-        console.error("Errore: Pulsante hamburger (#menu-toggle) o menu mobile (#menu) non trovato.");
-        return;
-    }
+    messageIcons.forEach(icon => {
+        icon.addEventListener("click", () => {
+            const announcementId = icon.getAttribute("data-announcement-id");
+            announcementIdInput.value = announcementId; // Imposta l'ID nell'input nascosto
+            modal.classList.add("show"); // Mostra il modulo
+        });
+    });
 
-    menuToggle.addEventListener('click', () => {
-        menu.classList.toggle('hidden');
+    // Chiudi il modulo cliccando fuori
+    window.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.classList.remove("show");
+        }
     });
 });

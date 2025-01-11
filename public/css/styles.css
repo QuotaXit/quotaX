@@ -424,6 +424,28 @@ button {
     color: #007BFF; /* Cambia colore al passaggio del mouse */
 }
 
+.hidden {
+    display: none;
+}
+
+#message-modal {
+    display: none; /* Di default è nascosto */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+#message-modal.show {
+    display: block; /* Mostra il modulo */
+}
+
+
 .cookie-policy {
     position: fixed;
     bottom: 0;
