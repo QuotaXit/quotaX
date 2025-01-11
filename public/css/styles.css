@@ -228,6 +228,16 @@ img {
     display: none !important;
 }
 
+@media (max-width: 768px) {
+    .info-section img {
+        max-width: 728px; /* Imposta una larghezza massima */
+        width: 100%; /* L'immagine si adatta al contenitore */
+        height: auto; /* Mantieni le proporzioni */
+        margin: 0 auto; /* Centra l'immagine */
+    }
+}
+
+
 
 /* Tabelle */
 table {
