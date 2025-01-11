@@ -217,11 +217,12 @@ app.get("/user-messages", isAuthenticated, async (req, res) => {
 
 
 app.post("/send-message", isAuthenticated, async (req, res) => {
+    console.log("Utente autenticato:", req.session.userEmail);
     const { announcementId, message } = req.body;
-    console.log("Message Received:", { announcementId, message }); // Debug
-    const senderEmail = req.session.userEmail;
+    console.log("Ricevuto messaggio:", { announcementId, message });
 
     try {
+        const senderEmail = req.session.userEmail;
         const messageData = {
             announcementId,
             sender: senderEmail,
