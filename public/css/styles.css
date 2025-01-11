@@ -116,6 +116,7 @@ img {
     width: 100%;
     z-index: 10;
     padding: 1rem 0;
+    transition: all 0.3s ease; /* Aggiunge una transizione per un aspetto più fluido */
 }
 
 #menu ul {
@@ -150,8 +151,13 @@ img {
     }
 }
 
+#menu:not(.hidden) {
+    display: flex;
+}
+
+
 .hidden {
-    display: none !important; /* Nasconde completamente l'elemento */
+    display: none !important;
 }
 
 
