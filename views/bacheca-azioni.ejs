@@ -69,19 +69,6 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Società</th>
-                    <th>Numero Azioni</th>
-                    <th>Data Acquisto</th>
-                    <th>Valore Attuale</th>
-                    <th>Prezzo Vendita</th>
-                    <th>Società Quotata</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% azioni.forEach(azione => { %>
-                    <tr>
             <th><i class="fas fa-user"></i><br><small>Nome</small></th>
             <th><i class="fas fa-envelope"></i><br><small>Email</small></th>
             <th><i class="fas fa-building"></i><br><small>Società</small></th>
@@ -90,6 +77,19 @@
             <th><i class="fas fa-chart-line"></i><br><small>Valore Attuale</small></th>
             <th><i class="fas fa-dollar-sign"></i><br><small>Prezzo Vendita</small></th>
             <th><i class="fas fa-check-circle"></i><br><small>Società Quotata</small></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% azioni.forEach(azione => { %>
+                    <tr>
+                        <td><%= azione.nome %></td>
+                        <td><%= isAuthenticated ? azione.email : "Riservato" %></td>
+                        <td><%= azione.societa %></td>
+                        <td><%= azione.numeroAzioni %></td>
+                        <td><%= azione.dataAcquisto %></td>
+                        <td><%= azione.valoreAttuale %></td>
+                        <td><%= azione.prezzoVendita %></td>
+                        <td><%= azione.quotata %></td>
                     </tr>
                 <% }) %>
             </tbody>
