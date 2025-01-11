@@ -37,19 +37,16 @@ nav a:hover {
 /* Stile per le immagini */
 /* Stile per tutte le immagini */
 img {
-    max-width: 100%; /* L'immagine non supera la larghezza del contenitore */
-    height: auto; /* Mantiene le proporzioni originali */
-    display: block; /* Elimina spazi bianchi extra intorno all'immagine */
-    margin: 0 auto; /* Centra l'immagine */
-    border-radius: 8px; /* Opzionale: arrotonda leggermente gli angoli */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Opzionale: aggiunge un'ombra per un effetto visivo migliore */
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+.info-section img {
+    max-width: 90%;
+    margin: 20px auto;
 }
 
-/* Immagini specifiche della home (opzionale, per maggiore controllo) */
-.info-section img {
-    max-width: 90%; /* Limita le immagini al 90% della larghezza del contenitore */
-    margin: 20px auto; /* Aggiunge margine verticale e centra l'immagine */
-}
 
 /* Responsività per schermi piccoli */
 @media (max-width: 768px) {
@@ -96,7 +93,7 @@ img {
 
 /* Menu Mobile */
 .hamburger {
-    display: none; /* Nasconde il pulsante hamburger sui desktop */
+    display: none;
     font-size: 24px;
     background: none;
     border: none;
@@ -109,7 +106,7 @@ img {
 
 
 #menu {
-    display: none; /* Nasconde il menu mobile di default */
+    display: none; /* Nasconde il menu di default */
     flex-direction: column;
     align-items: center;
     background-color: #333;
@@ -144,10 +141,12 @@ img {
     color: #ffcc00;
 }
 
-/* Mostra il pulsante hamburger su schermi piccoli */
 @media (max-width: 768px) {
     .hamburger {
         display: block;
+    }
+    .desktop-menu {
+        display: none;
     }
 }
 
