@@ -461,3 +461,40 @@ button {
 .cookie-policy.hidden {
     display: none;
 }
+
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f4f4f4;
+    padding: 15px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 1000;
+}
+.cookie-banner p {
+    margin: 0 0 10px;
+    font-size: 14px;
+}
+.cookie-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.cookie-button {
+    padding: 10px 15px;
+    font-size: 14px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.cookie-button#accept-cookies {
+    background-color: #28a745;
+}
+.cookie-button#reject-cookies {
+    background-color: #dc3545;
+}
+.cookie-button#preferences-cookies {
+    background-color: #007bff;
+}

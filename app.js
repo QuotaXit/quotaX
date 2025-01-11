@@ -296,6 +296,10 @@ app.get('/privacy-policy', (req, res) => {
     res.render('privacy-policy');
 });
 
+app.get("/cookie-policy", (req, res) => {
+    res.render("cookie-policy");
+});
+
 
 
 
