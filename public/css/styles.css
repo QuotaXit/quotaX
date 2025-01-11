@@ -1,8 +1,10 @@
-/* Stile generale */
+/* Stile generico */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    line-height: 1.6;
+    background-color: #f4f4f4;
 }
 
 header {
@@ -10,392 +12,115 @@ header {
     color: white;
     padding: 1rem;
     text-align: center;
-    position: relative;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav {
+    text-align: center;
+    margin-top: 10px;
 }
 
 nav a {
     color: white;
-    margin: 0 1rem;
     text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
 }
 
 nav a:hover {
     text-decoration: underline;
 }
 
-.image-container img {
-    max-width: 100%; /* L'immagine non supererà mai la larghezza del contenitore */
-    height: auto; /* Mantiene le proporzioni */
-    display: block; /* Evita spazi extra */
-    margin: 0 auto; /* Centra l'immagine */
-}
-
-
-/* Menu Desktop */
-.desktop-menu {
-    display: flex;
-    justify-content: center;
-    background-color: #333;
-    padding: 1rem 0;
-}
-
-.desktop-menu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 1rem;
-}
-
-.desktop-menu ul li a {
-    text-decoration: none;
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-}
-
-.desktop-menu ul li a:hover {
-    color: #ffcc00;
-}
-
-/* Menu Mobile */
-.hamburger {
-    display: none;
-    font-size: 24px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 10;
-    list-style: none; /* Rimuove i puntini accanto agli elementi */
-}
-
-#menu ul {
-    margin: 0; /* Rimuove margini */
-    padding: 0; /* Rimuove padding */
-}
-
-#menu ul li {
-    margin-bottom: 15px; /* Spaziatura tra i link */
-}
-
-#menu ul li a {
-    text-decoration: none; /* Rimuove sottolineatura */
-    color: black; /* Colore del testo */
-    font-size: 18px; /* Dimensione testo più grande */
-    font-weight: bold; /* Testo in grassetto */
-}
-
-
-/* Menu mobile: Sfondo bianco e scritte nere */
-.hamburger {
-    position: fixed; /* Mantieni il pulsante sempre visibile */
-    top: 10px;
-    right: 10px;
-    z-index: 10;
-}
-
-#menu {
-    position: fixed; /* Posiziona il menu mobile in modo fisso */
-    top: 60px; /* Lascia spazio per il pulsante */
-    left: 0;
-    width: 100%;
-    padding: 20px 0;
-    background-color: white;
-    z-index: 9;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Aggiungi ombra per separarlo dal contenuto */
-}
-
-header {
-    padding-top: 60px; /* Evita che il menu mobile si sovrapponga al titolo */
-}
-
-
-#menu.hidden {
-    display: none; /* Nasconde il menu */
-}
-
-
-/* Responsività */
-@media (max-width: 768px) {
-    .hamburger {
-        display: block;
-    }
-
-    .desktop-menu {
-        display: none;
-    }
-
-    #menu {
-        display: flex;
-    }
-}
-
-
-/* Sezioni e Tabelle */
-main {
-    padding: 2rem;
-    text-align: center;
-}
-
-.annunci-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 2rem 0;
-}
-
-.annunci-table th, .annunci-table td {
-    border: 1px solid #ddd;
-    padding: 0.8rem;
-    text-align: center;
-}
-
-.annunci-table th {
-    background-color: #333;
-    color: white;
-}
-
-.image-container img {
-    width: 300px;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.message-icon img {
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-}
-
-#message-modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    border: 1px solid #ddd;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-}
-
-#message-modal textarea {
-    width: 100%;
-    height: 100px;
-    margin-bottom: 10px;
-}
-
-.hidden {
-    display: none;
-
-/* Stile specifico per Bacheca Quote */
-.bacheca-quote-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 2rem 0;
-    text-align: center;
-    font-size: 16px;
-}
-
-.bacheca-quote-table th, .bacheca-quote-table td {
-    border: 1px solid #ccc;
-    padding: 1rem;
-}
-
-.bacheca-quote-table th {
-    background-color: #444;
-    color: white;
-}
-
-.bacheca-quote-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.annunci-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 2rem 0;
-}
-
-.annunci-table th, .annunci-table td {
-    border: 1px solid #ddd;
-    padding: 0.8rem;
-    text-align: center;
-}
-
-.annunci-table th {
-    background-color: #333;
-    color: #fff;
-}
-
-
-/* Stile specifico per Bacheca Annunci */
-.bacheca-annunci-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 2rem 0;
-    text-align: center;
-    font-size: 16px;
-}
-
-.bacheca-annunci-table th, .bacheca-annunci-table td {
-    border: 1px solid #ddd;
-    padding: 1rem;
-}
-
-.bacheca-annunci-table th {
-    background-color: #0056b3;
-    color: white;
-}
-
-.bacheca-annunci-table tr:nth-child(even) {
-    background-color: #e9ecef;
-}
-
-
-/* Stile specifico per la Dashboard */
-.dashboard-container {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: #f8f9fa;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.dashboard-container h1 {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 1rem;
-}
-
-.dashboard-container .options {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-}
-
-.dashboard-container .options a {
-    background-color: #007bff;
-    color: white;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    border-radius: 4px;
-    font-size: 16px;
-}
-
-.dashboard-container .options a:hover {
-    background-color: #0056b3;
-}
-
-
-/* Stile per Moduli di Login e Registrazione */
-/* Stile uniforme per moduli */
-.auth-container {
-    max-width: 400px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.auth-container h2 {
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 1rem;
-}
-
-.auth-container form input,
-.auth-container form select {
-    width: 100%;
-    padding: 0.8rem;
-    margin: 0.5rem 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-}
-
-.auth-container form button {
-    width: 100%;
-    padding: 0.8rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.auth-container form button:hover {
-    background-color: #0056b3;
-}
-
-/* Tabelle uniformi */
+/* Tabelle */
 table {
     width: 100%;
-    margin-top: 1rem;
     border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: center;
+    background-color: white;
 }
 
 table th, table td {
-    padding: 0.8rem;
+    padding: 12px;
     border: 1px solid #ddd;
-    text-align: center;
 }
 
 table th {
     background-color: #333;
-    color: #fff;
+    color: white;
 }
 
-
-.table tr:nth-child(even) {
+table tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
+/* Responsive: Tabelle */
+@media (max-width: 768px) {
+    table {
+        font-size: 14px;
+    }
+    table th, table td {
+        padding: 8px;
+    }
+}
 
+/* Pulsanti e moduli */
+button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 5px;
+}
 
+button:hover {
+    background-color: #555;
+}
 
+input, select {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+}
 
-}/* Footer */
+/* Footer */
 footer {
     background-color: #333;
     color: white;
     text-align: center;
-    padding: 1rem;
-    margin-top: 2rem;
+    padding: 10px 0;
+    margin-top: 20px;
 }
 
 footer a {
     color: white;
     text-decoration: none;
-    margin: 0 0.5rem;
+    margin: 0 10px;
 }
 
 footer a:hover {
     text-decoration: underline;
 }
 
-/* Responsività */
+/* Responsive Layout */
 @media (max-width: 768px) {
-    .hamburger {
-        display: block;
+    header {
+        padding: 20px;
     }
 
-    .desktop-menu {
-        display: none;
+    nav a {
+        margin: 0 5px;
     }
 
-    #menu {
-        display: flex;
+    footer {
+        font-size: 14px;
     }
 }
