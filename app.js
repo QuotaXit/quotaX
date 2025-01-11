@@ -491,6 +491,16 @@ app.get("/bacheca-azioni", async (req, res) => {
     }
 });
 
+app.post("/save-consent", (req, res) => {
+    const { userId, consent } = req.body;
+    db.collection("consents").add({
+        userId,
+        consent,
+        timestamp: new Date().toISOString(),
+    })
+    .then(() => res.status(200).send("Consenso salvato"))
+    .catch((err) => res.status(500).send("Errore nel salvataggio del consenso"));
+});
 
 
 // Porta di ascolto
