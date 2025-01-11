@@ -107,6 +107,7 @@ img {
     z-index: 10;
 }
 
+
 #menu {
     display: none; /* Nasconde il menu mobile di default */
     flex-direction: column;
@@ -148,6 +149,10 @@ img {
     .hamburger {
         display: block;
     }
+}
+
+.hidden {
+    display: none !important; /* Nasconde completamente l'elemento */
 }
 
 
