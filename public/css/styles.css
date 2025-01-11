@@ -97,18 +97,33 @@ img {
     margin: 20px auto;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Regola per immagini specifiche nella home */
+.extra-image, .home-image {
+    max-width: 50%; /* Adatta la larghezza al 50% del contenitore */
+    height: auto; /* Mantieni le proporzioni */
+    object-fit: cover; /* Evita distorsioni */
+    border-radius: 8px; /* (Opzionale) Angoli arrotondati */
+}
+
 .home-section img {
     max-width: 80%; /* Riduci la larghezza massima */
     max-height: 300px; /* Limita l'altezza massima */
     object-fit: cover; /* Adatta l'immagine mantenendo il contenitore proporzionato */
 }
 
-.home-image-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 10px;
+/* Per immagini desktop */
+@media (min-width: 768px) {
+    .extra-image, .home-image {
+        max-width: 40%; /* Riduci ulteriormente la larghezza su desktop */
+    }
 }
-
 
 /* Stile per le intestazioni della tabella */
 .bacheca-annunci-table th {
