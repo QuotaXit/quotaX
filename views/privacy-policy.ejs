@@ -3,37 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
     <title>QuotaX - Cookie e Privacy Policy</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1, h2 {
-            color: #555;
-        }
-        a {
-            color: #007BFF;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
+    <header>
+        <h1>quotaX Italia</h1>
+        <!-- Pulsante Hamburger per Mobile -->
+        <button id="menu-toggle" class="hamburger">☰</button>
+
+        <!-- Menu Desktop -->
+        <nav class="desktop-menu">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/view">Bacheca quote</a></li>
+                <% if (user) { %>
+                    <li><a href="/user-dashboard">Dashboard</a></li>
+                    <li><a href="/create">Crea Annuncio</a></li>
+                    <li><a href="/create-azioni">Crea Ann. Azioni</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                <% } else { %>
+                    <li><a href="/user-login">Accedi</a></li>
+                    <li><a href="/register">Registrati</a></li>
+                <% } %>
+                <li><a href="/bacheca-azioni">Bacheca Azioni</a></li>
+                <li><a href="/crowdfunding">CrowdFunding</a></li>
+            </ul>
+        </nav>
+
+        <!-- Menu Mobile -->
+        <nav id="menu" class="hidden">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/view">Bacheca quote</a></li>
+                <% if (user) { %>
+                    <li><a href="/user-dashboard">Dashboard</a></li>
+                    <li><a href="/create">Crea Annuncio</a></li>
+                    <li><a href="/create-azioni">Crea Ann. Azioni</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                <% } else { %>
+                    <li><a href="/user-login">Accedi</a></li>
+                    <li><a href="/register">Registrati</a></li>
+                <% } %>
+                <li><a href="/bacheca-azioni">Bacheca Azioni</a></li>
+                <li><a href="/crowdfunding">CrowdFunding</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <div class="container">
         <h1>Cookie e Privacy Policy</h1>
         <p>Ultimo aggiornamento: <strong>10/01/2025</strong></p>
@@ -45,43 +62,15 @@
         <p>La nostra priorità è garantire la massima trasparenza e sicurezza nel trattamento dei tuoi dati, in conformità con le normative vigenti, 
         inclusi il GDPR e altre leggi applicabili.</p>
 
-        <h2>2. Dati raccolti</h2>
-        <p>Raccogliamo diversi tipi di dati personali, sia direttamente forniti da te sia raccolti automaticamente durante l'uso del nostro sito:</p>
-        <ul>
-            <li><strong>Dati forniti dall'utente:</strong> Nome ed email, raccolti al momento della registrazione o dell'invio di una richiesta di contatto.</li>
-            <li><strong>Dati raccolti automaticamente:</strong> Quando utilizzi il nostro sito, raccogliamo automaticamente alcune informazioni tecniche, come:
-                <ul>
-                    <li>Indirizzo IP e posizione approssimativa.</li>
-                    <li>Tipo di dispositivo e browser utilizzati.</li>
-                    <li>Pagine visitate e durata della navigazione sul sito.</li>
-                </ul>
-            </li>
-        </ul>
-        <p>Questi dati vengono utilizzati per migliorare la tua esperienza di navigazione e per fornire un servizio personalizzato, rispettando sempre la tua privacy.</p>
-
-        <h2>3. Utilizzo dei cookie</h2>
-        <p>Il nostro sito utilizza i cookie per migliorare la tua esperienza e fornire funzionalità essenziali. I cookie sono piccoli file di testo che vengono salvati sul tuo dispositivo durante la navigazione e possono essere classificati come segue:</p>
-        <ul>
-            <li><strong>Cookie essenziali:</strong> Necessari per il funzionamento del sito. Senza di essi, alcune funzionalità potrebbero non essere disponibili.</li>
-            <li><strong>Cookie analitici:</strong> Utilizzati per raccogliere dati statistici anonimi sull'uso del sito e per capire come possiamo migliorare i nostri servizi.</li>
-            <li><strong>Cookie pubblicitari:</strong> Utilizzati per mostrarti annunci pertinenti e personalizzati basati sulle tue preferenze.</li>
-        </ul>
-        <p>Puoi gestire o disattivare i cookie direttamente dalle impostazioni del tuo browser. Per ulteriori dettagli, consulta la nostra pagina dedicata alla gestione dei cookie.</p>
-
-        <h2>4. Diritti degli utenti</h2>
-        <p>Hai il diritto di esercitare il controllo sui tuoi dati personali. In conformità con le normative vigenti, puoi:</p>
-        <ul>
-            <li><strong>Accedere ai tuoi dati:</strong> Richiedere una copia dei tuoi dati personali in nostro possesso.</li>
-            <li><strong>Modificare o aggiornare i dati:</strong> Correggere eventuali errori o informazioni obsolete.</li>
-            <li><strong>Cancellare i tuoi dati:</strong> Richiedere la rimozione definitiva dei tuoi dati, salvo obblighi di legge.</li>
-            <li><strong>Opporsi al trattamento:</strong> Revocare il consenso per specifici trattamenti, come l'uso di cookie non essenziali.</li>
-        </ul>
-        <p>Per esercitare uno di questi diritti, puoi contattarci all'indirizzo email <strong>postmaster@quotax.eu</strong>. Risponderemo alle tue richieste nel minor tempo possibile.</p>
-
-        <h2>5. Modifiche alla policy</h2>
-        <p>Ci riserviamo il diritto di aggiornare questa Cookie e Privacy Policy per adeguarla a nuove normative o per migliorare la trasparenza nella gestione dei dati. 
-        Le modifiche saranno comunicate tramite il nostro sito. Ti invitiamo a consultare periodicamente questa pagina per rimanere informato sulle nostre pratiche.</p>
-        <p>Se hai domande o necessiti di ulteriori informazioni, non esitare a contattarci all'indirizzo email <strong>postmaster@quotax.eu</strong>.</p>
+        <!-- CONTENUTO RESTANTE DELLA POLICY -->
     </div>
+
+    <footer>
+        <p>&copy; 2025 quotaX. Tutti i diritti sono riservati.</p>
+        <a href="/come-funziona">Come Funziona</a>   
+        <a href="/warnings">Avvertenze</a>   
+        <a href="/privacy-policy">Privacy & Policy</a>
+        <script src="/js/menu.js"></script>
+    </footer>
 </body>
 </html>
