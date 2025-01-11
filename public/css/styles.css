@@ -97,6 +97,19 @@ img {
     margin: 20px auto;
 }
 
+.home-section img {
+    max-width: 80%; /* Riduci la larghezza massima */
+    max-height: 300px; /* Limita l'altezza massima */
+    object-fit: cover; /* Adatta l'immagine mantenendo il contenitore proporzionato */
+}
+
+.home-image-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+
 /* Stile per le intestazioni della tabella */
 .bacheca-annunci-table th {
     text-align: center;
