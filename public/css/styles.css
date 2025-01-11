@@ -278,6 +278,7 @@ main {
 
 
 /* Stile per Moduli di Login e Registrazione */
+/* Stile uniforme per moduli */
 .auth-container {
     max-width: 400px;
     margin: 2rem auto;
@@ -289,15 +290,14 @@ main {
     text-align: center;
 }
 
-.auth-container h1 {
+.auth-container h2 {
     font-size: 1.8rem;
     color: #333;
     margin-bottom: 1rem;
 }
 
-.auth-container form input[type="text"],
-.auth-container form input[type="password"],
-.auth-container form input[type="email"] {
+.auth-container form input,
+.auth-container form select {
     width: 100%;
     padding: 0.8rem;
     margin: 0.5rem 0;
@@ -320,6 +320,29 @@ main {
 .auth-container form button:hover {
     background-color: #0056b3;
 }
+
+/* Tabelle uniformi */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 1rem;
+}
+
+.table th {
+    background-color: #0056b3;
+    color: white;
+}
+
+.table tr:nth-child(even) {
+    background-color: #e9ecef;
+}
+
 
 
 
