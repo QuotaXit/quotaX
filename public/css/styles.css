@@ -93,10 +93,23 @@ img {
     text-align: center; /* Centra il testo */
 }
 
-.info-section h3, .info-section p {
-    text-align: center; /* Centra titoli e paragrafi */
-    margin: 10px 0; /* Aggiungi un po' di spazio sopra e sotto */
+.advantages {
+    margin-top: 10px; /* Riduce lo spazio sopra la sezione vantaggi */
+    text-align: left; /* Mantiene l'allineamento per coerenza */
 }
+
+.advantages p {
+    margin: 5px 0; /* Riduce la distanza tra i paragrafi */
+    font-size: 16px; /* Mantiene una dimensione leggibile */
+    line-height: 1.4; /* Riduce lo spazio tra le righe */
+}
+
+.info-section h3 {
+    margin-bottom: 10px; /* Riduce lo spazio sotto il titolo */
+    font-size: 20px; /* Mantiene il titolo leggibile */
+    text-align: center; /* Assicura che il titolo sia centrato */
+}
+
 
 
 /* Regola specifica per le immagini nella sezione della home */
