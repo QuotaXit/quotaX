@@ -216,6 +216,24 @@ main {
     background-color: #f9f9f9;
 }
 
+.annunci-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+}
+
+.annunci-table th, .annunci-table td {
+    border: 1px solid #ddd;
+    padding: 0.8rem;
+    text-align: center;
+}
+
+.annunci-table th {
+    background-color: #333;
+    color: #fff;
+}
+
+
 /* Stile specifico per Bacheca Annunci */
 .bacheca-annunci-table {
     width: 100%;
@@ -322,25 +340,23 @@ main {
 }
 
 /* Tabelle uniformi */
-.table {
+table {
     width: 100%;
+    margin-top: 1rem;
     border-collapse: collapse;
-    margin: 2rem auto;
-    text-align: center;
-    font-size: 16px;
 }
 
-.table th, .table td {
-    padding: 0.8rem; /* Aggiunge spazio interno alle celle */
-    text-align: center;
+table th, table td {
+    padding: 0.8rem;
     border: 1px solid #ddd;
+    text-align: center;
 }
 
-
-.table th {
+table th {
     background-color: #333;
-    color: white;
+    color: #fff;
 }
+
 
 .table tr:nth-child(even) {
     background-color: #f9f9f9;
