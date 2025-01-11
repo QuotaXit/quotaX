@@ -42,10 +42,12 @@ img {
     display: block;
     margin: 0 auto;
 }
+
 .info-section img {
     max-width: 90%;
     margin: 20px auto;
 }
+
 
 
 /* Responsività per schermi piccoli */
@@ -83,6 +85,18 @@ img {
 .desktop-menu ul li a:hover {
     color: #ffcc00;
 }
+
+.info-section {
+    max-width: 1200px; /* Limita la larghezza del contenitore */
+    margin: 0 auto; /* Centra il contenitore */
+    padding: 0 20px; /* Aggiunge un po' di spazio ai lati */
+}
+
+.info-section img {
+    max-width: 90%; /* Le immagini occupano il 90% del contenitore */
+    margin: 20px auto;
+}
+
 
 /* Nasconde il menu desktop su schermi piccoli */
 @media (max-width: 768px) {
