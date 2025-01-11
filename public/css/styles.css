@@ -97,9 +97,26 @@ img {
     margin: 20px auto;
 }
 
-th i {
-    font-size: 1.2rem; /* Dimensione delle icone */
+/* Stile per le intestazioni della tabella */
+.bacheca-annunci-table th {
+    text-align: center;
+    vertical-align: middle;
+    font-weight: normal; /* Rende il testo meno pesante */
+    padding: 1rem 0.5rem;
+}
+
+/* Stile per le icone nelle intestazioni */
+.bacheca-annunci-table th i {
+    font-size: 1.5rem; /* Dimensione delle icone */
     color: #fff; /* Colore delle icone */
+    display: block; /* Le icone sono su una riga separata dal testo */
+    margin-bottom: 0.5rem; /* Spazio sotto le icone */
+}
+
+/* Stile per il testo nelle intestazioni */
+.bacheca-annunci-table th small {
+    font-size: 0.75rem; /* Testo più piccolo */
+    color: #ddd; /* Colore del testo (più tenue) */
 }
 
 
