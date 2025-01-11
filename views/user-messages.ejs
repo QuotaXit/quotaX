@@ -71,6 +71,14 @@
                     </tr>
                 <% }) %>
             </tbody>
+            <div id="message-modal" class="modal">
+                <form action="/send-message" method="POST">
+                    <input type="hidden" id="announcementId" name="announcementId">
+                    <label for="message">Messaggio:</label>
+                    <textarea id="message" name="message" required></textarea>
+                    <button type="submit">Invia</button>
+                </form>
+            </div>            
         </table>
     </main>
     <footer>

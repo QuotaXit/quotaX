@@ -94,10 +94,8 @@
                         <td><%= announcement.valoreAttuale %></td>
                         <td><%= announcement.prezzoVendita %></td>
                         <td>
-                            <button class="message-icon" data-announcement-id="<%= announcement.id %>">
-                                <img src="/icons/message.png" alt="Messaggio" />
-                            </button>                            
-                        </td>
+                            <i class="message-icon" data-announcement-id="<%= announcement.id %>">✉️</i>
+                        </td>                        
                     </tr>
                 <% }) %>
             </tbody>                      
@@ -108,7 +106,7 @@
                 <textarea name="message" placeholder="Scrivi il tuo messaggio..." required></textarea>
                 <button type="submit">Invia</button>
             </form>
-        </div>
+        </div>        
     </main>
     <footer>
         <p>&copy; 2025 quotaX. Tutti i diritti sono riservati.</p>

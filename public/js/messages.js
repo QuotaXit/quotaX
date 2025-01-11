@@ -7,14 +7,14 @@ document.addEventListener("DOMContentLoaded", () => {
         icon.addEventListener("click", () => {
             const announcementId = icon.getAttribute("data-announcement-id");
             announcementIdInput.value = announcementId;
-            modal.style.display = "block";
+            modal.classList.add("show");
         });
     });
 
-    // Chiudere il modulo cliccando fuori
+    // Chiudi il modulo cliccando fuori
     window.addEventListener("click", (e) => {
         if (e.target === modal) {
-            modal.style.display = "none";
+            modal.classList.remove("show");
         }
     });
 });
