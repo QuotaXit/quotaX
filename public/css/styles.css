@@ -442,3 +442,13 @@ footer a:hover {
     transform: scale(1.2);
     color: #C13584;
 }
+
+.success-message {
+    color: green;
+    font-weight: bold;
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+}

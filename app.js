@@ -2,8 +2,19 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const admin = require("firebase-admin");
+const nodemailer = require("nodemailer");
+
 
 const app = express();
+
+// Configurazione del trasporto Nodemailer
+const transporter = nodemailer.createTransport({
+    service: "gmail", // Usa il tuo provider di email, es. 'yahoo', 'outlook', ecc.
+    auth: {
+        user: "tuo.email@gmail.com", // Sostituisci con la tua email
+        pass: "tua-password-app", // Genera una password per app specifica, se usi Gmail
+    },
+});
 
 // Configurazione Firebase (variabile d'ambiente)
 try {
@@ -118,7 +129,6 @@ app.post("/user-login", async (req, res) => {
         res.render("user-login", { error: "Email o password non validi" });
     }
 });
-
 
 
 // Rotta per la dashboard utenti
@@ -259,20 +269,35 @@ app.get('/contatti', (req, res) => {
     res.render('contatti'); // Renderizza il file contatti.ejs
 });
 
-// Rotta POST per gestire il modulo Contatti
 app.post("/send-contact", (req, res) => {
     const { nome, emailProfilo, motivo, messaggio } = req.body;
 
-    // Log dei dati ricevuti (puoi modificarlo per inviare un'email o salvarli in un database)
-    console.log("Contatto ricevuto:");
-    console.log(`Nome: ${nome}`);
-    console.log(`Email: ${emailProfilo}`);
-    console.log(`Motivo: ${motivo}`);
-    console.log(`Messaggio: ${messaggio}`);
+    // Configura il contenuto dell'email
+    const mailOptions = {
+        from: emailProfilo,
+        to: "postmaster@quotax.eu", // Email destinatario
+        subject: `Nuovo contatto da ${nome} - Motivo: ${motivo}`,
+        text: `
+            Nome: ${nome}
+            Email: ${emailProfilo}
+            Motivo: ${motivo}
+            Messaggio: ${messaggio}
+        `,
+    };
 
-    // Risposta di conferma
-    res.render("contatti", {
-        message: "Grazie per averci contattato! Ti risponderemo al più presto.",
+    // Invia l'email
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error("Errore nell'invio dell'email:", error);
+            res.render("contatti", {
+                message: "Si è verificato un errore nell'invio del messaggio. Riprova più tardi.",
+            });
+        } else {
+            console.log("Email inviata con successo:", info.response);
+            res.render("contatti", {
+                message: "Grazie per averci contattato! Ti risponderemo al più presto.",
+            });
+        }
     });
 });
 

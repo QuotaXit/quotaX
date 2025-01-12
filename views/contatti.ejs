@@ -57,6 +57,12 @@
     <main>
         <h2>Contattaci</h2>
         <p>Hai bisogno di assistenza? Contattaci compilando il modulo sottostante. Ti risponderemo al più presto!</p>
+        <% if (typeof message !== 'undefined') { %>
+            <p class="<%= message.includes('Grazie') ? 'success-message' : 'error-message' %>">
+                <%= message %>
+            </p>
+        <% } %>
+        <form action="/send-contact" method="POST" class="contact-form">
         <form action="/send-contact" method="POST" class="contact-form">
             <label for="emailDestinatario">Email Destinatario:</label>
             <input type="email" id="emailDestinatario" value="postmaster@quotax.eu" readonly>
