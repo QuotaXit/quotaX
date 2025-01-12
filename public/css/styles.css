@@ -235,6 +235,11 @@ img {
     color: #ffcc00;
 }
 
+#menu {
+    display: flex !important;
+}
+
+
 @media (max-width: 768px) {
     .hamburger {
         display: block;
