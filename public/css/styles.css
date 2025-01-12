@@ -244,10 +244,6 @@ img {
     }
 }
 
-#menu:not(.hidden) {
-    display: flex;
-}
-
 
 .hidden {
     display: none !important;
