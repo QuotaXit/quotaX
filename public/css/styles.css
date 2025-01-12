@@ -198,8 +198,9 @@ img {
 }
 
 
+/* Menu mobile (nascosto di default) */
 #menu {
-    display: none; /* Nasconde il menu di default */
+    display: none;
     flex-direction: column;
     align-items: center;
     background-color: #333;
@@ -209,7 +210,7 @@ img {
     width: 100%;
     z-index: 10;
     padding: 1rem 0;
-    transition: all 0.3s ease; /* Aggiunge una transizione per un aspetto più fluido */
+    transition: all 0.3s ease; /* Aggiunge una transizione fluida */
 }
 
 #menu ul {
@@ -235,20 +236,24 @@ img {
     color: #ffcc00;
 }
 
+/* Mostra il pulsante hamburger su schermi piccoli */
 @media (max-width: 768px) {
     .hamburger {
         display: block;
     }
     .desktop-menu {
-        display: none;
+        display: none; /* Nasconde il menu desktop su mobile */
     }
 }
+
 
 #menu:not(.hidden) {
     display: flex;
 }
 
 
+
+/* Regola per la classe hidden */
 .hidden {
     display: none !important;
 }
