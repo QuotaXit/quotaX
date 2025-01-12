@@ -283,6 +283,10 @@ app.get("/logout", (req, res) => {
     });
 });
 
+app.get('/terms-conditions', (req, res) => {
+    res.render('terms_conditions'); // Renderizza il file terms_conditions.ejs
+});
+
 
 app.get("/warnings", (req, res) => {
   res.render("warnings");
