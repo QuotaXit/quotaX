@@ -217,9 +217,11 @@ app.get("/user-messages", isAuthenticated, async (req, res) => {
 
 
 app.post("/send-message", isAuthenticated, async (req, res) => {
-    console.log("Utente autenticato:", req.session.userEmail);
     const { announcementId, message } = req.body;
-    console.log("Ricevuto messaggio:", { announcementId, message });
+    if (!announcementId || !message) {
+        console.error("Dati mancanti nel modulo di invio messaggio.");
+        return res.status(400).send("Compila tutti i campi richiesti.");
+    }
 
     try {
         const senderEmail = req.session.userEmail;
@@ -231,12 +233,13 @@ app.post("/send-message", isAuthenticated, async (req, res) => {
         };
 
         await db.collection("messages").add(messageData);
-        res.redirect("/view");
+        res.redirect("/view"); // Reindirizza alla pagina corretta
     } catch (error) {
         console.error("Errore durante l'invio del messaggio:", error);
         res.status(500).send("Errore durante l'invio del messaggio.");
     }
 });
+
 
 
 

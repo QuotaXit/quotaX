@@ -117,5 +117,24 @@
         <a href="https://www.iubenda.com/privacy-policy/97520414/cookie-policy" class="iubenda-embed">Cookie Policy</a>
         <script src="/js/menu.js"></script>
     </footer>
+
+    <script>
+        document.querySelectorAll('.message-icon').forEach(icon => {
+            icon.addEventListener('click', function () {
+                const announcementId = this.getAttribute('data-announcement-id');
+                const modal = document.getElementById('message-modal');
+                modal.querySelector('#announcementId').value = announcementId;
+                modal.classList.add('show'); // Mostra il modal
+            });
+        });
+    
+        document.addEventListener('click', function (event) {
+            if (event.target.id === 'message-modal' || event.target.classList.contains('modal-close')) {
+                const modal = document.getElementById('message-modal');
+                modal.classList.remove('show'); // Nasconde il modal
+            }
+        });
+    </script>
+    
 </body>
 </html>
