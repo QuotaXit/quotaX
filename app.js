@@ -255,6 +255,9 @@ app.get('/come-funziona', (req, res) => {
     res.render('come-funziona'); // Usa il file come-funziona.ejs
 });
 
+app.get('/contatti', (req, res) => {
+    res.render('contatti'); // Renderizza il file contatti.ejs
+});
 
 
 // Rotta per la home
