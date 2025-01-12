@@ -428,8 +428,8 @@ button {
     display: none;
 }
 
-#message-modal {
-    display: none;
+.modal {
+    display: none; /* Nascondi di default */
     position: fixed;
     top: 50%;
     left: 50%;
@@ -441,9 +441,14 @@ button {
     z-index: 1000;
 }
 
-#message-modal.show {
-    display: block;
+.modal.show {
+    display: block; /* Mostra quando ha la classe "show" */
 }
+
+.hidden {
+    display: none !important;
+}
+
 
 .modal textarea {
     width: 100%;
