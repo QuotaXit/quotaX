@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" type="image/png" href="/favicon.ico">
+    <title>quotaX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>quotaX Italia</h1>
+        <!-- Pulsante Hamburger per Mobile -->
+        <button id="menu-toggle" class="hamburger">☰</button>
+
+        <!-- Menu Desktop -->
+        <nav class="desktop-menu">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/view">Bacheca quote</a></li>
+                <% if (user) { %>
+                    <li><a href="/user-dashboard">Dashboard</a></li>
+                    <li><a href="/create">Crea Annuncio</a></li>
+                    <li><a href="/create-azioni">Crea Ann. Azioni</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                <% } else { %>
+                    <li><a href="/user-login">Accedi</a></li>
+                    <li><a href="/register">Registrati</a></li>
+                <% } %>
+                <li><a href="/bacheca-azioni">Bacheca Azioni</a></li>
+                <li><a href="/crowdfunding">CrowdFunding</a></li>
+            </ul>
+        </nav>
+
+        <!-- Menu Mobile -->
+        <nav id="menu" class="hidden">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/view">Bacheca quote</a></li>
+                <% if (user) { %>
+                    <li><a href="/user-dashboard">Dashboard</a></li>
+                    <li><a href="/create">Crea Annuncio</a></li>
+                    <li><a href="/create-azioni">Crea Ann. Azioni</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                <% } else { %>
+                    <li><a href="/user-login">Accedi</a></li>
+                    <li><a href="/register">Registrati</a></li>
+                <% } %>
+                <li><a href="/bacheca-azioni">Bacheca Azioni</a></li>
+                <li><a href="/crowdfunding">CrowdFunding</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <main>
+        <h2>Contattaci</h2>
+        <p>Hai bisogno di assistenza? Contattaci compilando il modulo sottostante. Ti risponderemo al più presto!</p>
+        <form action="/send-contact" method="POST" class="contact-form">
+            <label for="emailDestinatario">Email Destinatario:</label>
+            <input type="email" id="emailDestinatario" value="postmaster@quotax.eu" readonly>
+
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required placeholder="Inserisci il tuo nome">
+
+            <label for="emailProfilo">Email del profilo:</label>
+            <input type="email" id="emailProfilo" name="emailProfilo" required placeholder="Inserisci la tua email">
+
+            <label for="motivo">Motivo del Contatto:</label>
+            <select id="motivo" name="motivo" required>
+                <option value="cancellazione">Cancellazione Account</option>
+                <option value="domande">Domande</option>
+                <option value="altro">Altro</option>
+            </select>
+
+            <label for="messaggio">Messaggio:</label>
+            <textarea id="messaggio" name="messaggio" rows="5" required placeholder="Scrivi qui il tuo messaggio..."></textarea>
+
+            <button type="submit">Invia</button>
+        </form>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2025 quotaX. Tutti i diritti sono riservati.</p>
+            <div class="footer-sections">
+                <!-- Sezione Aiuto -->
+                <div class="footer-section">
+                    <h4>Aiuto</h4>
+                    <nav class="footer-nav">
+                        <a href="/come-funziona">Come Funziona</a>
+                    </nav>
+                </div>
+    
+                <!-- Sezione Informazioni -->
+                <div class="footer-section">
+                    <h4>Informazioni</h4>
+                    <nav class="footer-nav">
+                        <a href="/warnings">Avvertenze</a>
+                        <a href="/terms-conditions">Termini e Condizioni</a>
+                        <a href="https://www.iubenda.com/privacy-policy/97520414" class="iubenda-nostyle no-brand iubenda-embed" title="Privacy Policy">Privacy Policy</a>
+                    <a href="https://www.iubenda.com/privacy-policy/97520414/cookie-policy" class="iubenda-nostyle no-brand iubenda-embed" title="Cookie Policy">Cookie Policy</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
