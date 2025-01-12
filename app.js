@@ -7,14 +7,16 @@ const nodemailer = require("nodemailer");
 
 const app = express();
 
-// Configurazione del trasporto Nodemailer
 const transporter = nodemailer.createTransport({
-    service: "gmail", // Usa il tuo provider di email, es. 'yahoo', 'outlook', ecc.
+    host: "smtp.aruba.it", // Host SMTP di Aruba
+    port: 587, // Porta di default per SMTP
+    secure: false, // Usa false per STARTTLS
     auth: {
-        user: "tuo.email@gmail.com", // Sostituisci con la tua email
-        pass: "tua-password-app", // Genera una password per app specifica, se usi Gmail
+        user: "postmaster@quotax.eu", // Tua email Aruba
+        pass: "Ermago1998.", // Password dell'account
     },
 });
+
 
 // Configurazione Firebase (variabile d'ambiente)
 try {
