@@ -198,9 +198,8 @@ img {
 }
 
 
-/* Menu mobile (nascosto di default) */
 #menu {
-    display: none;
+    display: none; /* Nasconde il menu di default */
     flex-direction: column;
     align-items: center;
     background-color: #333;
@@ -210,7 +209,7 @@ img {
     width: 100%;
     z-index: 10;
     padding: 1rem 0;
-    transition: all 0.3s ease; /* Aggiunge una transizione fluida */
+    transition: all 0.3s ease; /* Aggiunge una transizione per un aspetto più fluido */
 }
 
 #menu ul {
@@ -236,24 +235,20 @@ img {
     color: #ffcc00;
 }
 
-/* Mostra il pulsante hamburger su schermi piccoli */
 @media (max-width: 768px) {
     .hamburger {
         display: block;
     }
     .desktop-menu {
-        display: none; /* Nasconde il menu desktop su mobile */
+        display: none;
     }
 }
-
 
 #menu:not(.hidden) {
     display: flex;
 }
 
 
-
-/* Regola per la classe hidden */
 .hidden {
     display: none !important;
 }
@@ -415,4 +410,54 @@ button {
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+}
+
+.message-icon {
+    cursor: pointer;
+    font-size: 1.5rem; /* Regola la dimensione dell'icona */
+    color: #333; /* Colore dell'icona */
+    display: inline-block;
+    margin: 5px;
+}
+
+.message-icon:hover {
+    color: #007BFF; /* Cambia colore al passaggio del mouse */
+}
+
+.hidden {
+    display: none;
+}
+
+#message-modal {
+    display: none; /* Di default è nascosto */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+#message-modal.show {
+    display: block; /* Mostra il modulo */
+}
+
+
+.cookie-policy {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    z-index: 1000;
+}
+
+.cookie-policy.hidden {
+    display: none;
 }
