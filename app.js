@@ -259,6 +259,24 @@ app.get('/contatti', (req, res) => {
     res.render('contatti'); // Renderizza il file contatti.ejs
 });
 
+// Rotta POST per gestire il modulo Contatti
+app.post("/send-contact", (req, res) => {
+    const { nome, emailProfilo, motivo, messaggio } = req.body;
+
+    // Log dei dati ricevuti (puoi modificarlo per inviare un'email o salvarli in un database)
+    console.log("Contatto ricevuto:");
+    console.log(`Nome: ${nome}`);
+    console.log(`Email: ${emailProfilo}`);
+    console.log(`Motivo: ${motivo}`);
+    console.log(`Messaggio: ${messaggio}`);
+
+    // Risposta di conferma
+    res.render("contatti", {
+        message: "Grazie per averci contattato! Ti risponderemo al più presto.",
+    });
+});
+
+
 
 // Rotta per la home
 app.get("/", async (req, res) => {
