@@ -292,15 +292,6 @@ app.get('/come-funziona', (req, res) => {
     res.render('come-funziona'); // Usa il file come-funziona.ejs
 });
 
-app.get('/privacy-policy', (req, res) => {
-    res.render('privacy-policy');
-});
-
-app.get("/cookie-policy", (req, res) => {
-    res.render("cookie-policy");
-});
-
-
 
 
 // Rotta per la home
