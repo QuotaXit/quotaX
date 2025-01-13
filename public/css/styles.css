@@ -60,12 +60,15 @@ img {
 
 
 /* Menu Desktop */
-.desktop-menu {
-    display: flex; /* Mostra il menu desktop come flessibile */
-    justify-content: center;
-    background-color: #333;
-    padding: 1rem 0;
+.desktop-menu ul {
+    list-style: none;
+    display: flex;
+    justify-content: center; /* Centra i link */
+    gap: 1.5rem; /* Spaziatura tra i link */
+    margin: 0;
+    padding: 0;
 }
+
 
 .desktop-menu ul {
     list-style: none;
@@ -241,13 +244,14 @@ img {
 
 
 @media (max-width: 768px) {
-    .hamburger {
-        display: block;
-    }
     .desktop-menu {
-        display: none;
+        display: flex; /* Mantieni il menu desktop visibile */
+    }
+    .hamburger {
+        display: none; /* Nascondi il menu mobile */
     }
 }
+
 
 
 .hidden {
