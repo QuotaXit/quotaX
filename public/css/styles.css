@@ -238,19 +238,22 @@ img {
     color: #ffcc00;
 }
 
-#menu {
-    display: flex !important;
-}
 
 
 @media (max-width: 768px) {
     .desktop-menu {
-        display: flex; /* Mantieni il menu desktop visibile */
+        display: none; /* Nasconde il menu desktop */
     }
     .hamburger {
-        display: none; /* Nascondi il menu mobile */
+        display: block; /* Mostra l'icona hamburger */
+    }
+    #menu {
+        display: flex; /* Mostra il menu mobile */
+        flex-direction: column;
+        align-items: center;
     }
 }
+
 
 
 
