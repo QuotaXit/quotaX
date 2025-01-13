@@ -271,6 +271,11 @@ app.get('/contatti', (req, res) => {
     res.render('contatti'); // Renderizza il file contatti.ejs
 });
 
+app.get('/faq', (req, res) => {
+    res.render('faq');
+});
+
+
 app.post("/send-contact", (req, res) => {
     const { nome, emailProfilo, motivo, messaggio } = req.body;
 

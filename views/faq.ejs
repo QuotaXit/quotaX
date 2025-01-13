@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Quotax</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>quotaX Italia</h1>
+        <button id="menu-toggle" class="hamburger">☰</button>
+        <nav class="desktop-menu">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/view">Bacheca quote</a></li>
+                <% if (user) { %>
+                    <li><a href="/user-dashboard">Dashboard</a></li>
+                    <li><a href="/create">Crea Annuncio</a></li>
+                    <li><a href="/create-azioni">Crea Ann. Azioni</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                <% } else { %>
+                    <li><a href="/user-login">Accedi</a></li>
+                    <li><a href="/register">Registrati</a></li>
+                <% } %>
+                <li><a href="/bacheca-azioni">Bacheca Azioni</a></li>
+                <li><a href="/crowdfunding">CrowdFunding</a></li>
+            </ul>
+        </nav>
+        <nav id="menu" class="hidden">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/view">Bacheca quote</a></li>
+                <% if (user) { %>
+                    <li><a href="/user-dashboard">Dashboard</a></li>
+                    <li><a href="/create">Crea Annuncio</a></li>
+                    <li><a href="/create-azioni">Crea Ann. Azioni</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                <% } else { %>
+                    <li><a href="/user-login">Accedi</a></li>
+                    <li><a href="/register">Registrati</a></li>
+                <% } %>
+                <li><a href="/bacheca-azioni">Bacheca Azioni</a></li>
+                <li><a href="/crowdfunding">CrowdFunding</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Domande Frequenti (FAQ)</h1>
+        <div class="faq-section">
+            <div class="faq-question">1. Cos'è Quotax?</div>
+            <div class="faq-answer">Quotax è una bacheca elettronica dove gli utenti possono vendere le loro quote e le loro azioni.</div>
+            <div class="faq-question">2. Come posso creare un account su Quotax?</div>
+            <div class="faq-answer">Creare un account su Quotax è semplicissimo! Nel menù si trova la scritta "Registrati". L'utente clicca, inserisce nome ed email.</div>
+            <!-- Aggiungi altre FAQ qui -->
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2025 quotaX. Tutti i diritti sono riservati.</p>
+            <div class="social-links">
+                <a href="https://www.instagram.com/quotaxitalia?igsh=Y3M1bTZiNGVmZHc3" target="_blank" class="instagram-link">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+            <div class="footer-sections">
+                <div class="footer-section">
+                    <h4>Aiuto</h4>
+                    <nav class="footer-nav">
+                        <a href="/come-funziona">Come Funziona</a>
+                        <a href="/contatti">Contattaci</a>
+                    </nav>
+                </div>
+                <div class="footer-section">
+                    <h4>Informazioni</h4>
+                    <nav class="footer-nav">
+                        <a href="/warnings">Avvertenze</a>
+                        <a href="/terms-conditions">Termini e Condizioni</a>
+                        <a href="https://www.iubenda.com/privacy-policy/97520414" class="iubenda-nostyle no-brand iubenda-embed" title="Privacy Policy">Privacy Policy</a>
+                        <a href="https://www.iubenda.com/privacy-policy/97520414/cookie-policy" class="iubenda-nostyle no-brand iubenda-embed" title="Cookie Policy">Cookie Policy</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/menu.js"></script>
+    <script type="text/javascript">
+        (function (w, d) {
+            var loader = function () {
+                var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0];
+                s.src = "https://cdn.iubenda.com/iubenda.js";
+                tag.parentNode.insertBefore(s, tag);
+            };
+            if (w.addEventListener) {
+                w.addEventListener("load", loader, false);
+            } else if (w.attachEvent) {
+                w.attachEvent("onload", loader);
+            } else {
+                w.onload = loader;
+            }
+        })(window, document);
+    </script>
+</body>
+</html>
