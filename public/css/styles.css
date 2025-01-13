@@ -461,3 +461,13 @@ footer a:hover {
     color: red;
     font-weight: bold;
 }
+
+header {
+    position: sticky; /* Rende l'elemento "appiccicoso" */
+    top: 0; /* Posizionamento rispetto alla parte superiore */
+    z-index: 1000; /* Mantiene l'elemento in primo piano sopra gli altri */
+    background-color: #333; /* Colore di sfondo */
+    color: white; /* Colore del testo */
+    padding: 10px 0; /* Spaziatura interna */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Opzionale: effetto ombra */
+}
