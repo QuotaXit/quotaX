@@ -6,6 +6,8 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     font-family: Arial, sans-serif;
+    color: #ffffff; /* Colore del testo bianco */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Ombra scura per il testo */
     margin: 0;
     padding: 0;
     line-height: 1.6;
