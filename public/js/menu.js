@@ -3,11 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const menuMobile = document.querySelector("#menu");
     const menuDesktop = document.querySelector(".desktop-menu");
 
-    function toggleMenu() {
-        const menu = document.getElementById('profile-menu');
-        menu.classList.toggle('hidden');
-    }
-    
 
     if (hamburger && menuMobile && menuDesktop) {
         // Mostra/Nasconde il menu mobile
