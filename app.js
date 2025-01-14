@@ -308,59 +308,6 @@ app.post("/send-contact", (req, res) => {
     });
 });
 
-const express = require('express');
-const axios = require('axios');
-const app = express();
-
-// Middleware per servire file statici
-app.use(express.static('public'));
-
-// Endpoint principale
-app.get('/', async (req, res) => {
-    const apiKey = ' ZR90Y8K6O2C3YB60; 
-    const symbols = [
-        { name: 'FTSE MIB', symbol: 'FTSEMIB.MI' },
-        { name: 'DAX', symbol: '^GDAXI' },
-        { name: 'NASDAQ', symbol: '^IXIC' },
-        { name: 'S&P 500', symbol: '^GSPC' }
-    ];
-
-    const titoliBorsa = [];
-
-    try {
-        for (const { name, symbol } of symbols) {
-            const response = await axios.get(
-                `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apiKey}`
-                 https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=FTSEMIB.MI&apikey=ZR90Y8K6O2C3YB60
-                 https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=^GDAXI&apikey=ZR90Y8K6O2C3YB60
-                 https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=^IXIC&apikey=ZR90Y8K6O2C3YB60
-                 https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=^GSPC&apikey=ZR90Y8K6O2C3YB60
-
-            );
-
-            const data = response.data['Global Quote'];
-            if (data) {
-                titoliBorsa.push({
-                    nome: name,
-                    variazione: data['10. change percent'] || 'N/A',
-                    valore: data['05. price'] || 'N/A'
-                });
-            }
-        }
-
-        // Renderizza la pagina con i dati
-        res.render('index', { titoliBorsa });
-    } catch (error) {
-        console.error('Errore nel recupero dei dati:', error);
-        res.render('index', { titoliBorsa: [] }); // Invia un array vuoto in caso di errore
-    }
-});
-
-// Avvia il server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server avviato su http://localhost:${PORT}`));
-
-
 
 // Rotta per la home
 app.get("/", async (req, res) => {
