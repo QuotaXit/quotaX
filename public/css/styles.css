@@ -4,11 +4,10 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed; /* Rende lo sfondo fisso durante lo scroll */
+    background-attachment: fixed; /* Sfondo fisso durante lo scrolling */
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    line-height: 1.6;
     background: #f4f4f4 /* Fallback nel caso l'immagine non venga caricata */
 }
 
