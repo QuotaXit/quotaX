@@ -52,6 +52,26 @@
             </ul>
         </nav>
     </header>
+    
+    <div class="ticker-container">
+        <div class="ticker">
+            <div class="ticker-item">FTSE MIB: +0.55% (27,345)</div>
+            <div class="ticker-item">DAX: -0.32% (15,600)</div>
+            <div class="ticker-item">NASDAQ: +1.24% (13,500)</div>
+            <div class="ticker-item">S&P 500: +0.78% (4,150)</div>
+        </div>
+    </div>
+
+    <div class="ticker-container">
+        <div class="ticker">
+            <% titoliBorsa.forEach(titolo => { %>
+                <div class="ticker-item">
+                    <%= titolo.nome %>: <%= titolo.variazione %> (<%= titolo.valore %>)
+                </div>
+            <% }) %>
+        </div>
+    </div>
+    
 
     <main>
         <!-- Titolo Principale -->
@@ -65,7 +85,7 @@
         
         <!-- Sezione Perché usare Quotax -->
         <section class="info-section">
-            <h3>PERCHE' USARARE quotaX?</h3>
+            <h3>PERCHE' USARE quotaX?</h3>
             <p>quotaX è la piattaforma ideale per comprare e vendere partecipazioni societarie. È gratuita, facile da usare e aperta a tutti.</p>
             <div class="info-section">
                 <div class="image-container">
