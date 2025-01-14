@@ -91,6 +91,13 @@
                     </nav>
                 </div>
     
+                <form action="/upload-profile-picture" method="POST" enctype="multipart/form-data">
+                    <label for="file-upload">Carica una nuova foto del profilo:</label>
+                    <input type="file" name="imageUrl" id="file-upload" accept="image/*">
+                    <button type="submit">Carica Foto</button>
+                </form>
+                
+
                 <!-- Sezione Informazioni -->
                 <div class="footer-section">
                     <h4>Informazioni</h4>

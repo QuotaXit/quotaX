@@ -13,6 +13,23 @@
         <!-- Pulsante Hamburger per Mobile -->
         <button id="menu-toggle" class="hamburger">☰</button>
 
+        <div class="profile-container">
+            <% if (user && user.profileImg) { %>
+                <img src="<%= user.profileImg %>" alt="User Profile" class="profile-img" onclick="toggleMenu()">
+            <% } else { %>
+                <img src="/images/default-profile.png" alt="Default Profile" class="profile-img" onclick="toggleMenu()">
+            <% } %>
+        </div>
+        <div id="profile-menu" class="hidden">
+            <ul>
+                <li><a href="/user-dashboard">Dashboard</a></li>
+                <li><a href="/create">Crea Annuncio</a></li>
+                <li><a href="/create-azioni">Crea Ann. Azioni</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+        
+
         <!-- Menu Desktop -->
         <nav class="desktop-menu">
             <ul>

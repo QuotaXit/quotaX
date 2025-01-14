@@ -240,6 +240,19 @@ app.post("/delete-announcement", isAuthenticated, async (req, res) => {
     }
 });
 
+app.post("/upload-profile-picture", isAuthenticated, async (req, res) => {
+    const { imageUrl } = req.body; // URL immagine caricata
+    const email = req.session.userEmail;
+
+    try {
+        await db.collection("users").doc(email).update({ profileImg: imageUrl });
+        req.session.user.profileImg = imageUrl; // Aggiorna la sessione
+        res.redirect("/user-dashboard");
+    } catch (error) {
+        console.error("Errore nel caricamento dell'immagine:", error);
+        res.status(500).send("Errore interno del server.");
+    }
+});
 
 
 
