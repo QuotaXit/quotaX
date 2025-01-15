@@ -3,35 +3,6 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const admin = require("firebase-admin");
 const nodemailer = require("nodemailer");
-const fs = require('fs');
-const xml2js = require('xml2js');
-
-app.get('/autocomplete-societa', (req, res) => {
-    const query = req.query.q ? req.query.q.toLowerCase() : '';
-
-    fs.readFile('risposta.xml', (err, data) => {
-        if (err) {
-            console.error('Errore nella lettura del file XML:', err);
-            return res.status(500).send('Errore interno del server');
-        }
-
-        const parser = new xml2js.Parser();
-        parser.parseString(data, (err, result) => {
-            if (err) {
-                console.error('Errore nel parsing del file XML:', err);
-                return res.status(500).send('Errore interno del server');
-            }
-
-            const imprese = result.Risposta.ListaImpreseRI[0].Impresa;
-            const suggestions = imprese
-                .map((impresa) => impresa.AnagraficaImpresa[0].Denominazione[0])
-                .filter((nome) => nome.toLowerCase().includes(query));
-
-            res.json(suggestions);
-        });
-    });
-});
-
 
 
 const app = express();
