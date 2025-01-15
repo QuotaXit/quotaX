@@ -71,7 +71,16 @@
             <fieldset>
                 <legend>Dati Annuncio</legend>
                 <label>Società</label>
-                <input type="text" name="societa" required>
+<input
+    type="text"
+    id="societa"
+    name="societa"
+    placeholder="Inserisci il nome della società"
+    oninput="getSuggestions(this.value)"
+    required
+/>
+<div id="suggestions" class="suggestions-list"></div>
+
                 <label>Data Acquisto</label>
                 <input type="date" name="dataAcquisto" required>
                 <label>Prezzo Acquisto</label>
@@ -140,5 +149,33 @@
         </div>
     </footer>
     <script src="/js/menu.js"></script>
+
+    <script>
+        async function getSuggestions(query) {
+            if (!query) {
+                document.getElementById("suggestions").innerHTML = '';
+                return;
+            }
+    
+            try {
+                const response = await fetch(`/autocomplete-societa?q=${query}`);
+                const data = await response.json();
+    
+                // Mostra i suggerimenti
+                const suggestions = data
+                    .map(nome => `<div class="suggestion-item" onclick="selectSuggestion('${nome}')">${nome}</div>`)
+                    .join('');
+                document.getElementById("suggestions").innerHTML = suggestions;
+            } catch (error) {
+                console.error("Errore durante il recupero dei suggerimenti:", error);
+            }
+        }
+    
+        function selectSuggestion(nome) {
+            document.getElementById("societa").value = nome;
+            document.getElementById("suggestions").innerHTML = '';
+        }
+    </script>
+    
 </body>
 </html>

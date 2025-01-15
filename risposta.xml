@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<Risposta xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ListaImpreseRIUnico.xsd">
+    <Testata>
+        <Riepilogo>
+            <NumeroPosizioni>3</NumeroPosizioni> <!-- Numero totale di società -->
+            <IdRichiesta>123456789</IdRichiesta>
+        </Riepilogo>
+    </Testata>
+    <ListaImpreseRI>
+        <Impresa>
+            <ProgressivoImpresa>1</ProgressivoImpresa>
+            <AnagraficaImpresa>
+                <Denominazione>Società Alpha</Denominazione>
+            </AnagraficaImpresa>
+        </Impresa>
+        <Impresa>
+            <ProgressivoImpresa>2</ProgressivoImpresa>
+            <AnagraficaImpresa>
+                <Denominazione>Società Beta</Denominazione>
+            </AnagraficaImpresa>
+        </Impresa>
+        <Impresa>
+            <ProgressivoImpresa>3</ProgressivoImpresa>
+            <AnagraficaImpresa>
+                <Denominazione>Società Gamma</Denominazione>
+            </AnagraficaImpresa>
+        </Impresa>
+    </ListaImpreseRI>
+</Risposta>

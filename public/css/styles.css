@@ -478,3 +478,22 @@ header {
     padding: 10px 0; /* Spaziatura interna */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Opzionale: effetto ombra */
 }
+
+.suggestions-list {
+    position: relative;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    background-color: white;
+    z-index: 1000;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
