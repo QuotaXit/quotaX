@@ -293,6 +293,7 @@ table {
 table th, table td {
     padding: 12px;
     border: 1px solid #ddd;
+    color: black; /* Cambia il colore del testo a nero */
 }
 
 table th {
